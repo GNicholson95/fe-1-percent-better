@@ -1,9 +1,12 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const AllExercisesCard = () => {
+const AllExercisesCard = ({ onCardPress }) => {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={onCardPress}
+    >
       <View style={styles.container}>
         <Text style={styles.text}>All Exercises</Text>
       </View>

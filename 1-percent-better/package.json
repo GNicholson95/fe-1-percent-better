@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "start:dev": "ENVFILE=.env-development expo start",
+    "start:prod": "ENVFILE=.env-production expo start"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.9",
@@ -15,7 +17,9 @@
     "expo": "~49.0.15",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
-    "react-native": "0.72.6"
+    "react-native": "0.72.6",
+    "react-native-config": "^1.5.1",
+    "react-native-dotenv": "^3.4.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
