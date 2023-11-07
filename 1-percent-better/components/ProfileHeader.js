@@ -1,14 +1,18 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import MyTabs from "../Navigators/TopBarNavigator";
 
 const ProfileHeader = () => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: "https://loremflickr.com/150/150" }} // Placeholder image
-        style={styles.avatar}
-      />
-      <Text style={styles.username}>John Doe</Text>
+    <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Image
+          source={{ uri: "https://loremflickr.com/150/150" }} // Placeholder image
+          style={styles.avatar}
+        />
+        <Text style={styles.username}>John Doe</Text>
+      </View>
+      <MyTabs />
     </View>
   );
 };
