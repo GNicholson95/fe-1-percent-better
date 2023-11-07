@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 
 const MySessions = () => {
+  const backgroundImage = require('../assets/All-exercises-image-2.jpg')
   return (
     <TouchableOpacity style={styles.card}>
+       <ImageBackground source={backgroundImage} style={styles.imageBackground}></ImageBackground>
       <View style={styles.container}>
         <Text style={styles.text}>My Sessions</Text>
       </View>
@@ -14,28 +16,30 @@ const MySessions = () => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#f1f1f1",
-    padding: 10,
-    marginVertical: 10,
-    marginHorizontal: 16,
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    height: 150,
+    marginBottom: 5,
+    height: 190,
+    // flex: 1,
+    overflow: "hidden", // This is important for the ImageBackground
+
+  },
+  imageBackground: {
+    flex: 1,
+    resizeMode: "cover",
   },
   container: {
-    flexDirection: "row",
-    justifyContent: "center", // This will place the text and image on opposite ends
-    marginBottom: 10,
-    alignItems: "center",
+    position:"absolute",
+    top: "50%", // Center vertically
+    left: "50%", // Center horizontally
+    transform: [
+      { translateX: -80 }, // takes text back by half of its width to centre completely
+      { translateY: -8 },
+    ],
   },
 
   text: {
-    fontSize: 16,
+    fontSize: 28,
     fontWeight: "bold",
     color: "#ff8a5c",
-    marginTop: 20,
   },
 });
 
