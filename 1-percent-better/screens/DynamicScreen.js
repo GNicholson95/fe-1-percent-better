@@ -3,6 +3,7 @@ import { View } from "react-native";
 import AllExercisesCard from "../components/AllExercisesCard";
 import MySessions from "../components/MySessions";
 import ExerciseList from "./ExerciseList"; // Assuming this is the correct path
+import MyTestPage from "../components/MyTestPage";
 
 const DynamicScreen = ({ navigation }) => {
   const [showExerciseList, setShowExerciseList] = useState(false);
@@ -19,6 +20,7 @@ const DynamicScreen = ({ navigation }) => {
       ) : (
         <>
           <AllExercisesCard onCardPress={handleShowExerciseList} />
+          <MyTestPage />
           <MySessions />
         </>
       )}
