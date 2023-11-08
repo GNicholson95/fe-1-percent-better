@@ -5,7 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileHeader from "./components/ProfileHeader";
 import DynamicScreen from "./screens/DynamicScreen";
-import MyTabs from "./Navigators/TopBarNavigator";
+import ExerciseList from "./screens/ExerciseList";
+import NavBar from "./Navigators/NavBar";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,6 @@ function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <ProfileHeader />
-        <DynamicScreen />
       </NavigationContainer>
     </SafeAreaView>
   );
