@@ -3,13 +3,14 @@ import { Text, View, Button } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Home from "../components/Home";
 import AllExercisesCard from "../components/AllExercisesCard";
+import DynamicScreen from "../screens/DynamicScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-function MyTabs() {
+function NavBar() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName='Home'
       screenOptions={{
         tabBarActiveTintColor: "#e91e64",
         tabBarLabelStyle: { fontSize: 12 },
@@ -17,17 +18,17 @@ function MyTabs() {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name='DynamicScreen'
+        component={DynamicScreen}
         options={{ tabBarLabel: "Home" }}
       />
       <Tab.Screen
-        name="AllExercisesCard"
-        component={AllExercisesCard}
+        name='AllExercisesCard'
+        component={DynamicScreen}
         options={{ tabBarLabel: "AllExercisesCard" }}
       />
     </Tab.Navigator>
   );
 }
 
-export default MyTabs;
+export default NavBar;

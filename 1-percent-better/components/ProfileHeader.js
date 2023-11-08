@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import MyTabs from "../Navigators/TopBarNavigator";
+import NavBar from "../Navigators/NavBar";
 
 const ProfileHeader = () => {
   return (
@@ -12,7 +12,7 @@ const ProfileHeader = () => {
         />
         <Text style={styles.username}>John Doe</Text>
       </View>
-      <MyTabs />
+      <NavBar />
     </View>
   );
 };
