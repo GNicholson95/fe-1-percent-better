@@ -5,14 +5,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileHeader from "./components/ProfileHeader";
 import DynamicScreen from "./screens/DynamicScreen";
+import MyTabs from "./Navigators/TopBarNavigator";
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
-    <SafeAreaView>
-      <ProfileHeader />
-      <DynamicScreen />
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <ProfileHeader />
+        <DynamicScreen />
+      </NavigationContainer>
     </SafeAreaView>
   );
 }
