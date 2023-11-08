@@ -4,13 +4,14 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Home from "../components/Home";
 import AllExercisesCard from "../components/AllExercisesCard";
 import DynamicScreen from "../screens/DynamicScreen";
+import ExerciseList from "../screens/ExerciseList";
 
 const Tab = createMaterialTopTabNavigator();
 
 function NavBar() {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: "#e91e64",
         tabBarLabelStyle: { fontSize: 12 },
@@ -18,14 +19,14 @@ function NavBar() {
       }}
     >
       <Tab.Screen
-        name='DynamicScreen'
+        name="DynamicScreen"
         component={DynamicScreen}
         options={{ tabBarLabel: "Home" }}
       />
       <Tab.Screen
-        name='AllExercisesCard'
-        component={DynamicScreen}
-        options={{ tabBarLabel: "AllExercisesCard" }}
+        name="Exercise List"
+        component={ExerciseList}
+        options={{ tabBarLabel: "Exercise List" }}
       />
     </Tab.Navigator>
   );
