@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Home from "../components/Home";
 import AllExercisesCard from "../components/AllExercisesCard";
 import DynamicScreen from "../screens/DynamicScreen";
+import ExerciseList from "../screens/ExerciseList";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,7 +25,7 @@ function NavBar() {
       />
       <Tab.Screen
         name='AllExercisesCard'
-        component={DynamicScreen}
+        component={ExerciseList}
         options={{ tabBarLabel: "AllExercisesCard" }}
       />
     </Tab.Navigator>
