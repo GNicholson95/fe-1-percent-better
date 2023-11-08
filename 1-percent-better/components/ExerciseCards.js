@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 const ExerciseCard = ({ exercise, navigation }) => {
   return (
@@ -37,19 +36,19 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexDirection: "row",
-    justifyContent: "space-between", // This will place the text and image on opposite ends
-    alignItems: "top", // Center items vertically
-    marginBottom: 10, // Space between the content and the button
+    justifyContent: "space-between",
+    alignItems: "top",
+    marginBottom: 10,
   },
   textContainer: {
-    flex: 1, // Allow text to take up as much space as possible
-    marginRight: 10, // Add some margin between text and image
+    flex: 1,
+    marginRight: 10,
     color: "#59a6a6",
   },
   image: {
     width: 120, // Fixed width for the image
     height: 120, // Fixed height for the image
-    borderRadius: 10, // Rounded corners for the image
+    borderRadius: 10,
   },
   title: {
     fontSize: 16,
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     display: "flex",
-    marginTop: 30, // Space from the content above
-    alignSelf: "left", // Center button in the card
+    marginTop: 30,
+    alignSelf: "left",
   },
 });
 
