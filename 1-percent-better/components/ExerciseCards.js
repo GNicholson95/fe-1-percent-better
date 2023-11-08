@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const ExerciseCard = ({ exercise, navigation }) => {
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate("Details", { exercises: exercise })}
+      onPress={() => navigation.navigate("ExerciseDetailScreen", { exercise })}
     >
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
