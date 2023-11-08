@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 
-const AllExercisesCard = () => {
+const AllExercisesCard = ({ onCardPress }) => {
   const backgroundImage = require('../assets/All-exercises-image-1.jpg')
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onCardPress}>
       <ImageBackground source={backgroundImage} style={styles.imageBackground}></ImageBackground>
       <View style={styles.container}>
         <Text style={styles.text}>All Exercises</Text>
