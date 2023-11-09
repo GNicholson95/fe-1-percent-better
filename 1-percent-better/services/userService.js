@@ -9,6 +9,15 @@ const GET_ALL_USERS_QUERY = `
   }
 `;
 
+const GET_SESSIONS_BY_USER_ID_QUERY = `
+  query MyQuery {
+    getSessionsByUserId(userId: 4) {
+      dateTime
+      sessionName
+    }
+  }
+`;
+
 export const fetchAllUsers = async () => {
   try {
     const response = await graphqlAPI({
@@ -18,6 +27,22 @@ export const fetchAllUsers = async () => {
       },
     });
     return response.data.data.getAllUsers; // Access the result here
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+};
+
+export const fetchSessionByUserId = async () => {
+  try {
+    const response = await graphqlAPI({
+      data: {
+        query: GET_SESSIONS_BY_USER_ID_QUERY,
+        variables: {}, // If your query had variables, they would go here
+      },
+    });
+
+    return response.data.data.getSessionsByUserId; // Access the result here
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;

@@ -14,7 +14,7 @@ const ExerciseCard = ({ exercise, navigation }) => {
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode='contain'
+          resizeMode="contain"
         />
       </View>
     </TouchableOpacity>
