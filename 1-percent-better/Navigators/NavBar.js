@@ -1,20 +1,19 @@
 import * as React from "react";
-import { Text, View, Button } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Home from "../components/Home";
-import AllExercisesCard from "../components/AllExercisesCard";
 import DynamicScreen from "../screens/DynamicScreen";
+import ExerciseList from "../screens/ExerciseList";
+import MyExercisesScreen from "../screens/MyExercisesScreen";
+import MySessionsScreen from "../screens/MySessionsScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
 function NavBar() {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName='DynamicScreen'
       screenOptions={{
-        tabBarActiveTintColor: "#e91e64",
-        tabBarLabelStyle: { fontSize: 12 },
-        tabBarStyle: { backgroundColor: "gainsboro" },
+        tabBarLabelStyle: { fontSize: 13, color: "#fd5732" },
+        tabBarStyle: { backgroundColor: "#393939" },
       }}
     >
       <Tab.Screen
@@ -23,9 +22,20 @@ function NavBar() {
         options={{ tabBarLabel: "Home" }}
       />
       <Tab.Screen
-        name='AllExercisesCard'
-        component={DynamicScreen}
-        options={{ tabBarLabel: "AllExercisesCard" }}
+        name='ExerciseList'
+        component={ExerciseList}
+        options={{ tabBarLabel: "All Exercises" }}
+      />
+
+      <Tab.Screen
+        name='MyExercises'
+        component={MyExercisesScreen} // My Exercises
+        options={{ tabBarLabel: "My Exercises" }} // Label for the tab
+      />
+      <Tab.Screen
+        name='MySessions'
+        component={MySessionsScreen} // My Sessions
+        options={{ tabBarLabel: "My Sessions" }} // Label for the tab
       />
     </Tab.Navigator>
   );

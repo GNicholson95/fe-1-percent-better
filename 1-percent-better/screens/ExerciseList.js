@@ -4,6 +4,8 @@ import axios from "axios";
 import { API_KEY } from "@env";
 import ExerciseCard from "../components/ExerciseCards";
 import Sort from "../components/Sort";
+import { SearchBar } from "@rneui/themed";
+import RNPickerSelect from "react-native-picker-select";
 
 // Define the allowed equipment types in a list
 const allowedEquipment = [
@@ -17,9 +19,24 @@ const allowedEquipment = [
   "trap bar",
   "weighted",
 ];
+// body parts for the picker
+const bodyParts = [
+  "back",
+  "cardio",
+  "chest",
+  "lower arms",
+  "lower legs",
+  "shoulders",
+  "upper arms",
+  "upper legs",
+  "waist",
+];
 
 const ExerciseList = ({ navigation }) => {
   const [exercises, setExercises] = useState([]);
+  const [filteredExercises, setFilteredExercises] = useState([]);
+  const [search, setSearch] = useState("");
+  const [selectedBodyPart, setSelectedBodyPart] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [sortingValue, setSortingValue] = useState('Name A-Z');
 
@@ -37,10 +54,11 @@ const ExerciseList = ({ navigation }) => {
     axios
       .request(options)
       .then((response) => {
-        const filteredExercises = response.data.filter((exercise) =>
+        const allowedExercises = response.data.filter((exercise) =>
           allowedEquipment.includes(exercise.equipment.toLowerCase())
         );
-        setExercises(filteredExercises);
+        setExercises(allowedExercises);
+        setFilteredExercises(allowedExercises);
       })
       .catch((error) => {
         console.error("There was an error fetching the exercises:", error);
@@ -60,6 +78,23 @@ const ExerciseList = ({ navigation }) => {
     return sortedExercises;
   };
 
+  useEffect(() => {
+    const bodyPartTerm = selectedBodyPart ? selectedBodyPart.toLowerCase() : "";
+    const searchTerm = search.toLowerCase();
+    const newFilteredExercises = exercises.filter((exercise) => {
+      return (
+        (bodyPartTerm
+          ? exercise.bodyPart.toLowerCase() === bodyPartTerm
+          : true) && exercise.name.toLowerCase().includes(searchTerm)
+      );
+    });
+    setFilteredExercises(newFilteredExercises);
+  }, [selectedBodyPart, search, exercises]);
+
+  const updateSearch = (search) => {
+    setSearch(search);
+  };
+
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
@@ -69,6 +104,22 @@ const ExerciseList = ({ navigation }) => {
       <FlatList
         data={sortExercises()}
         keyExtractor={(item) => item.id.toString()}
+    <View style={styles.container}>
+      <SearchBar
+        placeholder='Search here...'
+        onChangeText={updateSearch}
+        value={search}
+        containerStyle={styles.searchContainer}
+        inputContainerStyle={styles.inputContainer}
+      />
+      <RNPickerSelect
+        onValueChange={(value) => setSelectedBodyPart(value)}
+        items={bodyParts.map((part) => ({ label: part, value: part }))}
+        style={pickerSelectStyles}
+        placeholder={{ label: "Select a body part", value: null }}
+      />
+      <FlatList
+        data={filteredExercises}
         renderItem={({ item }) => (
           <ExerciseCard exercise={item} navigation={navigation} />
         )}
@@ -81,6 +132,43 @@ const ExerciseList = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    flex: 1,
+  },
+  searchContainer: {
+    backgroundColor: "lightgrey",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent",
+    padding: 10,
+  },
+  inputContainer: {
+    backgroundColor: "white",
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 4,
+    color: "black",
+    paddingRight: 30,
+    backgroundColor: "white",
+    marginTop: 10,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: "purple",
+    borderRadius: 8,
+    color: "black",
+    paddingRight: 30,
+    backgroundColor: "white",
+    marginTop: 10,
   },
 });
 
