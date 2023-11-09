@@ -1,18 +1,14 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import NavBar from "../Navigators/NavBar";
 
 const ProfileHeader = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Image
-          source={{ uri: "https://loremflickr.com/150/150" }} // Placeholder image
-          style={styles.avatar}
-        />
-        <Text style={styles.username}>John Doe</Text>
-      </View>
-      <NavBar />
+    <View style={styles.container}>
+      <Image
+        source={{ uri: "https://loremflickr.com/150/150" }} // Placeholder image
+        style={styles.avatar}
+      />
+      <Text style={styles.username}>John Doe</Text>
     </View>
   );
 };
@@ -23,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     backgroundColor: "#FFFFFF",
-    height: 150,
+    // Remove the height: 150 if it's no longer necessary for layout
   },
   avatar: {
     width: 60,
