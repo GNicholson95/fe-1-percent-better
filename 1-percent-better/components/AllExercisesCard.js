@@ -1,45 +1,53 @@
 import React from "react";
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-const AllExercisesCard = ({ onCardPress }) => {
-  const backgroundImage = require('../assets/All-exercises-image-1.jpg')
+const AllExercisesCard = ({ onPress }) => {
+  const backgroundImage = require("../assets/All-exercises-image-1.jpg");
   return (
-    <TouchableOpacity style={styles.card} onPress={onCardPress}>
-      <ImageBackground source={backgroundImage} style={styles.imageBackground}></ImageBackground>
-      <View style={styles.container}>
-        <Text style={styles.text}>All Exercises</Text>
-      </View>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={onPress}
+    >
+      <ImageBackground
+        source={backgroundImage}
+        style={styles.imageBackground}
+      >
+        <View style={styles.container}>
+          <Text style={styles.text}>All Exercises</Text>
+        </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
+    flex: 1,
+    marginVertical: 10,
+    marginHorizontal: 0,
+    overflow: "hidden",
     backgroundColor: "#f1f1f1",
-    marginBottom: 5,
-    height: 190,
-    // flex: 1,
-    overflow: "hidden", // This is important for the ImageBackground
-
   },
   imageBackground: {
     flex: 1,
     resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  container: {
-    position:"absolute",
-    top: "50%", // Center vertically
-    left: "50%", // Center horizontally
-    transform: [
-      { translateX: -80 }, // takes text back by half of its width to centre completely
-      { translateY: -8 },
-    ],
-  },
-
   text: {
-    fontSize: 28,
+    fontSize: 40,
     fontWeight: "bold",
-    color: "#ff8a5c",
+    color: "#ffffff",
+    textAlign: "center",
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
 });
 
