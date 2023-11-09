@@ -7,6 +7,7 @@ import DynamicScreen from "./screens/DynamicScreen";
 import ExerciseList from "./screens/ExerciseList";
 import ExerciseDetailScreen from "./screens/ExerciseDetailScreen"; // Assuming you have this screen
 import NavBar from "./Navigators/NavBar";
+import LandingPage from "./screens/LandingPage";
 import MySessionsScreen from "./screens/MySessionsScreen";
 import MyExercisesScreen from "./screens/MyExercisesScreen";
 
