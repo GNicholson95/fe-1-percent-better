@@ -1,14 +1,13 @@
 import React from "react";
 import {
-  View,
   Text,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 
-const AllExercisesCard = ({ onPress }) => {
-  const backgroundImage = require("../assets/All-exercises-image-1.jpg");
+const MyExercisesCard = ({ onPress }) => {
+  const backgroundImage = require("../assets/my-exercises-card.png");
   return (
     <TouchableOpacity
       style={styles.card}
@@ -18,9 +17,7 @@ const AllExercisesCard = ({ onPress }) => {
         source={backgroundImage}
         style={styles.imageBackground}
       >
-        <View style={styles.container}>
-          <Text style={styles.text}>All Exercises</Text>
-        </View>
+        <Text style={styles.text}>My Exercises</Text>
       </ImageBackground>
     </TouchableOpacity>
   );
@@ -51,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllExercisesCard;
+export default MyExercisesCard;
