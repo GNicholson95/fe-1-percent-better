@@ -5,7 +5,7 @@ import MySessionsCard from "../components/MySessionsCard";
 import MyExercisesCard from "../components/MyExercicesCard";
 import MyExercisesScreen from "./MyExercisesScreen";
 import MySessionsScreen from "./MySessionsScreen";
-
+import MyTestPage from "../components/MyTestPage";
 const DynamicScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, justifyContent: "space-between" }}>
