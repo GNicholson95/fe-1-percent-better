@@ -5,8 +5,8 @@ import { API_KEY } from "@env";
 import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
+import Sort from "../components/Sort";
 
-// Define the allowed equipment types in a list
 const allowedEquipment = [
   "barbell",
   "cable",
@@ -18,7 +18,7 @@ const allowedEquipment = [
   "trap bar",
   "weighted",
 ];
-// body parts for the picker
+
 const bodyParts = [
   "back",
   "cardio",
@@ -36,6 +36,7 @@ const ExerciseList = ({ navigation }) => {
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedBodyPart, setSelectedBodyPart] = useState("");
+  const [sortingValue, setSortingValue] = useState("");
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -66,18 +67,31 @@ const ExerciseList = ({ navigation }) => {
       });
   }, []);
 
+  const sortExercises = (exercisesList, sortValue) => {
+    return [...exercisesList].sort((a, b) => {
+      if (sortValue === "Name A-Z") {
+        return a.name.localeCompare(b.name);
+      } else if (sortValue === "Name Z-A") {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+  };
+
   useEffect(() => {
     const bodyPartTerm = selectedBodyPart ? selectedBodyPart.toLowerCase() : "";
     const searchTerm = search.toLowerCase();
-    const newFilteredExercises = exercises.filter((exercise) => {
+    let newFilteredExercises = exercises.filter((exercise) => {
       return (
         (bodyPartTerm
           ? exercise.bodyPart.toLowerCase() === bodyPartTerm
           : true) && exercise.name.toLowerCase().includes(searchTerm)
       );
     });
+
+    newFilteredExercises = sortExercises(newFilteredExercises, sortingValue);
     setFilteredExercises(newFilteredExercises);
-  }, [selectedBodyPart, search, exercises]);
+  }, [selectedBodyPart, search, sortingValue, exercises]);
 
   const updateSearch = (search) => {
     setSearch(search);
@@ -101,6 +115,10 @@ const ExerciseList = ({ navigation }) => {
         items={bodyParts.map((part) => ({ label: part, value: part }))}
         style={pickerSelectStyles}
         placeholder={{ label: "Select a body part", value: null }}
+      />
+      <Sort
+        value={sortingValue}
+        onChange={setSortingValue}
       />
       <FlatList
         data={filteredExercises}
