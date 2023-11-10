@@ -9,21 +9,25 @@ const ExerciseCard = ({ exercise, navigation }) => {
     >
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
+          <Text style={styles.title}>{exercise.name}</Text>
         </View>
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode="contain"
+          resizeMode='contain'
         />
       </View>
+
+      <TouchableOpacity style={styles.addButton}>
+        <Text style={styles.addButtonText}> + </Text>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#e0e0e0",
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 16,
@@ -53,19 +57,29 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#ff8a5c",
+    color: "#ff3c00",
     marginTop: 20,
   },
+
   addButton: {
-    backgroundColor: "#75b0c7",
+    flex: 1,
+    backgroundColor: "#4CAf50",
+    padding: 1,
     borderRadius: 20,
-    padding: 5,
-    flexDirection: "column",
+    position: "absolute",
+    bottom: 10,
+    marginTop: 20,
+    marginLeft: 10,
+    height: 40,
+    width: 40,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  buttonContainer: {
-    display: "flex",
-    marginTop: 30,
-    alignSelf: "left",
+  addButtonText: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold",
+    paddingBottom: 3,
   },
 });
 

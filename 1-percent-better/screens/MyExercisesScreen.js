@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, StyleSheet, Text } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env";
 import { fetchExercisesByUser } from "../services/ExerciseByUser";
@@ -27,10 +34,22 @@ const MyExercisesScreen = ({ navigation }) => {
   const [selectedBodyPart, setSelectedBodyPart] = useState("");
   const [sortingValue, setSortingValue] = useState("");
   const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const renderEmptyComponent = () => {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>
+          Looks quiet here... Add exercises to your list on the All exercises
+          section.
+        </Text>
+      </View>
+    );
+  };
 
   useEffect(() => {
     const fetchUserExercisesDetails = async () => {
       setLoading(true);
+      setError(null);
       try {
         const userExerciseIds = await fetchExercisesByUser();
 
@@ -56,6 +75,7 @@ const MyExercisesScreen = ({ navigation }) => {
           "There was an error fetching the user's exercise details:",
           error
         );
+        setError("Failed to load exercises. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -106,7 +126,22 @@ const MyExercisesScreen = ({ navigation }) => {
   };
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator
+          size='large'
+          color='#0000ff'
+        />
+        <Text>Loading exercises...</Text>
+      </View>
+    );
+  }
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text>{error}</Text>
+      </View>
+    );
   }
 
   return (
@@ -137,6 +172,7 @@ const MyExercisesScreen = ({ navigation }) => {
           />
         )}
         keyExtractor={(item) => String(item.id)}
+        ListEmptyComponent={renderEmptyComponent}
       />
     </View>
   );
@@ -182,6 +218,22 @@ const pickerSelectStyles = StyleSheet.create({
     paddingRight: 30,
     backgroundColor: "white",
     marginTop: 10,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 50,
+    color: "Red",
+  },
+  emptyText: {
+    fontSize: 18,
+    color: "red",
+  },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

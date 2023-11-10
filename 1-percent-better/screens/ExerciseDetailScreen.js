@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 
 const ExerciseDetailScreen = ({ route }) => {
   const { exercise } = route.params;
@@ -13,8 +20,11 @@ const ExerciseDetailScreen = ({ route }) => {
           resizeMode='contain'
         />
       </View>
-      <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
 
+      <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
+      <TouchableOpacity style={styles.addButton}>
+        <Text style={styles.addButtonText}> Add to My Exercises</Text>
+      </TouchableOpacity>
       <View style={[styles.labelContainer, styles.bodyPart]}>
         <Text style={styles.label}>Body Part</Text>
         <Text style={styles.value}>{exercise.bodyPart}</Text>
@@ -119,6 +129,27 @@ const styles = StyleSheet.create({
   },
   instructionsContainer: {
     paddingBottom: 50,
+  },
+  addButton: {
+    flex: 1,
+    backgroundColor: "#ff3c00",
+    padding: 1,
+    borderRadius: 20,
+
+    bottom: 10,
+    marginTop: 20,
+    marginLeft: 10,
+    height: 40,
+    width: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  addButtonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingBottom: 3,
   },
 });
 
