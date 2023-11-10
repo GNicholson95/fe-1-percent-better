@@ -17,9 +17,15 @@ const GET_ALL_USERS_QUERY = `
 
 const GET_SESSIONS_BY_USER_ID_QUERY = `
   query MyQuery {
-    getSessionsByUserId(userId: 4) {
+    getSessionsByUserId(userId: 3) {
       dateTime
       sessionName
+      sessionlogExerciseSet {
+        exerciseId {
+          externalExerciseName
+          personalBest
+        }
+      }
     }
   }
 `;

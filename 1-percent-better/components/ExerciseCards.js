@@ -9,7 +9,7 @@ const ExerciseCard = ({ exercise, navigation }) => {
     >
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
+          <Text style={styles.title}>{exercise.name}</Text>
         </View>
         <Image
           source={{ uri: exercise.gifUrl }}

@@ -1,60 +1,49 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
 import WorkoutDetail from "./WorkoutDetail";
-import {
-  getDayOfWeek,
-  formatDate,
-  formatTime,
-} from "../components/DateTimeUtils";
+import { getDayOfWeek, formatDate, formatTime } from "../components/DateTimeUtils";
+import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+
 export default function MySessionsScreen() {
-  const [users, setUsers] = useState([]);
+  const [sessions, setSessions] = useState([]);
+  const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
 
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const fetchedUsers = await fetchSessionByUserId();
-        setUsers(fetchedUsers);
+        const fetchedSessions = await fetchSessionByUserId();
+        setSessions(fetchedSessions);
       } catch (error) {
         console.error("Error loading users:", error);
       }
     };
-
     loadUsers();
   }, []);
-
+  console.log('????????',sessions)
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
-    const formattedDate = `${getDayOfWeek(date)} ${formatDate(
-      date
-    )} ${formatTime(date)}`;
+    const formattedDate = `${getDayOfWeek(date)} ${formatDate(date)} ${formatTime(date)}`;
     return formattedDate;
   };
 
-  const onPress = () => {
-    return <WorkoutDetail />;
-  };
-
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Text style={styles.sessionInfo}>{item.sessionName}</Text>
-      <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
+  const renderItem = ({item}) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate("SessionDetails", {sessions: item})}
+    >
+      <Text style={styles.sessionInfo}>{sessions.sessionName}</Text>
+      <Text style={styles.sessionInfo}>{formatDateTime(sessions.dateTime)}</Text>
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={users}
+        data={sessions}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        style={styles.flatlist}
+        style={styles.flatList}
       />
     </View>
   );
@@ -68,7 +57,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#f2f2f2", // Set a background color for the container
   },
-  flatlist: {
+  flatList: {
     width: "100%",
   },
   card: {
