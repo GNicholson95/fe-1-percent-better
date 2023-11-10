@@ -1,18 +1,45 @@
 import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import UserContext from "../context/UserContext"; // Import UserContext
+import Toast from "react-native-root-toast";
 
-const ExerciseCard = ({ exercise, navigation, onAddExercise }) => {
+const ExerciseCard = ({
+  exercise,
+  navigation,
+  onAddExercise,
+  buttonText = "Add to My Exercises",
+}) => {
   const { userId } = useContext(UserContext); // Use useContext to access userId
 
-  const handleAddExercise = () => {
-    const exerciseData = {
-      userId,
-      exBodypart: exercise.bodyPart,
-      exName: exercise.name,
-      exId: exercise.id,
-    };
-    onAddExercise(exerciseData);
+  const handleAddExercise = async () => {
+    try {
+      const exerciseData = {
+        userId,
+        exBodypart: exercise.bodyPart,
+        exName: exercise.name,
+        exId: exercise.id,
+      };
+      await onAddExercise(exerciseData);
+      Toast.show("Exercise added to My Exercises", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    } catch (error) {
+      console.error("Error adding exercise:", error);
+      Toast.show("Error adding exercise", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: "red",
+      });
+    }
   };
 
   return (
@@ -22,7 +49,7 @@ const ExerciseCard = ({ exercise, navigation, onAddExercise }) => {
     >
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{exercise.name}</Text>
+          <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
         </View>
         <Image
           source={{ uri: exercise.gifUrl }}
@@ -33,9 +60,9 @@ const ExerciseCard = ({ exercise, navigation, onAddExercise }) => {
 
       <TouchableOpacity
         style={styles.addButton}
-        onPress={handleAddExercise}
+        onPress={handleAddExercise} // Use handleAddExercise here
       >
-        <Text style={styles.addButtonText}> + </Text>
+        <Text style={styles.addButtonText}>{buttonText}</Text>
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -87,13 +114,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 10,
     height: 40,
-    width: 40,
+    width: 180,
     alignItems: "center",
     justifyContent: "center",
   },
   addButtonText: {
     color: "white",
-    fontSize: 30,
+    fontSize: 14,
     fontWeight: "bold",
     paddingBottom: 3,
   },

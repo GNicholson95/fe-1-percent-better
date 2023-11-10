@@ -29,7 +29,7 @@ export const addExerciseToUser = async (userId, exBodypart, exName, exId) => {
       data: {
         query: CREATE_EXERCISE_MUTATION,
         variables: {
-          userId: userId,
+          userId,
           externalExerciseBodypart: exBodypart,
           externalExerciseName: exName,
           externalExerciseId: exId,
@@ -37,14 +37,25 @@ export const addExerciseToUser = async (userId, exBodypart, exName, exId) => {
       },
     });
 
+    // Check for errors in the GraphQL response
     if (response.data.errors) {
-      return [];
+      console.error("Errors returned from the mutation:", response.data.errors);
+      throw new Error("Error performing GraphQL mutation");
     }
 
-    const createdExercise = response.data.data.map((exercise) => exercise);
+    // Check if the mutation response has the expected data structure
+    if (
+      !response.data.data ||
+      !response.data.data.createExercise ||
+      !response.data.data.createExercise.exercise
+    ) {
+      throw new Error("Unexpected response structure from GraphQL mutation");
+    }
 
+    const createdExercise = response.data.data.createExercise.exercise;
     return createdExercise;
   } catch (error) {
+    console.error("Error in addExerciseToUser:", error);
     throw error;
   }
 };

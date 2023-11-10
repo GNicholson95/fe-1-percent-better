@@ -52,7 +52,7 @@ const MyExercisesScreen = ({ navigation }) => {
       setError(null);
       try {
         const userExerciseIds = await fetchExercisesByUser();
-
+        // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
         const exercisesDetails = await Promise.all(
           userExerciseIds.map(async (exerciseId) => {
             const response = await axios.get(
@@ -143,7 +143,7 @@ const MyExercisesScreen = ({ navigation }) => {
       </View>
     );
   }
-
+  console.log(filteredExercises);
   return (
     <View style={styles.container}>
       <SearchBar
@@ -169,9 +169,10 @@ const MyExercisesScreen = ({ navigation }) => {
           <ExerciseCard
             exercise={item}
             navigation={navigation}
+            buttonText='Add to Session'
           />
         )}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item) => item.exerciseId}
         ListEmptyComponent={renderEmptyComponent}
       />
     </View>
