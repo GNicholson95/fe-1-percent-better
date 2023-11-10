@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
+import UserContext from "../context/UserContext";
 import axios from "axios";
 import { API_KEY } from "@env";
 import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
+import { addExerciseToUser } from "../services/AddExerciseToUser";
 
 const allowedEquipment = [
   "barbell",
@@ -38,6 +40,22 @@ const ExerciseList = ({ navigation }) => {
   const [selectedBodyPart, setSelectedBodyPart] = useState("");
   const [sortingValue, setSortingValue] = useState("");
   const [isLoading, setLoading] = useState(true);
+  const { userId } = useContext(UserContext);
+
+  const handleAddExercise = async (exerciseData) => {
+    try {
+      await addExerciseToUser(
+        userId,
+        exerciseData.exBodypart,
+        exerciseData.exName,
+        exerciseData.exId
+      );
+      // Update UI or show a success message
+    } catch (error) {
+      console.error("Error adding exercise:", error);
+      // Optionally, handle error in UI
+    }
+  };
 
   useEffect(() => {
     const options = {
@@ -126,6 +144,7 @@ const ExerciseList = ({ navigation }) => {
           <ExerciseCard
             exercise={item}
             navigation={navigation}
+            onAddExercise={handleAddExercise}
           />
         )}
         keyExtractor={(item) => String(item.id)}

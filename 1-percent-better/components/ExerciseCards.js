@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import UserContext from "../context/UserContext"; // Import UserContext
 
-const ExerciseCard = ({ exercise, navigation }) => {
+const ExerciseCard = ({ exercise, navigation, onAddExercise }) => {
+  const { userId } = useContext(UserContext); // Use useContext to access userId
+
+  const handleAddExercise = () => {
+    const exerciseData = {
+      userId,
+      exBodypart: exercise.bodyPart,
+      exName: exercise.name,
+      exId: exercise.id,
+    };
+    onAddExercise(exerciseData);
+  };
+
   return (
     <TouchableOpacity
       style={styles.card}
@@ -18,7 +31,10 @@ const ExerciseCard = ({ exercise, navigation }) => {
         />
       </View>
 
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={handleAddExercise}
+      >
         <Text style={styles.addButtonText}> + </Text>
       </TouchableOpacity>
     </TouchableOpacity>

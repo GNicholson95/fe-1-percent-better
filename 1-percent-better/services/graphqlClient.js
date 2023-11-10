@@ -1,4 +1,3 @@
-// graphqlClient.js
 import axios from "axios";
 
 const graphqlAPI = axios.create({
