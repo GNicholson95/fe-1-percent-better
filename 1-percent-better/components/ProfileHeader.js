@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { fetchUsernameByUserId } from "../services/userService";
 
 const ProfileHeader = () => {
+  const [username, setUsername] = useState("Loading..."); // default state while loading
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const fetchedUsername = await fetchUsernameByUserId();
+        setUsername(fetchedUsername);
+      } catch (error) {
+        console.error("Error fetching username: ", error);
+        setUsername("Error"); // Set username to "Error" or some other value to indicate failure
+      }
+    };
+
+    fetchUsername();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image
         source={{ uri: "https://loremflickr.com/150/150" }} // Placeholder image
         style={styles.avatar}
       />
-      <Text style={styles.username}>John Doe</Text>
+      <Text style={styles.username}>{`${username}`}</Text>
     </View>
   );
 };
