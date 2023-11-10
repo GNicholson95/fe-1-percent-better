@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import UserContext from "./context/UserContext";
 import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -13,34 +14,38 @@ import MyExercisesScreen from "./screens/MyExercisesScreen";
 
 const Stack = createStackNavigator();
 
-function App() {
+const App = () => {
+  const [userId, setUserId] = useState("3"); // Assuming you get this from somewhere
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ProfileHeader />
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name='Home'
-            component={NavBar}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='MySessionsScreen'
-            component={MySessionsScreen}
-          />
-          <Stack.Screen
-            name='MyExercisesScreen'
-            component={MyExercisesScreen}
-          />
-          <Stack.Screen
-            name='ExerciseDetailScreen'
-            component={ExerciseDetailScreen}
-          />
-          {/* Other screens */}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+    <UserContext.Provider value={{ userId, setUserId }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ProfileHeader />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name='Home'
+              component={NavBar}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='MySessionsScreen'
+              component={MySessionsScreen}
+            />
+            <Stack.Screen
+              name='MyExercisesScreen'
+              component={MyExercisesScreen}
+            />
+            <Stack.Screen
+              name='ExerciseDetailScreen'
+              component={ExerciseDetailScreen}
+            />
+            {/* Other screens */}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </UserContext.Provider>
   );
-}
+};
 
 export default App;
