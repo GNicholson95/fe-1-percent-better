@@ -61,6 +61,7 @@ const App = () => {
             <Stack.Screen
               name='NewSessionScreen'
               component={NewSessionScreen}
+              options={{ headerShown: false }}
             />
              <Stack.Screen
               name='AddExerciseScreen'
