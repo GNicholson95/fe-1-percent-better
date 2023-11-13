@@ -75,7 +75,7 @@ export const isLoggedIn = async (token) => {
     }
 
     const user = response.data.data.loggedIn.userId;
-    console.log(user);
+
     const [userId, setUserId] = useContext(UserContext);
 
     await setUserId(user.userId);

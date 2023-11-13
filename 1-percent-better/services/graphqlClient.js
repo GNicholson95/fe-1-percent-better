@@ -7,7 +7,6 @@ const graphqlAPI = axios.create({
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    // Authorization: useContext(LoginContext),
     // Add any other headers like Authorization if needed
   },
 });
