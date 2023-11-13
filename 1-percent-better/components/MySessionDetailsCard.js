@@ -14,8 +14,6 @@ const MySessionDetailsCard = ({ exercise }) => {
     return formattedDate;
   };
 
-  console.log("session details", exercise);
-
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{exercise.externalExerciseName}</Text>
