@@ -144,6 +144,8 @@ const MyExercisesScreen = ({ navigation }) => {
     );
   }
 
+  navigation.navigate('AddExerciseScreen', { exercises: filteredExercises });
+  
   return (
     <View style={styles.container}>
       <SearchBar

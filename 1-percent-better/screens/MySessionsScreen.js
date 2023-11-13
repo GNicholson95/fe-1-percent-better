@@ -45,7 +45,7 @@ export default function MySessionsScreen() {
       <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
     </TouchableOpacity>
   );
-
+console.log(sessions.sessionlogExerciseSet);
   return (
     <View style={styles.container}>
       <FlatList

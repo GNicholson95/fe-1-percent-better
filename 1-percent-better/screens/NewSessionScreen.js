@@ -10,8 +10,10 @@ import {
   Modal,
   Button,
 } from "react-native";
-
 import { createSession } from "../services/createSession"; // Import the createSession function
+import {backgroundColor, primaryColor, secondaryColor, accentColor, callToActionColor } from '../components/ColorPallette';
+import { useNavigation } from "@react-navigation/native";
+
 
 const NewSessionScreen = ({ route }) => {
   const [sessionName, setSessionName] = useState("");
@@ -19,6 +21,10 @@ const NewSessionScreen = ({ route }) => {
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedValue, setEditedValue] = useState("");
   const [editingField, setEditingField] = useState("");
+  const navigation = useNavigation();
+
+
+
   const [exercise, setExercise] = useState({
     id: 38,
     name: "barbell alternate biceps curl",
@@ -82,7 +88,7 @@ const NewSessionScreen = ({ route }) => {
       />
       <Text style={styles.subtitle}>Date: 12/11/23</Text>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("AddExerciseScreen")}>
           <Text style={styles.button}>+</Text>
         </TouchableOpacity>
         <TouchableOpacity>
