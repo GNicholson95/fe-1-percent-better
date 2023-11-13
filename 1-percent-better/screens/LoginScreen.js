@@ -20,12 +20,8 @@ const LoginScreen = () => {
       .then((token) => {
         isLoggedIn(token);
       })
-      .then((user) => {
-        console.log(user, "user");
-        //setUser(user.userId);
-        // return user;
-      })
       .catch((error) => {
+        console.error(error);
         console.log(error, "error");
       });
   };

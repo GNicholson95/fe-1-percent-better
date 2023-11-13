@@ -2,6 +2,7 @@ import graphqlAPI from "./graphqlClient";
 import { useContext, useState } from "react";
 import axios from "axios";
 import LoginContext from "../context/LoginContext";
+import UserContext from "../context/UserContext";
 
 export const TOKEN_AUTH_MUTATION = `
   mutation tokenAuth(
@@ -35,8 +36,7 @@ export const TokenAuth = async (username, password) => {
     }
 
     const token = response.data.data.tokenAuth.token;
-    //setLoginToken("JWT " + token);
-    //console.log(token, "token in auth");
+
     return token;
   } catch (error) {
     console.error("Error in TokenAuth", error);
@@ -62,7 +62,6 @@ export const isLoggedIn = async (token) => {
     },
   });
 
-  console.log("in the login function");
   try {
     const response = await graphqlextra({
       data: {
@@ -70,14 +69,19 @@ export const isLoggedIn = async (token) => {
       },
     });
 
-    console.log(response, "response");
     if (response.data.errors) {
       console.error("Error checking logged in:", response.data.errors);
       throw new Error("Error performing GraphQL query");
     }
 
-    const user = response.data.data.loggedIn;
-    return user;
+    const user = response.data.data.loggedIn.userId;
+    console.log(user);
+    const [userId, setUserId] = useContext(UserContext);
+
+    await setUserId(user.userId);
+    console.log(userId);
+
+    return "success";
   } catch (error) {
     console.error("Error in Log in function", error.response.data);
     throw error;
