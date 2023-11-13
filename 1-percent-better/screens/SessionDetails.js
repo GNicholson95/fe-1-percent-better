@@ -4,7 +4,6 @@ import MySessionDetailsCard from "../components/MySessionDetailsCard";
 
 const SessionDetails = ({ route }) => {
   const { session } = route.params;
-  console.log("Session Log Exercise Set:", session.sessionlogExerciseSet);
 
   return (
     <FlatList

@@ -13,6 +13,7 @@ import {
   formatTime,
 } from "../components/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+import { Button } from "@rneui/themed";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
@@ -45,7 +46,6 @@ export default function MySessionsScreen() {
     </TouchableOpacity>
   );
 
-  console.log("this comes from MySessionsScreen", sessions);
   return (
     <View style={styles.container}>
       <FlatList
@@ -53,6 +53,12 @@ export default function MySessionsScreen() {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         style={styles.flatList}
+      />
+      <Button
+        style={styles.NewSessionButton}
+        title='Create New Session'
+        onPress={() => navigation.navigate("NewSessionScreen")}
+        color='#4CAf50'
       />
     </View>
   );
