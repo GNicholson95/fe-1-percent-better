@@ -8,5 +8,4 @@ const graphqlAPI = axios.create({
     // Add any other headers like Authorization if needed
   },
 });
-
 export default graphqlAPI;
