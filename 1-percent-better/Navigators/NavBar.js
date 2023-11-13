@@ -6,6 +6,8 @@ import MyExercisesScreen from "../screens/MyExercisesScreen";
 import MySessionsScreen from "../screens/MySessionsScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text, TouchableOpacity } from "react-native";
+import LandingPage from "../screens/LandingPage";
+import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -51,7 +53,13 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               color={isFocused ? "white" : "grey"}
             />
             <Text
-              style={[styles.tabLabel, { color: isFocused ? "white" : "grey" }]}
+              style={[
+                styles.tabLabel,
+                { color: isFocused ? "white" : "grey" },
+                { flexWrap: "nowrap" },
+              ]}
+
+              // numberOfLines={1}
             >
               {options.tabBarLabel}
             </Text>
@@ -121,6 +129,22 @@ function NavBar() {
         options={{
           tabBarLabel: "My Sessions",
           tabBarIconName: "fitness-outline",
+        }}
+      />
+      <Tab.Screen
+        name="LandingPage"
+        component={LandingPage}
+        options={{
+          tabBarLabel: "Landing (temp)",
+          tabBarIconName: "",
+        }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          tabBarLabel: "My Profile",
+          tabBarIconName: "person",
         }}
       />
     </Tab.Navigator>
