@@ -4,11 +4,9 @@ import { fetchSessionByUserId } from "../services/userService";
 import WorkoutDetail from "./WorkoutDetail";
 import { getDayOfWeek, formatDate, formatTime } from "../components/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
-
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
   const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
-
   useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -20,25 +18,23 @@ export default function MySessionsScreen() {
     };
     loadUsers();
   }, []);
-  console.log('????????',sessions)
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
     const formattedDate = `${getDayOfWeek(date)} ${formatDate(date)} ${formatTime(date)}`;
     return formattedDate;
   };
-
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate("SessionDetails", {sessions: item})}
+      onPress={() => navigation.navigate("SessionDetails", { session: item })}
     >
-      <Text style={styles.sessionInfo}>{sessions.sessionName}</Text>
-      <Text style={styles.sessionInfo}>{formatDateTime(sessions.dateTime)}</Text>
+      <Text style={styles.sessionInfo}>{item.sessionName}</Text>
+      <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
     </TouchableOpacity>
   );
-
   return (
     <View style={styles.container}>
+      <Text>hellooooo</Text>
       <FlatList
         data={sessions}
         renderItem={renderItem}
@@ -48,14 +44,13 @@ export default function MySessionsScreen() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#f2f2f2", // Set a background color for the container
+    backgroundColor: "#F2F2F2", // Set a background color for the container
   },
   flatList: {
     width: "100%",

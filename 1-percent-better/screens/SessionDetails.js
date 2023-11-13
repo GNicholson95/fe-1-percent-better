@@ -3,23 +3,11 @@ import { ScrollView, StyleSheet } from "react-native";
 import MySessionDetailsCard from "../components/MySessionDetailsCard";
 
 const SessionDetails = ({ route }) => {
-  const { exercise } = route.params;
-
-
-          {/* <FlatList
-        data={}
-        renderItem={({ item }) => (
-          <MySessionDetailsCard
-            exercise={item}
-            navigation={navigation}
-            />
-            )}
-        keyExtractor={(item) => String(item.id)}
-      /> */}
+  const { session } = route.params;
 
   return (
     <ScrollView style={styles.container}>
-      <MySessionDetailsCard exercise={exercise} />
+      <MySessionDetailsCard session={session} />
     </ScrollView>
   );
 };
