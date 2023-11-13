@@ -19,13 +19,13 @@ export const CREATE_USER_MUTATION = `
    }
 }`;
 
-export const addExerciseToUser = async (username) => {
+export const addExerciseToUser = async (username, password) => {
   try {
     const response = await graphqlAPI({
       data: {
         query: CREATE_USER_MUTATION,
         variables: {
-          userId,
+          password: password,
           username: username,
         },
       },
