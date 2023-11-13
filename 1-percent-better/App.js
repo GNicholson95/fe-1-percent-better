@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserContext from "./context/UserContext";
 import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
