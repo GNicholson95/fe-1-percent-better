@@ -1,9 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 import {
   View,
   Text,
   TextInput,
-  Image,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
@@ -11,12 +11,31 @@ import {
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = () => {
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Email:", email);
+    setError("");
+
+    if (!username || !password) {
+      setError("Please enter both username and password.");
+      return;
+    }
+
+    axios
+      .post(
+        "https://exercisedb.p.rapidapi.com/user", //not sure yet if we are doing it this way with this endpoint
+        {
+          username,
+          password,
+        }
+      )
+      .then((response) => {
+        console.log("Login successful:", response.data);
+      })
+      .catch((error) => {
+        console.error("Login failed:", error.message);
+        setError("Invalid username or password. Please try again.");
+      });
   };
 
   return (
@@ -41,9 +60,8 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity>
-        <Text style={styles.text}>Forgotten your password?</Text>
-      </TouchableOpacity> */}
+
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 };
@@ -84,6 +102,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 18,
+  },
+  errorText: {
+    color: "red",
+    marginTop: 10,
+    textAlign: "center",
   },
 });
 
