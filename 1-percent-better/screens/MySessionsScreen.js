@@ -7,28 +7,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
-import WorkoutDetail from "./WorkoutDetail";
 import {
   getDayOfWeek,
   formatDate,
   formatTime,
 } from "../components/DateTimeUtils";
-export default function MySessionsScreen() {
-  const [users, setUsers] = useState([]);
+import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
 
+export default function MySessionsScreen() {
+  const [sessions, setSessions] = useState([]);
+  const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const fetchedUsers = await fetchSessionByUserId();
-        setUsers(fetchedUsers);
+        const fetchedSessions = await fetchSessionByUserId();
+        setSessions(fetchedSessions);
       } catch (error) {
         console.error("Error loading users:", error);
       }
     };
-
     loadUsers();
   }, []);
-
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
     const formattedDate = `${getDayOfWeek(date)} ${formatDate(
@@ -36,39 +35,37 @@ export default function MySessionsScreen() {
     )} ${formatTime(date)}`;
     return formattedDate;
   };
-
-  const onPress = () => {
-    return <WorkoutDetail />;
-  };
-
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate("SessionDetails", { session: item })}
+    >
       <Text style={styles.sessionInfo}>{item.sessionName}</Text>
       <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
     </TouchableOpacity>
   );
 
+  console.log("this comes from MySessionsScreen", sessions);
   return (
     <View style={styles.container}>
       <FlatList
-        data={users}
+        data={sessions}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        style={styles.flatlist}
+        style={styles.flatList}
       />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#f2f2f2", // Set a background color for the container
+    backgroundColor: "#F2F2F2", // Set a background color for the container
   },
-  flatlist: {
+  flatList: {
     width: "100%",
   },
   card: {
