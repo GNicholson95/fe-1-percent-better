@@ -13,42 +13,46 @@ import MySessionsScreen from "./screens/MySessionsScreen";
 import MyExercisesScreen from "./screens/MyExercisesScreen";
 import UserCreation from "./screens/UserCreation";
 import LoginScreen from "./screens/LoginScreen";
+import LoginContext from "./context/LoginContext";
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [userId, setUserId] = useState("3"); // Assuming you get this from somewhere
+  const [userId, setUserId] = useState(""); // Assuming you get this from somewhere
+  const [loginToken, setLoginToken] = useState("4");
 
   return (
-    <UserContext.Provider value={{ userId, setUserId }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <ProfileHeader />
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={NavBar}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="MySessionsScreen"
-              component={MySessionsScreen}
-            />
-            <Stack.Screen
-              name="MyExercisesScreen"
-              component={MyExercisesScreen}
-            />
-            <Stack.Screen
-              name="ExerciseDetailScreen"
-              component={ExerciseDetailScreen}
-            />
-            <Stack.Screen name="UserCreation" component={UserCreation} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            {/* Other screens */}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaView>
-    </UserContext.Provider>
+    <LoginContext.Provider value={{ loginToken, setLoginToken }}>
+      <UserContext.Provider value={{ userId, setUserId }}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <ProfileHeader />
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={NavBar}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="MySessionsScreen"
+                component={MySessionsScreen}
+              />
+              <Stack.Screen
+                name="MyExercisesScreen"
+                component={MyExercisesScreen}
+              />
+              <Stack.Screen
+                name="ExerciseDetailScreen"
+                component={ExerciseDetailScreen}
+              />
+              <Stack.Screen name="UserCreation" component={UserCreation} />
+              <Stack.Screen name="LoginScreen" component={LoginScreen} />
+              {/* Other screens */}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaView>
+      </UserContext.Provider>
+    </LoginContext.Provider>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -7,16 +7,27 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { TokenAuth, isLoggedIn } from "../services/LogIn";
+import UserContext from "../context/UserContext";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const { user, setUser } = useContext(UserContext);
 
   const handleLogin = () => {
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Email:", email);
+    TokenAuth(username, password)
+      .then((token) => {
+        isLoggedIn(token);
+      })
+      .then((user) => {
+        console.log(user, "user");
+        //setUser(user.userId);
+        // return user;
+      })
+      .catch((error) => {
+        console.log(error, "error");
+      });
   };
 
   return (

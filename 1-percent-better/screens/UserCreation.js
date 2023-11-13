@@ -11,12 +11,10 @@ import {
 const UserCreation = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
 
   const handleSignup = () => {
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Email:", email);
+    // console.log("Username:", username);
+    // console.log("Password:", password);
   };
 
   return (
@@ -36,14 +34,6 @@ const UserCreation = () => {
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
         value={password}
-      />
-
-      <Text style={styles.text}>Enter your email address:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
       />
 
       <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
