@@ -35,7 +35,6 @@ const MyExercisesScreen = ({ navigation }) => {
   const [sortingValue, setSortingValue] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const renderEmptyComponent = () => {
     return (
       <View style={styles.emptyContainer}>
@@ -144,8 +143,6 @@ const MyExercisesScreen = ({ navigation }) => {
       </View>
     );
   }
-
-  navigation.navigate("AddExerciseScreen", { exercises: filteredExercises });
 
   return (
     <View style={styles.container}>
