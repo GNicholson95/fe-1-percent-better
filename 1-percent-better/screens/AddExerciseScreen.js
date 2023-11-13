@@ -9,7 +9,7 @@ const AddExerciseScreen = ({ route }) => {
     }
   }, [route.params?.exercises]);
 
-  console.log("?????????",selectedExercises[0]);
+  // console.log("!!!!!!!!!!!!!",selectedExercises);
 
   return (
     <View>
