@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,45 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import UserContext from "../context/UserContext";
+import { addExerciseToUser } from "../services/AddExerciseToUser"; // Import the service function
+import Toast from "react-native-root-toast";
 
-const ExerciseDetailScreen = ({ route }) => {
+const ExerciseDetailScreen = ({ route, navigation }) => {
   const { exercise } = route.params;
+  const { userId } = useContext(UserContext); // Access the userId from UserContext
+
+  const handleAddExercise = async () => {
+    try {
+      await addExerciseToUser(
+        userId,
+        exercise.bodyPart,
+        exercise.name,
+        exercise.id
+      );
+      /// Show success toast message
+      Toast.show("Exercise added to My Exercises", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    } catch (error) {
+      console.error("Error adding exercise:", error);
+      // Show error toast message
+      Toast.show("Error adding exercise", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: "red",
+      });
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -22,8 +58,11 @@ const ExerciseDetailScreen = ({ route }) => {
       </View>
 
       <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addButtonText}> Add to My Exercises</Text>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={handleAddExercise}
+      >
+        <Text style={styles.addButtonText}>Add to My Exercises</Text>
       </TouchableOpacity>
       <View style={[styles.labelContainer, styles.bodyPart]}>
         <Text style={styles.label}>Body Part</Text>

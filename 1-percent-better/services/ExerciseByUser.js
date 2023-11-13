@@ -3,6 +3,7 @@ import graphqlAPI from "./graphqlClient"; // Import the instance you just create
 const GET_EXERCISES_BY_USERS_QUERY = `
 query MyQuery {
   getExercisesByUserId(userId: 3) {
+    exerciseId
     externalExerciseId
   }
 }

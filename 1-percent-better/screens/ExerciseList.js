@@ -8,6 +8,8 @@ import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
 import { addExerciseToUser } from "../services/AddExerciseToUser";
+import { fetchExercisesByUser } from "../services/ExerciseByUser";
+import Toast from "react-native-root-toast";
 
 const allowedEquipment = [
   "barbell",
@@ -41,35 +43,90 @@ const ExerciseList = ({ navigation }) => {
   const [sortingValue, setSortingValue] = useState("");
   const [isLoading, setLoading] = useState(true);
   const { userId } = useContext(UserContext);
+  const [userExercises, setUserExercises] = useState([]);
 
-  const handleAddExercise = async (exerciseData) => {
-    try {
-      await addExerciseToUser(
-        userId,
-        exerciseData.exBodypart,
-        exerciseData.exName,
-        exerciseData.exId
-      );
-      // Update UI or show a success message
-    } catch (error) {
-      console.error("Error adding exercise:", error);
-      // Optionally, handle error in UI
-    }
-  };
-
+  // Load user exercises on component mount
   useEffect(() => {
-    const options = {
-      method: "GET",
-      url: "https://exercisedb.p.rapidapi.com/exercises",
-      params: { limit: "1300" },
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-      },
-    };
+    fetchExercisesByUser(userId)
+      .then((userExercisesData) => {
+        setUserExercises(userExercisesData);
+      })
+      .catch((error) => {
+        console.error("Error fetching user exercises:", error);
+      });
+  }, [userId]);
 
+  // Add exercise to user's list
+  const handleAddExercise = (exerciseData) => {
+    const isAlreadyAdded = userExercises.some(
+      (userExercise) => userExercise.externalExerciseId === exerciseData.exId
+    );
+
+    if (isAlreadyAdded) {
+      Toast.show("Exercise is already in your list.", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+        backgroundColor: "red",
+      });
+      return;
+    }
+
+    addExerciseToUser(
+      userId,
+      exerciseData.exBodypart,
+      exerciseData.exName,
+      exerciseData.exId
+    )
+      .then((addedExercise) => {
+        setUserExercises([...userExercises, addedExercise]);
+        Toast.show("Exercise added to My Exercises", {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding exercise:", error);
+        Toast.show("Error adding exercise", {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "red",
+        });
+      });
+  };
+  const sortExercises = (exercisesList, sortValue) => {
+    return [...exercisesList].sort((a, b) => {
+      if (sortValue === "Name A-Z") {
+        return a.name.localeCompare(b.name);
+      } else if (sortValue === "Name Z-A") {
+        return b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+  };
+  // Fetch all exercises on component mount
+  useEffect(() => {
     axios
-      .request(options)
+      .request({
+        method: "GET",
+        url: "https://exercisedb.p.rapidapi.com/exercises",
+        params: { limit: "1300" },
+        headers: {
+          "X-RapidAPI-Key": API_KEY,
+          "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+        },
+      })
       .then((response) => {
         const allowedExercises = response.data.filter((exercise) =>
           allowedEquipment.includes(exercise.equipment.toLowerCase())
@@ -85,17 +142,7 @@ const ExerciseList = ({ navigation }) => {
       });
   }, []);
 
-  const sortExercises = (exercisesList, sortValue) => {
-    return [...exercisesList].sort((a, b) => {
-      if (sortValue === "Name A-Z") {
-        return a.name.localeCompare(b.name);
-      } else if (sortValue === "Name Z-A") {
-        return b.name.localeCompare(a.name);
-      }
-      return 0;
-    });
-  };
-
+  // Filter and sort exercises based on selected criteria
   useEffect(() => {
     const bodyPartTerm = selectedBodyPart ? selectedBodyPart.toLowerCase() : "";
     const searchTerm = search.toLowerCase();
@@ -111,6 +158,7 @@ const ExerciseList = ({ navigation }) => {
     setFilteredExercises(newFilteredExercises);
   }, [selectedBodyPart, search, sortingValue, exercises]);
 
+  // Helper function to update search state
   const updateSearch = (search) => {
     setSearch(search);
   };
