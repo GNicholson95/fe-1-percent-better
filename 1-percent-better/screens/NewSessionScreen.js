@@ -11,7 +11,7 @@ import {
   Button,
 } from "react-native";
 
-import { createSession } from "../services/userService"; // Import the createSession function
+import { createSession } from "../services/createSession"; // Import the createSession function
 
 const NewSessionScreen = ({ route }) => {
   const [sessionName, setSessionName] = useState("");
@@ -39,6 +39,8 @@ const NewSessionScreen = ({ route }) => {
       Alert.alert("Success", `Session ${newSession.sessionName} created`);
       // You can navigate back or update the UI accordingly
     } catch (error) {
+      console.log("this is the catch -->", error);
+      console.log(error.data);
       Alert.alert("Error", "Failed to create session");
     }
   };
@@ -158,7 +160,10 @@ const NewSessionScreen = ({ route }) => {
           </View>
         </Modal>
       </View>
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity
+        style={styles.saveButton}
+        onPress={handleSaveSession}
+      >
         <Text style={styles.saveButtonText}>Save Session</Text>
       </TouchableOpacity>
     </View>

@@ -2,7 +2,7 @@ import graphqlAPI from "./graphqlClient"; // Import your GraphQL client
 
 export const createSession = async (userId, sessionName) => {
   const mutation = `
-    mutation createNewSession($userId: String!, $sessionName: String!) {
+    mutation createNewSession($userId: ID!, $sessionName: String!) {
       createSession(userId: $userId, sessionName: $sessionName) {
         session {
           sessionName
@@ -18,13 +18,12 @@ export const createSession = async (userId, sessionName) => {
       data: {
         query: mutation,
         variables: {
-          userId,
-          sessionName,
+          userId: userId,
+          sessionName: sessionName,
         },
       },
     });
 
-    // Handle the response here
     return response.data.data.createSession.session;
   } catch (error) {
     console.error("Error creating a new session:", error);
