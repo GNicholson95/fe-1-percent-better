@@ -11,6 +11,7 @@ import NavBar from "./Navigators/NavBar";
 import LandingPage from "./screens/LandingPage";
 import MySessionsScreen from "./screens/MySessionsScreen";
 import MyExercisesScreen from "./screens/MyExercisesScreen";
+import SessionDetails from "./screens/SessionDetails";
 
 const Stack = createStackNavigator();
 
@@ -28,17 +29,24 @@ const App = () => {
               component={NavBar}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
-              name='MySessionsScreen'
-              component={MySessionsScreen}
-            />
+            {
+              <Stack.Screen
+                name='MySessionsScreen'
+                component={MySessionsScreen}
+              />
+            }
             <Stack.Screen
               name='MyExercisesScreen'
               component={MyExercisesScreen}
             />
+
             <Stack.Screen
               name='ExerciseDetailScreen'
               component={ExerciseDetailScreen}
+            />
+            <Stack.Screen
+              name='SessionDetails'
+              component={SessionDetails}
             />
             {/* Other screens */}
           </Stack.Navigator>

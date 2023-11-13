@@ -143,7 +143,7 @@ const MyExercisesScreen = ({ navigation }) => {
       </View>
     );
   }
-  console.log(filteredExercises);
+
   return (
     <View style={styles.container}>
       <SearchBar
@@ -172,7 +172,7 @@ const MyExercisesScreen = ({ navigation }) => {
             buttonText='Add to Session'
           />
         )}
-        keyExtractor={(item) => item.exerciseId}
+        keyExtractor={(item) => item.Id}
         ListEmptyComponent={renderEmptyComponent}
       />
     </View>

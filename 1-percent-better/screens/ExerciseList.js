@@ -66,6 +66,7 @@ const ExerciseList = ({ navigation }) => {
       Toast.show("Exercise is already in your list.", {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
+        j,
         shadow: true,
         animation: true,
         hideOnPress: true,
