@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import UserContext from "../context/UserContext";
 import {
   View,
   Text,
@@ -14,11 +15,13 @@ import {
 import { createSession } from "../services/createSession"; // Import the createSession function
 
 const NewSessionScreen = ({ route }) => {
+  const { userId } = useContext(UserContext);
   const [sessionName, setSessionName] = useState("");
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedValue, setEditedValue] = useState("");
   const [editingField, setEditingField] = useState("");
+  const [sessionId, setSessionId] = useState(null);
   const [exercise, setExercise] = useState({
     id: 38,
     name: "barbell alternate biceps curl",
@@ -35,9 +38,10 @@ const NewSessionScreen = ({ route }) => {
 
   const handleSaveSession = async () => {
     try {
-      const newSession = await createSession("3", sessionName); // Assuming the user ID is "3"
+      const newSession = await createSession(userId, sessionName);
+
+      setSessionId(newSession.sessionId); // Update the state with the new session ID
       Alert.alert("Success", `Session ${newSession.sessionName} created`);
-      // You can navigate back or update the UI accordingly
     } catch (error) {
       console.log("this is the catch -->", error);
       console.log(error.data);
@@ -74,12 +78,19 @@ const NewSessionScreen = ({ route }) => {
   );
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        placeholder='Enter Session Name'
-        value={sessionName}
-        onChangeText={setSessionName}
-      />
+      <View style={styles.sessionInputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder='Enter Session Name'
+          value={sessionName}
+          onChangeText={setSessionName}
+        />
+        <Button
+          title='Save Session'
+          onPress={handleSaveSession}
+          color='#4CAF50'
+        />
+      </View>
       <Text style={styles.subtitle}>Date: 12/11/23</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity>
@@ -160,11 +171,8 @@ const NewSessionScreen = ({ route }) => {
           </View>
         </Modal>
       </View>
-      <TouchableOpacity
-        style={styles.saveButton}
-        onPress={handleSaveSession}
-      >
-        <Text style={styles.saveButtonText}>Save Session</Text>
+      <TouchableOpacity style={styles.saveButton}>
+        <Text style={styles.saveButtonText}>Finish Session</Text>
       </TouchableOpacity>
     </View>
   );
@@ -197,6 +205,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#333",
     borderRadius: 8,
+  },
+  sessionInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  textInput: {
+    flex: 1,
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginRight: 10,
+    paddingHorizontal: 10,
   },
   infoContainer: {
     height: 120,

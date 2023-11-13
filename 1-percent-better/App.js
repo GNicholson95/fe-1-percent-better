@@ -60,6 +60,7 @@ const App = () => {
             <Stack.Screen
               name='NewSessionScreen'
               component={NewSessionScreen}
+              options={{ headerShown: false }}
             />
             {/* Other screens */}
           </Stack.Navigator>
