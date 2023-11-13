@@ -144,7 +144,9 @@ const MyExercisesScreen = ({ navigation }) => {
       </View>
     );
   }
-  navigation.navigate("NewSessionScreen", { exercises: filteredExercises });
+
+  navigation.navigate("AddExerciseScreen", { exercises: filteredExercises });
+
   return (
     <View style={styles.container}>
       <SearchBar
