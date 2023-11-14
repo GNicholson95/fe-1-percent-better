@@ -53,7 +53,7 @@ export const LOGGED_IN_QUERY = `
 
 export const isLoggedIn = async (token) => {
   const graphqlextra = axios.create({
-    baseURL: "http://192.168.0.26:8000/api/", // Replace with your actual local network IP and GraphQL endpoint
+    baseURL: "http://192.168.0.4:8000/api/", // Replace with your actual local network IP and GraphQL endpoint
     method: "POST",
     headers: {
       "Content-Type": "application/json",
