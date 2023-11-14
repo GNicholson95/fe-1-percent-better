@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import axios from "axios";
-import React, { useState } from "react";
-=======
 import React, { useContext, useState } from "react";
->>>>>>> main
 import {
   View,
   Text,
@@ -70,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
 
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {/* {error ? <Text style={styles.errorText}>{error}</Text> : null} */}
     </View>
   );
 };
