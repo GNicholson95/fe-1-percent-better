@@ -7,7 +7,8 @@ export const CREATE_EXERCISE_MUTATION = `
     $externalExerciseName:String!,
     $userId:ID!
   ) {
-    createExercise( externalExerciseBodypart:$externalExerciseBodypart,
+    createExercise(
+    externalExerciseBodypart:$externalExerciseBodypart,
     externalExerciseId:$externalExerciseId,
     externalExerciseName:$externalExerciseName,
     userId:$userId)

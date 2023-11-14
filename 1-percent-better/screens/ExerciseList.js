@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
-import UserContext from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
 import axios from "axios";
 import { API_KEY } from "@env";
 import ExerciseCard from "../components/ExerciseCards";
@@ -36,25 +36,28 @@ const bodyParts = [
 ];
 
 const ExerciseList = ({ navigation }) => {
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useUserContext();
+
   const [exercises, setExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedBodyPart, setSelectedBodyPart] = useState("");
   const [sortingValue, setSortingValue] = useState("");
   const [isLoading, setLoading] = useState(true);
-  const { userId } = useContext(UserContext);
   const [userExercises, setUserExercises] = useState([]);
 
   // Load user exercises on component mount
   useEffect(() => {
-    fetchExercisesByUser(userId)
-      .then((userExercisesData) => {
-        setUserExercises(userExercisesData);
-      })
-      .catch((error) => {
-        console.error("Error fetching user exercises:", error);
-      });
-  }, [userId]);
+    if (user) {
+      fetchExercisesByUser(user)
+        .then((userExercisesData) => {
+          setUserExercises(userExercisesData);
+        })
+        .catch((error) => {
+          console.error("Error fetching user exercises:", error);
+        });
+    }
+  }, [user]);
 
   // Add exercise to user's list
   const handleAddExercise = (exerciseData) => {
@@ -77,7 +80,7 @@ const ExerciseList = ({ navigation }) => {
     }
 
     addExerciseToUser(
-      userId,
+      user,
       exerciseData.exBodypart,
       exerciseData.exName,
       exerciseData.exId
@@ -171,7 +174,7 @@ const ExerciseList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder='Search here...'
+        placeholder="Search here..."
         onChangeText={updateSearch}
         value={search}
         containerStyle={styles.searchContainer}
@@ -183,10 +186,7 @@ const ExerciseList = ({ navigation }) => {
         style={pickerSelectStyles}
         placeholder={{ label: "Select a body part", value: null }}
       />
-      <Sort
-        value={sortingValue}
-        onChange={setSortingValue}
-      />
+      <Sort value={sortingValue} onChange={setSortingValue} />
       <FlatList
         data={filteredExercises}
         renderItem={({ item }) => (

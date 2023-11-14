@@ -1,29 +1,30 @@
 import graphqlAPI from "./graphqlClient"; // Import the instance you just created
 
 const GET_EXERCISES_BY_USERS_QUERY = `
-query MyQuery {
-  getExercisesByUserId(userId: 3) {
+query getExercisesByUserId($userId: Int!) {
+  getExercisesByUserId(userId: $userId) {
     exerciseId
     externalExerciseId
   }
 }
 `;
 
-export const fetchExercisesByUser = async () => {
+export const fetchExercisesByUser = async (userId) => {
   try {
     const response = await graphqlAPI({
       data: {
         query: GET_EXERCISES_BY_USERS_QUERY,
-        variables: {}, // If your query had variables, they would go here
+        variables: {
+          userId: userId,
+        },
       },
     });
 
     if (response.data.errors) {
       console.error("Errors returned from the query:", response.data.errors);
-      return []; // Return an empty array or handle the error as appropriate
+      return [];
     }
 
-    // Ensure we are accessing the correct property
     const userData = response.data.data.getExercisesByUserId.map(
       (exercise) => exercise.externalExerciseId
     );

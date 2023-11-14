@@ -7,20 +7,54 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { createUser } from "../services/CreateUser";
+import { TokenAuth, isLoggedIn } from "../services/LogIn";
+import { useUserContext } from "../context/UserContext";
+import Toast from "react-native-root-toast";
 
-const UserCreation = () => {
+const UserCreation = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { setUser } = useUserContext();
 
-  const handleSignup = () => {
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Email:", email);
+  const handleSignup = async () => {
+    try {
+      const newUser = await createUser(username, password, email);
+      const token = await TokenAuth(username, password);
+      const user = await isLoggedIn(token);
+      await setUser(Number(user));
+      Toast.show("Account Created", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      navigation.navigate("DynamicScreen");
+    } catch (error) {
+      Toast.show("Log in failed!", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      console.error(error);
+    }
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>Create your email:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
       <Text style={styles.text}>Create your username:</Text>
       <TextInput
         style={styles.input}
@@ -36,14 +70,6 @@ const UserCreation = () => {
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
         value={password}
-      />
-
-      <Text style={styles.text}>Enter your email address:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
       />
 
       <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>

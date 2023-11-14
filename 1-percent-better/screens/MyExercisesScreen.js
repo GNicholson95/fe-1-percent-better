@@ -14,6 +14,7 @@ import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
+import { useUserContext } from "../context/UserContext";
 
 const bodyParts = [
   "back",
@@ -28,6 +29,8 @@ const bodyParts = [
 ];
 
 const MyExercisesScreen = ({ navigation }) => {
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useUserContext();
+
   const [userExercises, setUserExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [search, setSearch] = useState("");
@@ -52,25 +55,27 @@ const MyExercisesScreen = ({ navigation }) => {
       setLoading(true);
       setError(null);
       try {
-        const userExerciseIds = await fetchExercisesByUser();
-        // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
-        const exercisesDetails = await Promise.all(
-          userExerciseIds.map(async (exerciseId) => {
-            const response = await axios.get(
-              `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
-              {
-                headers: {
-                  "X-RapidAPI-Key": API_KEY,
-                  "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-                },
-              }
-            );
-            return response.data;
-          })
-        );
+        if (user) {
+          const userExerciseIds = await fetchExercisesByUser(user);
+          // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
+          const exercisesDetails = await Promise.all(
+            userExerciseIds.map(async (exerciseId) => {
+              const response = await axios.get(
+                `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
+                {
+                  headers: {
+                    "X-RapidAPI-Key": API_KEY,
+                    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+                  },
+                }
+              );
+              return response.data;
+            })
+          );
 
-        setUserExercises(exercisesDetails);
-        setFilteredExercises(exercisesDetails);
+          setUserExercises(exercisesDetails);
+          setFilteredExercises(exercisesDetails);
+        }
       } catch (error) {
         console.error(
           "There was an error fetching the user's exercise details:",
@@ -83,7 +88,7 @@ const MyExercisesScreen = ({ navigation }) => {
     };
 
     fetchUserExercisesDetails();
-  }, []);
+  }, [user]);
 
   const sortExercises = (exercises, sortValue) => {
     return [...exercises].sort((a, b) => {
@@ -120,7 +125,7 @@ const MyExercisesScreen = ({ navigation }) => {
     }
 
     setFilteredExercises(updatedFilteredExercises);
-  }, [selectedBodyPart, search, sortingValue, userExercises]);
+  }, [selectedBodyPart, search, sortingValue, userExercises, user]);
 
   const updateSearch = (search) => {
     setSearch(search);
@@ -129,10 +134,7 @@ const MyExercisesScreen = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator
-          size='large'
-          color='#0000ff'
-        />
+        <ActivityIndicator size="large" color="#0000ff" />
         <Text>Loading exercises...</Text>
       </View>
     );
@@ -148,7 +150,7 @@ const MyExercisesScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder='Search here...'
+        placeholder="Search here..."
         onChangeText={updateSearch}
         value={search}
         containerStyle={styles.searchContainer}
@@ -160,17 +162,14 @@ const MyExercisesScreen = ({ navigation }) => {
         style={pickerSelectStyles}
         placeholder={{ label: "Select a body part", value: null }}
       />
-      <Sort
-        value={sortingValue}
-        onChange={setSortingValue}
-      />
+      <Sort value={sortingValue} onChange={setSortingValue} />
       <FlatList
         data={filteredExercises}
         renderItem={({ item }) => (
           <ExerciseCard
             exercise={item}
             navigation={navigation}
-            buttonText='Add to Session'
+            buttonText="Add to Session"
           />
         )}
         keyExtractor={(item) => item.Id}
