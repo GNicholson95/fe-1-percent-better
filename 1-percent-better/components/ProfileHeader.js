@@ -14,7 +14,7 @@ const ProfileHeader = () => {
         setUsername(fetchedUsername);
       } catch (error) {
         console.error("Error fetching username: ", error);
-        setUsername("Error"); // Set username to "Error" or some other value to indicate failure
+        setUsername("Error");
       }
     };
 
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     backgroundColor: "#FFFFFF",
-    // Remove the height: 150 if it's no longer necessary for layout
   },
   avatar: {
     width: 60,

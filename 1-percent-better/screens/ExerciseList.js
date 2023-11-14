@@ -125,7 +125,7 @@ const ExerciseList = ({ navigation }) => {
       .request({
         method: "GET",
         url: "https://exercisedb.p.rapidapi.com/exercises",
-        params: { limit: "1300" },
+        params: { limit: "1200" },
         headers: {
           "X-RapidAPI-Key": API_KEY,
           "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
