@@ -1,9 +1,13 @@
+<<<<<<< HEAD
+import axios from "axios";
+import React, { useState } from "react";
+=======
 import React, { useContext, useState } from "react";
+>>>>>>> main
 import {
   View,
   Text,
   TextInput,
-  Image,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
@@ -65,9 +69,8 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-      {/* <TouchableOpacity>
-        <Text style={styles.text}>Forgotten your password?</Text>
-      </TouchableOpacity> */}
+
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 };
@@ -108,6 +111,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 18,
+  },
+  errorText: {
+    color: "red",
+    marginTop: 10,
+    textAlign: "center",
   },
 });
 

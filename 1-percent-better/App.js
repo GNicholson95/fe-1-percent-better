@@ -45,8 +45,16 @@ const App = () => {
               component={ExerciseDetailScreen}
             />
             {/* <Stack.Screen name="LandingPage" component={LandingPage} /> */}
-            <Stack.Screen name="UserCreation" component={UserCreation} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen
+              name="UserCreation"
+              component={UserCreation}
+              options={{ title: "Sign Up" }}
+            />
+            <Stack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
+              options={{ title: "Login" }}
+            />
             <Stack.Screen name="SessionDetails" component={SessionDetails} />
             <Stack.Screen
               name="NewSessionScreen"
