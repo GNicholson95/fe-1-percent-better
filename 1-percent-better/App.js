@@ -63,7 +63,7 @@ const App = () => {
               component={NewSessionScreen}
               options={{ headerShown: false }}
             />
-             <Stack.Screen
+            <Stack.Screen
               name='AddExerciseScreen'
               component={AddExerciseScreen}
             />

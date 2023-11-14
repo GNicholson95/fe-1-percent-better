@@ -14,7 +14,7 @@ import { fetchExercisesByUser } from "../services/ExerciseByUser";
 
 const AddExerciseScreen = ({ navigation }) => {
   const [exercises, setExercises] = useState([]);
-  const [selectedExercises, setSelectedExercises] = useState(new Set());
+  const [selectedExercises, setSelectedExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -49,19 +49,30 @@ const AddExerciseScreen = ({ navigation }) => {
     loadExercises();
   }, []);
 
-  const handleSelectExercise = (exerciseId) => {
-    const newSelection = new Set(selectedExercises);
-    if (newSelection.has(exerciseId)) {
-      newSelection.delete(exerciseId);
+  const handleSelectExercise = (exercise) => {
+    const exerciseData = {
+      id: exercise.id,
+      name: exercise.name,
+      gifUrl: exercise.gifUrl,
+    };
+
+    const index = selectedExercises.findIndex(
+      (ex) => ex.id === exerciseData.id
+    );
+    let newSelection = [...selectedExercises];
+
+    if (index > -1) {
+      newSelection.splice(index, 1); // Remove the exercise if it's already in the selection
     } else {
-      newSelection.add(exerciseId);
+      newSelection.push(exerciseData); // Add the exercise if it's not in the selection
     }
     setSelectedExercises(newSelection);
   };
 
   const handleAddExercisesToSession = () => {
+    const selectedExercisesArray = Array.from(selectedExercises);
     navigation.navigate("NewSessionScreen", {
-      selectedExercises: Array.from(selectedExercises),
+      selectedExercises: selectedExercisesArray,
     });
   };
 
@@ -70,10 +81,10 @@ const AddExerciseScreen = ({ navigation }) => {
       <Text style={styles.exerciseName}>{item.name}</Text>
       <TouchableOpacity
         style={styles.addButton}
-        onPress={() => handleSelectExercise(item.id)} // Assuming 'id' is the correct property
+        onPress={() => handleSelectExercise(item)}
       >
         <Text style={styles.addButtonText}>
-          {selectedExercises.has(item.id) ? "Remove" : "Add"}
+          {selectedExercises.find((ex) => ex.id === item.id) ? "Remove" : "Add"}
         </Text>
       </TouchableOpacity>
     </View>

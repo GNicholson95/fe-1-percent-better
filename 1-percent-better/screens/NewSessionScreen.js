@@ -116,14 +116,14 @@ const NewSessionScreen = ({ route }) => {
           keyExtractor={(item) => item.id.toString()}
           style={styles.flatList}
         />
-        {/* <FlatList
-          data={selectedExercises}
+        <FlatList
+          data={exerciseArray}
           renderItem={({ item }) => (
             <Text style={styles.infoText}>{item.name}</Text>
           )}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           style={styles.flatList}
-        /> */}
+        />
       </View>
       <View style={styles.exerciseDetailContainer}>
         <Text style={styles.exerciseName}>{exercise.name}</Text>
