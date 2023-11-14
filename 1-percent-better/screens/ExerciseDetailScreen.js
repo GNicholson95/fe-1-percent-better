@@ -58,9 +58,6 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
       </View>
 
       <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
-      <TouchableOpacity style={styles.addButton} onPress={handleAddExercise}>
-        <Text style={styles.addButtonText}>Add to My Exercises</Text>
-      </TouchableOpacity>
       <View style={[styles.labelContainer, styles.bodyPart]}>
         <Text style={styles.label}>Body Part</Text>
         <Text style={styles.value}>{exercise.bodyPart}</Text>

@@ -10,11 +10,12 @@ import {
 import axios from "axios";
 import { API_KEY } from "@env";
 import { fetchExercisesByUser } from "../services/ExerciseByUser";
-import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
 import { useUserContext } from "../context/UserContext";
+import MyExercisesExerciseCard from "../components/MyExercisesExerciseCard";
+import { deleteExercise } from '../services/DeleteExercise';
 
 const bodyParts = [
   "back",
@@ -49,15 +50,31 @@ const MyExercisesScreen = ({ navigation }) => {
       </View>
     );
   };
+  console.log("im user exercises id", userExercises);
+  const handleRemoveExercise = async (exerciseId) => {
+    try {
+      const isDeleted = await deleteExercise(exerciseId);
 
-  const navigationAddExercise = useEffect(() => {
+      if (isDeleted) {
+        const updatedExercises = userExercises.filter((exercise) => exercise.id !== exerciseId);
+        setUserExercises(updatedExercises);
+        setFilteredExercises(updatedExercises);
+        console.log('Exercise removed successfully!');
+      } else {
+        console.log('Failed to remove exercise.');
+      }
+    } catch (error) {
+      console.error('Error removing exercise:', error);
+    }
+  };
+
+  useEffect(() => {
     const fetchUserExercisesDetails = async () => {
       setLoading(true);
       setError(null);
       try {
         if (user) {
           const userExerciseIds = await fetchExercisesByUser(user);
-          // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
           const exercisesDetails = await Promise.all(
             userExerciseIds.map(async (exerciseId) => {
               const response = await axios.get(
@@ -86,9 +103,11 @@ const MyExercisesScreen = ({ navigation }) => {
         setLoading(false);
       }
     };
-
-    fetchUserExercisesDetails();
-  }, [user]);
+    // Only fetch exercises if there is a valid user
+    if (user) {
+      fetchUserExercisesDetails();
+    }
+  }, [user]); // Only run the effect when user changes
 
   const sortExercises = (exercises, sortValue) => {
     return [...exercises].sort((a, b) => {
@@ -166,10 +185,11 @@ const MyExercisesScreen = ({ navigation }) => {
       <FlatList
         data={filteredExercises}
         renderItem={({ item }) => (
-          <ExerciseCard
+          <MyExercisesExerciseCard
             exercise={item}
             navigation={navigation}
-            buttonText="Add to Session"
+            onRemoveExercise={handleRemoveExercise} // Pass the removal function
+            buttonText="Remove"
           />
         )}
         keyExtractor={(item) => item.Id}

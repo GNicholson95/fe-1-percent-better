@@ -2,25 +2,19 @@ import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
-
-const ExerciseCard = ({
+import {backgroundColor, primaryColor, secondaryColor, accentColor, callToActionColor } from './ColorPallette';
+const MyExercisesExerciseCard = ({
   exercise,
   navigation,
-  onAddExercise,
-  buttonText = "Add to My Exercises",
+  onRemoveExercise,
+  buttonText = "Remove",
 }) => {
-  const { user } = useUserContext(); // Use useContext to access userId
+  const { user } = useUserContext();
 
-  const handleAddExercise = async () => {
+  const handleRemoveExercise = async () => {
     try {
-      const exerciseData = {
-        user,
-        exBodypart: exercise.bodyPart,
-        exName: exercise.name,
-        exId: exercise.id,
-      };
-      await onAddExercise(exerciseData);
-      Toast.show("Exercise added to My Exercises", {
+      await onRemoveExercise(exercise.id);
+      Toast.show("Exercise removed from My Exercises", {
         duration: Toast.durations.SHORT,
         position: Toast.positions.BOTTOM,
         shadow: true,
@@ -29,8 +23,8 @@ const ExerciseCard = ({
         delay: 0,
       });
     } catch (error) {
-      console.error("Error adding exercise:", error);
-      Toast.show("Error adding exercise", {
+      console.error("Error removing exercise:", error);
+      Toast.show("Error removing exercise", {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
         shadow: true,
@@ -57,13 +51,12 @@ const ExerciseCard = ({
           resizeMode="contain"
         />
       </View>
-
       <TouchableOpacity
-        style={styles.addButton}
-        onPress={handleAddExercise} // Use handleAddExercise here
-      >
-        <Text style={styles.addButtonText}>{buttonText}</Text>
-      </TouchableOpacity>
+      style={styles.deleteButton}
+      onPress={handleRemoveExercise} // Update the onPress to call handleRemoveExercise
+    >
+      <Text style={styles.deleteButtonText}>{buttonText}</Text>
+    </TouchableOpacity>
     </TouchableOpacity>
   );
 };
@@ -103,10 +96,12 @@ const styles = StyleSheet.create({
     color: "#ff3c00",
     marginTop: 20,
   },
-
-  addButton: {
+  buttonContainer:{
+    flex:1,
+  },
+  deleteButton: {
     flex: 1,
-    backgroundColor: "#4CAf50",
+    backgroundColor: "red",
     padding: 1,
     borderRadius: 20,
     position: "absolute",
@@ -114,11 +109,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 10,
     height: 40,
-    width: 180,
+    width: 120,
     alignItems: "center",
     justifyContent: "center",
   },
-  addButtonText: {
+  deleteButtonText: {
     color: "white",
     fontSize: 14,
     fontWeight: "bold",
@@ -126,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExerciseCard;
+export default MyExercisesExerciseCard;
