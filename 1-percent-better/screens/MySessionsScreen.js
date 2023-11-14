@@ -23,8 +23,10 @@ export default function MySessionsScreen() {
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const fetchedSessions = await fetchSessionByUserId(user);
-        setSessions(fetchedSessions);
+        if (user) {
+          const fetchedSessions = await fetchSessionByUserId(user);
+          setSessions(fetchedSessions);
+        }
       } catch (error) {
         console.error("Error loading users:", error.response.data);
       }

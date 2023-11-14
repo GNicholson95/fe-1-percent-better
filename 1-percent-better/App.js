@@ -23,7 +23,7 @@ const App = () => {
   return (
     <UserProvider>
       <SafeAreaView style={{ flex: 1 }}>
-        <ProfileHeader />
+        {/* <ProfileHeader /> */}
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -44,6 +44,7 @@ const App = () => {
               name="ExerciseDetailScreen"
               component={ExerciseDetailScreen}
             />
+            {/* <Stack.Screen name="LandingPage" component={LandingPage} /> */}
             <Stack.Screen name="UserCreation" component={UserCreation} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SessionDetails" component={SessionDetails} />

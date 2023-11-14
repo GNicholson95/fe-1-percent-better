@@ -48,13 +48,15 @@ const ExerciseList = ({ navigation }) => {
 
   // Load user exercises on component mount
   useEffect(() => {
-    fetchExercisesByUser(user)
-      .then((userExercisesData) => {
-        setUserExercises(userExercisesData);
-      })
-      .catch((error) => {
-        console.error("Error fetching user exercises:", error);
-      });
+    if (user) {
+      fetchExercisesByUser(user)
+        .then((userExercisesData) => {
+          setUserExercises(userExercisesData);
+        })
+        .catch((error) => {
+          console.error("Error fetching user exercises:", error);
+        });
+    }
   }, [user]);
 
   // Add exercise to user's list

@@ -54,25 +54,27 @@ const MyExercisesScreen = ({ navigation }) => {
       setLoading(true);
       setError(null);
       try {
-        const userExerciseIds = await fetchExercisesByUser(user);
-        // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
-        const exercisesDetails = await Promise.all(
-          userExerciseIds.map(async (exerciseId) => {
-            const response = await axios.get(
-              `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
-              {
-                headers: {
-                  "X-RapidAPI-Key": API_KEY,
-                  "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-                },
-              }
-            );
-            return response.data;
-          })
-        );
+        if (user) {
+          const userExerciseIds = await fetchExercisesByUser(user);
+          // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
+          const exercisesDetails = await Promise.all(
+            userExerciseIds.map(async (exerciseId) => {
+              const response = await axios.get(
+                `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
+                {
+                  headers: {
+                    "X-RapidAPI-Key": API_KEY,
+                    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+                  },
+                }
+              );
+              return response.data;
+            })
+          );
 
-        setUserExercises(exercisesDetails);
-        setFilteredExercises(exercisesDetails);
+          setUserExercises(exercisesDetails);
+          setFilteredExercises(exercisesDetails);
+        }
       } catch (error) {
         console.error(
           "There was an error fetching the user's exercise details:",

@@ -10,6 +10,7 @@ import LandingPage from "../screens/LandingPage";
 import LoginScreen from "../screens/LoginScreen";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
+import { useRoute } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -91,19 +92,22 @@ const styles = {
 function NavBar() {
   const { user } = useUserContext();
   const [username, setUsername] = useState("My Profile");
+  const route = useRoute();
 
-  fetchUsernameByUserId(user)
-    .then((username) => {
-      setUsername(username);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  if (user) {
+    fetchUsernameByUserId(user)
+      .then((username) => {
+        setUsername(username);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <Tab.Navigator
       tabBar={(props) => <CustomTabBar {...props} />}
-      initialRouteName="Home"
+      initialRouteName={user ? "Home" : "LandingPage"}
       tabBarPosition="bottom"
       scrollEnabled={true}
       screenOptions={{
@@ -144,14 +148,6 @@ function NavBar() {
         }}
       />
       <Tab.Screen
-        name="LandingPage"
-        component={LandingPage}
-        options={{
-          tabBarLabel: "Landing (temp)",
-          tabBarIconName: "",
-        }}
-      />
-      <Tab.Screen
         name="Login"
         component={LoginScreen}
         options={{
@@ -159,6 +155,18 @@ function NavBar() {
           tabBarIconName: "person",
         }}
       />
+      {user ? null : (
+        <Tab.Screen
+          name="LandingPage"
+          component={LandingPage}
+          options={{
+            tabBarLabel: "Sign Up",
+            tabBarIconName: "add-circle-outline",
+            tabBarVisible: false,
+            headerShown: false,
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 }
