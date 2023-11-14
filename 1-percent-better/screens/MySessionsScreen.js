@@ -14,21 +14,24 @@ import {
 } from "../components/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
 import { Button } from "@rneui/themed";
+import { useUserContext } from "../context/UserContext";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
   const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
+  const { user } = useUserContext();
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const fetchedSessions = await fetchSessionByUserId();
+        const fetchedSessions = await fetchSessionByUserId(user);
         setSessions(fetchedSessions);
       } catch (error) {
-        console.error("Error loading users:", error);
+        console.error("Error loading users:", error.response.data);
       }
     };
     loadUsers();
-  }, []);
+  }, [user]);
+
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
     const formattedDate = `${getDayOfWeek(date)} ${formatDate(
@@ -55,9 +58,9 @@ export default function MySessionsScreen() {
       />
       <Button
         style={styles.NewSessionButton}
-        title='Create New Session'
+        title="Create New Session"
         onPress={() => navigation.navigate("NewSessionScreen")}
-        color='#4CAf50'
+        color="#4CAf50"
       />
     </View>
   );

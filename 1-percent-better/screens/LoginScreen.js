@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import { TokenAuth, isLoggedIn } from "../services/LogIn";
 import { useUserContext } from "../context/UserContext";
+import Toast from "react-native-root-toast";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { user, setUser } = useUserContext();
@@ -19,9 +20,25 @@ const LoginScreen = () => {
     try {
       const token = await TokenAuth(username, password);
       const user = await isLoggedIn(token);
-      await setUser(user);
-      // then navigate to a different screen....
+      await setUser(Number(user));
+      Toast.show("Log in success!", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      navigation.navigate("DynamicScreen");
     } catch (error) {
+      Toast.show("Log in failed!", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
       console.error(error, "error");
     }
   };

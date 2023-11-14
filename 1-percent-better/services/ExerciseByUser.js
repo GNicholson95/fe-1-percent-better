@@ -1,20 +1,22 @@
 import graphqlAPI from "./graphqlClient"; // Import the instance you just created
 
 const GET_EXERCISES_BY_USERS_QUERY = `
-query MyQuery {
-  getExercisesByUserId(userId: 3) {
+query getExercisesByUserId($userId: Int!) {
+  getExercisesByUserId(userId: $userId) {
     exerciseId
     externalExerciseId
   }
 }
 `;
 
-export const fetchExercisesByUser = async () => {
+export const fetchExercisesByUser = async (userId) => {
   try {
     const response = await graphqlAPI({
       data: {
         query: GET_EXERCISES_BY_USERS_QUERY,
-        variables: {},
+        variables: {
+          userId: userId,
+        },
       },
     });
 

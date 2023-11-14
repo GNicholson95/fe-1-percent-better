@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import DynamicScreen from "../screens/DynamicScreen";
 import ExerciseList from "../screens/ExerciseList";
@@ -8,6 +8,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text, TouchableOpacity } from "react-native";
 import LandingPage from "../screens/LandingPage";
 import LoginScreen from "../screens/LoginScreen";
+import { fetchUsernameByUserId } from "../services/userService";
+import { useUserContext } from "../context/UserContext";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -87,12 +89,22 @@ const styles = {
 };
 
 function NavBar() {
+  const { user } = useUserContext();
+  const [username, setUsername] = useState("My Profile");
+
+  fetchUsernameByUserId(user)
+    .then((username) => {
+      setUsername(username);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   return (
     <Tab.Navigator
       tabBar={(props) => <CustomTabBar {...props} />}
       initialRouteName="Home"
       tabBarPosition="bottom"
-      swipeEnabled={true}
       scrollEnabled={true}
       screenOptions={{
         tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
@@ -143,7 +155,7 @@ function NavBar() {
         name="Login"
         component={LoginScreen}
         options={{
-          tabBarLabel: "My Profile",
+          tabBarLabel: `${username}`,
           tabBarIconName: "person",
         }}
       />

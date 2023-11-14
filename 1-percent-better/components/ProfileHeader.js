@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { fetchUsernameByUserId } from "../services/userService";
+import { useUserContext } from "../context/UserContext";
 
 const ProfileHeader = () => {
   const [username, setUsername] = useState("Loading..."); // default state while loading
+  const { user } = useUserContext();
 
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const fetchedUsername = await fetchUsernameByUserId();
+        const fetchedUsername = await fetchUsernameByUserId(user);
         setUsername(fetchedUsername);
       } catch (error) {
         console.error("Error fetching username: ", error);
@@ -17,7 +19,7 @@ const ProfileHeader = () => {
     };
 
     fetchUsername();
-  }, []);
+  }, [user]);
 
   return (
     <View style={styles.container}>

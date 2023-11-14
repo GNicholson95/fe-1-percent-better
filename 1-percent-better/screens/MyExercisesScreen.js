@@ -54,7 +54,7 @@ const MyExercisesScreen = ({ navigation }) => {
       setLoading(true);
       setError(null);
       try {
-        const userExerciseIds = await fetchExercisesByUser();
+        const userExerciseIds = await fetchExercisesByUser(user);
         // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
         const exercisesDetails = await Promise.all(
           userExerciseIds.map(async (exerciseId) => {
@@ -85,7 +85,7 @@ const MyExercisesScreen = ({ navigation }) => {
     };
 
     fetchUserExercisesDetails();
-  }, []);
+  }, [user]);
 
   const sortExercises = (exercises, sortValue) => {
     return [...exercises].sort((a, b) => {
@@ -122,7 +122,7 @@ const MyExercisesScreen = ({ navigation }) => {
     }
 
     setFilteredExercises(updatedFilteredExercises);
-  }, [selectedBodyPart, search, sortingValue, userExercises]);
+  }, [selectedBodyPart, search, sortingValue, userExercises, user]);
 
   const updateSearch = (search) => {
     setSearch(search);
