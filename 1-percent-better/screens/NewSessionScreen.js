@@ -10,6 +10,7 @@ import {
   FlatList,
   Modal,
   Button,
+  ScrollView,
 } from "react-native";
 import { createSession } from "../services/createSession"; // Import the createSession function
 import {
@@ -31,20 +32,15 @@ const NewSessionScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const [sessionId, setSessionId] = useState(null);
-  const [exercise, setExercise] = useState({
-    id: 38,
-    name: "barbell alternate biceps curl",
-    sets: 3,
-    reps: 10,
-    weight: 0,
-  });
+  const [exercise, setExercise] = useState([]);
 
+  const exerciseArray = route.params?.selectedExercises;
+  console.log(exerciseArray);
   useEffect(() => {
-    if (route.params?.exercises) {
-      setSelectedExercises(route.params.exercises);
+    if (route.params?.selectedExercises) {
+      setSelectedExercises(route.params.selectedExercises);
     }
-  }, [route.params?.exercises]);
-
+  }, [route.params?.selectedExercises]);
   const handleSaveSession = async () => {
     try {
       const newSession = await createSession(userId, sessionName);
@@ -85,6 +81,7 @@ const NewSessionScreen = ({ route }) => {
   const renderItem = ({ item }) => (
     <Text style={styles.infoText}>{item.name}</Text>
   );
+
   return (
     <View style={styles.container}>
       <View style={styles.sessionInputContainer}>
@@ -119,14 +116,14 @@ const NewSessionScreen = ({ route }) => {
           keyExtractor={(item) => item.id.toString()}
           style={styles.flatList}
         />
-        <FlatList
+        {/* <FlatList
           data={selectedExercises}
           renderItem={({ item }) => (
             <Text style={styles.infoText}>{item.name}</Text>
           )}
           keyExtractor={(item) => item.id.toString()}
           style={styles.flatList}
-        />
+        /> */}
       </View>
       <View style={styles.exerciseDetailContainer}>
         <Text style={styles.exerciseName}>{exercise.name}</Text>
@@ -188,6 +185,7 @@ const NewSessionScreen = ({ route }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
