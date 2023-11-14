@@ -9,7 +9,7 @@ const ExerciseCard = ({
   onAddExercise,
   buttonText = "Add to My Exercises",
 }) => {
-  const { user } = useUserContext(); // Use useContext to access userId
+  const { user } = useUserContext();
 
   const handleAddExercise = async () => {
     try {
@@ -54,13 +54,13 @@ const ExerciseCard = ({
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode="contain"
+          resizeMode='contain'
         />
       </View>
 
       <TouchableOpacity
         style={styles.addButton}
-        onPress={handleAddExercise} // Use handleAddExercise here
+        onPress={handleAddExercise}
       >
         <Text style={styles.addButtonText}>{buttonText}</Text>
       </TouchableOpacity>
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     color: "#59a6a6",
   },
   image: {
-    width: 120, // Fixed width for the image
-    height: 120, // Fixed height for the image
+    width: 120,
+    height: 120,
     borderRadius: 10,
   },
   title: {

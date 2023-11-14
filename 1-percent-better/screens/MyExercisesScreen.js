@@ -9,7 +9,10 @@ import {
 } from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env";
-import { fetchExercisesByUser } from "../services/ExerciseByUser";
+import {
+  fetchExercisesByUser,
+  fetchIdsExercisesByUser,
+} from "../services/ExerciseByUser";
 import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
@@ -50,45 +53,52 @@ const MyExercisesScreen = ({ navigation }) => {
     );
   };
 
-  const navigationAddExercise = useEffect(() => {
-    const fetchUserExercisesDetails = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        if (user) {
-          const userExerciseIds = await fetchExercisesByUser(user);
-          // const uniqueExercideId = await fetchUniqueExerciseIDByUser();
-          const exercisesDetails = await Promise.all(
-            userExerciseIds.map(async (exerciseId) => {
-              const response = await axios.get(
-                `https://exercisedb.p.rapidapi.com/exercises/exercise/${exerciseId}`,
-                {
-                  headers: {
-                    "X-RapidAPI-Key": API_KEY,
-                    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-                  },
-                }
-              );
-              return response.data;
-            })
-          );
-
-          setUserExercises(exercisesDetails);
-          setFilteredExercises(exercisesDetails);
-        }
-      } catch (error) {
-        console.error(
-          "There was an error fetching the user's exercise details:",
-          error
+  const fetchUserExercisesDetails = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      if (user) {
+        const uniqueExerciseIds = await fetchIdsExercisesByUser(user); // Fetch unique IDs
+        const exercisesDetails = await Promise.all(
+          uniqueExerciseIds.map(async (uniqueExercise) => {
+            const response = await axios.get(
+              `https://exercisedb.p.rapidapi.com/exercises/exercise/${uniqueExercise.externalExerciseId}`,
+              {
+                headers: {
+                  "X-RapidAPI-Key": API_KEY,
+                  "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+                },
+              }
+            );
+            return { ...response.data, exerciseId: uniqueExercise.exerciseId }; // Combine external details with your unique ID
+          })
         );
-        setError("Failed to load exercises. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
 
+        setUserExercises(exercisesDetails);
+        setFilteredExercises(exercisesDetails);
+      }
+    } catch (error) {
+      console.error(
+        "There was an error fetching the user's exercise details:",
+        error
+      );
+      setError("Failed to load exercises. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchUserExercisesDetails();
   }, [user]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener(
+      "focus",
+      fetchUserExercisesDetails
+    );
+    return unsubscribe;
+  }, [navigation, fetchUserExercisesDetails]);
 
   const sortExercises = (exercises, sortValue) => {
     return [...exercises].sort((a, b) => {
@@ -134,7 +144,10 @@ const MyExercisesScreen = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator
+          size='large'
+          color='#0000ff'
+        />
         <Text>Loading exercises...</Text>
       </View>
     );
@@ -150,7 +163,7 @@ const MyExercisesScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder="Search here..."
+        placeholder='Search here...'
         onChangeText={updateSearch}
         value={search}
         containerStyle={styles.searchContainer}
@@ -162,17 +175,20 @@ const MyExercisesScreen = ({ navigation }) => {
         style={pickerSelectStyles}
         placeholder={{ label: "Select a body part", value: null }}
       />
-      <Sort value={sortingValue} onChange={setSortingValue} />
+      <Sort
+        value={sortingValue}
+        onChange={setSortingValue}
+      />
       <FlatList
         data={filteredExercises}
         renderItem={({ item }) => (
           <ExerciseCard
             exercise={item}
             navigation={navigation}
-            buttonText="Add to Session"
+            buttonText='Add to Session'
           />
         )}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={(item) => item.exerciseId}
         ListEmptyComponent={renderEmptyComponent}
       />
     </View>
