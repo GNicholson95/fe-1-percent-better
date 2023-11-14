@@ -11,17 +11,19 @@ import {
 import axios from "axios";
 import { API_KEY } from "@env"; // Ensure you have your API key configured properly
 import { fetchExercisesByUser } from "../services/ExerciseByUser";
+import { useUserContext } from "../context/UserContext";
 
 const AddExerciseScreen = ({ navigation }) => {
   const [exercises, setExercises] = useState([]);
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUserContext();
 
   useEffect(() => {
     const loadExercises = async () => {
       setIsLoading(true);
       try {
-        const exerciseIds = await fetchExercisesByUser();
+        const exerciseIds = await fetchExercisesByUser(user);
         const exercisesDetailsPromises = exerciseIds.map((id) =>
           axios.get(
             `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`,

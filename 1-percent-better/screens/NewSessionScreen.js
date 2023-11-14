@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import UserContext from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
 import {
   Image,
   View,
@@ -25,7 +25,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 const NewSessionScreen = ({ route }) => {
-  const { userId } = useContext(UserContext);
+  const { user } = useUserContext();
   const [sessionName, setSessionName] = useState("");
   const [selectedExercises, setSelectedExercises] = useState([]);
   const navigation = useNavigation();
@@ -46,7 +46,7 @@ const NewSessionScreen = ({ route }) => {
   }, [route.params?.selectedExercises]);
   const handleSaveSession = async () => {
     try {
-      const newSession = await createSession(userId, sessionName);
+      const newSession = await createSession(user, sessionName);
 
       setSessionId(newSession.sessionId);
       Alert.alert("Success", `Session ${newSession.sessionName} created`);
