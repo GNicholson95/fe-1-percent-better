@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#F2F2F2", // Set a background color for the container
+    backgroundColor: "#F2F2F2",
   },
   flatList: {
     width: "100%",
@@ -76,16 +76,16 @@ const styles = StyleSheet.create({
   card: {
     marginVertical: 10,
     padding: 20,
-    backgroundColor: "#fff", // Set the card background color
-    borderRadius: 10, // Set border radius for rounded corners
-    shadowColor: "#000", // Set shadow color
+    backgroundColor: "#fff", 
+    borderRadius: 10, 
+    shadowColor: "#000", 
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25, // Set shadow opacity
-    shadowRadius: 3.84, // Set shadow radius
-    elevation: 5, // Set elevation for Android devices
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84, 
+    elevation: 5, 
     justifyContent: "center",
     alignItems: "center",
   },

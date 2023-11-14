@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import UserContext from "../context/UserContext";
 import {
   View,
   Text,
@@ -11,33 +10,28 @@ import {
   Modal,
   Button,
 } from "react-native";
-import { createSession } from "../services/createSession"; // Import the createSession function
-import {
-  backgroundColor,
-  primaryColor,
-  secondaryColor,
-  accentColor,
-  callToActionColor,
-} from "../components/ColorPallette";
+import { createSession } from "../services/createSession";
+import UserContext from "../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 
 const NewSessionScreen = ({ route }) => {
   const { userId } = useContext(UserContext);
+  const navigation = useNavigation();
   const [sessionName, setSessionName] = useState("");
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editedValue, setEditedValue] = useState("");
   const [editingField, setEditingField] = useState("");
-  const navigation = useNavigation();
-
   const [sessionId, setSessionId] = useState(null);
-  const [exercise, setExercise] = useState({
-    id: 38,
-    name: "barbell alternate biceps curl",
-    sets: 3,
-    reps: 10,
-    weight: 0,
-  });
+  const [exercise, setExercise] = useState([]);
+
+  // {
+  //   id: 38,
+  //   name: "barbell alternate biceps curl",
+  //   sets: 3,
+  //   reps: 10,
+  //   weight: 0,
+  // }
 
   useEffect(() => {
     if (route.params?.exercises) {
@@ -85,25 +79,33 @@ const NewSessionScreen = ({ route }) => {
   const renderItem = ({ item }) => (
     <Text style={styles.infoText}>{item.name}</Text>
   );
+  const handleAddExerciseToSession = (newExercise) => {
+    setSelectedExercises((prevExercises) => [...prevExercises, newExercise]);
+  };
+  
   return (
     <View style={styles.container}>
       <View style={styles.sessionInputContainer}>
         <TextInput
           style={styles.textInput}
-          placeholder='Enter Session Name'
+          placeholder="Enter Session Name"
           value={sessionName}
           onChangeText={setSessionName}
         />
         <Button
-          title='Save Session'
+          title="Save Session"
           onPress={handleSaveSession}
-          color='#4CAF50'
+          color="#4CAF50"
         />
       </View>
       <Text style={styles.subtitle}>Date: 12/11/23</Text>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("AddExerciseScreen")}
+          onPress={() =>
+            navigation.navigate("AddExerciseScreen", {
+              onAddExercise: handleAddExerciseToSession,
+            })
+          }
         >
           <Text style={styles.button}>+</Text>
         </TouchableOpacity>
@@ -158,7 +160,7 @@ const NewSessionScreen = ({ route }) => {
         </View>
         <Modal
           visible={editModalVisible}
-          animationType='slide'
+          animationType="slide"
           transparent={true}
         >
           <View style={styles.modalContainer}>
@@ -168,14 +170,11 @@ const NewSessionScreen = ({ route }) => {
                 style={styles.input}
                 onChangeText={setEditedValue}
                 value={editedValue}
-                keyboardType='numeric'
+                keyboardType="numeric"
               />
+              <Button title="Save" onPress={handleSaveEdit} />
               <Button
-                title='Save'
-                onPress={handleSaveEdit}
-              />
-              <Button
-                title='Cancel'
+                title="Cancel"
                 onPress={() => setEditModalVisible(false)}
               />
             </View>
