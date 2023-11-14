@@ -20,8 +20,6 @@ import AddExerciseScreen from "./screens/AddExerciseScreen";
 const Stack = createStackNavigator();
 
 const App = () => {
-  const { user, setUser, isLoggedIn, setLoggedIn } = useUserContext();
-
   return (
     <UserProvider>
       <SafeAreaView style={{ flex: 1 }}>

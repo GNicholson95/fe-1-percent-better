@@ -7,7 +7,7 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("3");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const value = {

@@ -14,6 +14,7 @@ import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
+import { useUserContext } from "../context/UserContext";
 
 const bodyParts = [
   "back",
@@ -28,6 +29,8 @@ const bodyParts = [
 ];
 
 const MyExercisesScreen = ({ navigation }) => {
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useUserContext();
+
   const [userExercises, setUserExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [search, setSearch] = useState("");

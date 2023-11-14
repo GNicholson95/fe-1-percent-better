@@ -14,16 +14,15 @@ export const fetchExercisesByUser = async () => {
     const response = await graphqlAPI({
       data: {
         query: GET_EXERCISES_BY_USERS_QUERY,
-        variables: {}, // If your query had variables, they would go here
+        variables: {},
       },
     });
 
     if (response.data.errors) {
       console.error("Errors returned from the query:", response.data.errors);
-      return []; // Return an empty array or handle the error as appropriate
+      return [];
     }
 
-    // Ensure we are accessing the correct property
     const userData = response.data.data.getExercisesByUserId.map(
       (exercise) => exercise.externalExerciseId
     );

@@ -7,18 +7,28 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { createUser } from "../services/CreateUser";
 
 const UserCreation = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const handleSignup = () => {
-    // console.log("Username:", username);
-    // console.log("Password:", password);
+  const handleSignup = async () => {
+    const newUser = await createUser(username, password, email);
+    const token = await TokenAuth(username, password);
+    const user = await isLoggedIn(token);
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>Create your email:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
       <Text style={styles.text}>Create your username:</Text>
       <TextInput
         style={styles.input}

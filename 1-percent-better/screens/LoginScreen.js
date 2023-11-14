@@ -8,19 +8,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TokenAuth, isLoggedIn } from "../services/LogIn";
-import UserContext from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { userId, setUserId } = useContext(UserContext);
+  const { user, setUser } = useUserContext();
 
   const handleLogin = async () => {
     try {
       const token = await TokenAuth(username, password);
       const user = await isLoggedIn(token);
-      setUserId(user);
-      console.log(userId);
+      await setUser(user);
+      // then navigate to a different screen....
     } catch (error) {
       console.error(error, "error");
     }

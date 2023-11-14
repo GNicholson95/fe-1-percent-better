@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import UserContext from "../context/UserContext"; // Import UserContext
+import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
 
 const ExerciseCard = ({
@@ -9,12 +9,12 @@ const ExerciseCard = ({
   onAddExercise,
   buttonText = "Add to My Exercises",
 }) => {
-  const { userId } = useContext(UserContext); // Use useContext to access userId
+  const { user } = useUserContext(); // Use useContext to access userId
 
   const handleAddExercise = async () => {
     try {
       const exerciseData = {
-        userId,
+        user,
         exBodypart: exercise.bodyPart,
         exName: exercise.name,
         exId: exercise.id,
@@ -54,7 +54,7 @@ const ExerciseCard = ({
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode='contain'
+          resizeMode="contain"
         />
       </View>
 

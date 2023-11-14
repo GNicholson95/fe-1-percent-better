@@ -19,7 +19,7 @@ export const CREATE_USER_MUTATION = `
    }
 }`;
 
-export const createUser = async (username, password) => {
+export const createUser = async (username, password, email) => {
   try {
     const response = await graphqlAPI({
       data: {
@@ -27,6 +27,7 @@ export const createUser = async (username, password) => {
         variables: {
           password: password,
           username: username,
+          email: email,
         },
       },
     });

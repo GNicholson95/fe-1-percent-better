@@ -13,12 +13,12 @@ import Toast from "react-native-root-toast";
 
 const ExerciseDetailScreen = ({ route, navigation }) => {
   const { exercise } = route.params;
-  const { userId } = useContext(UserContext); // Access the userId from UserContext
+  const { user } = useUserContext(); // Access the userId from UserContext
 
   const handleAddExercise = async () => {
     try {
       await addExerciseToUser(
-        userId,
+        user,
         exercise.bodyPart,
         exercise.name,
         exercise.id
@@ -53,15 +53,12 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode='contain'
+          resizeMode="contain"
         />
       </View>
 
       <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={handleAddExercise}
-      >
+      <TouchableOpacity style={styles.addButton} onPress={handleAddExercise}>
         <Text style={styles.addButtonText}>Add to My Exercises</Text>
       </TouchableOpacity>
       <View style={[styles.labelContainer, styles.bodyPart]}>
@@ -83,10 +80,9 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
       <View style={styles.instructionsContainer}>
         <Text style={styles.subtitle}>Instructions:</Text>
         {exercise.instructions.map((instruction, index) => (
-          <Text
-            key={index}
-            style={styles.instruction}
-          >{`${index + 1}. ${instruction}`}</Text>
+          <Text key={index} style={styles.instruction}>{`${
+            index + 1
+          }. ${instruction}`}</Text>
         ))}
       </View>
     </ScrollView>
