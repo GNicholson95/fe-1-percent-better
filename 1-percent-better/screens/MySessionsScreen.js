@@ -7,28 +7,28 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
-import WorkoutDetail from "./WorkoutDetail";
 import {
   getDayOfWeek,
   formatDate,
   formatTime,
 } from "../components/DateTimeUtils";
-export default function MySessionsScreen() {
-  const [users, setUsers] = useState([]);
+import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+import { Button } from "@rneui/themed";
 
+export default function MySessionsScreen() {
+  const [sessions, setSessions] = useState([]);
+  const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const fetchedUsers = await fetchSessionByUserId();
-        setUsers(fetchedUsers);
+        const fetchedSessions = await fetchSessionByUserId();
+        setSessions(fetchedSessions);
       } catch (error) {
         console.error("Error loading users:", error);
       }
     };
-
     loadUsers();
   }, []);
-
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
     const formattedDate = `${getDayOfWeek(date)} ${formatDate(
@@ -36,39 +36,41 @@ export default function MySessionsScreen() {
     )} ${formatTime(date)}`;
     return formattedDate;
   };
-
-  const onPress = () => {
-    return <WorkoutDetail />;
-  };
-
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate("SessionDetails", { session: item })}
+    >
       <Text style={styles.sessionInfo}>{item.sessionName}</Text>
       <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
     </TouchableOpacity>
   );
-
   return (
     <View style={styles.container}>
       <FlatList
-        data={users}
+        data={sessions}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        style={styles.flatlist}
+        style={styles.flatList}
+      />
+      <Button
+        style={styles.NewSessionButton}
+        title='Create New Session'
+        onPress={() => navigation.navigate("NewSessionScreen")}
+        color='#4CAf50'
       />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#f2f2f2", // Set a background color for the container
+    backgroundColor: "#F2F2F2", // Set a background color for the container
   },
-  flatlist: {
+  flatList: {
     width: "100%",
   },
   card: {

@@ -13,6 +13,9 @@ import MySessionsScreen from "./screens/MySessionsScreen";
 import MyExercisesScreen from "./screens/MyExercisesScreen";
 import UserCreation from "./screens/UserCreation";
 import LoginScreen from "./screens/LoginScreen";
+import SessionDetails from "./screens/SessionDetails";
+import NewSessionScreen from "./screens/NewSessionScreen";
+import AddExerciseScreen from "./screens/AddExerciseScreen";
 
 const Stack = createStackNavigator();
 
@@ -26,24 +29,44 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="Home"
+              name='Home'
               component={NavBar}
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="MySessionsScreen"
+              name='MySessionsScreen'
               component={MySessionsScreen}
             />
             <Stack.Screen
-              name="MyExercisesScreen"
+              name='MyExercisesScreen'
               component={MyExercisesScreen}
             />
+
             <Stack.Screen
-              name="ExerciseDetailScreen"
+              name='ExerciseDetailScreen'
               component={ExerciseDetailScreen}
             />
-            <Stack.Screen name="UserCreation" component={UserCreation} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen
+              name='UserCreation'
+              component={UserCreation}
+            />
+            <Stack.Screen
+              name='LoginScreen'
+              component={LoginScreen}
+            />
+            <Stack.Screen
+              name='SessionDetails'
+              component={SessionDetails}
+            />
+            <Stack.Screen
+              name='NewSessionScreen'
+              component={NewSessionScreen}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name='AddExerciseScreen'
+              component={AddExerciseScreen}
+            />
             {/* Other screens */}
           </Stack.Navigator>
         </NavigationContainer>
