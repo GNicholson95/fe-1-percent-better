@@ -13,17 +13,17 @@ import UserContext from "../context/UserContext";
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { user, setUser } = useContext(UserContext);
+  const { userId, setUserId } = useContext(UserContext);
 
-  const handleLogin = () => {
-    TokenAuth(username, password)
-      .then((token) => {
-        isLoggedIn(token);
-      })
-      .catch((error) => {
-        console.error(error);
-        console.log(error, "error");
-      });
+  const handleLogin = async () => {
+    try {
+      const token = await TokenAuth(username, password);
+      const user = await isLoggedIn(token);
+      setUserId(user);
+      console.log(userId);
+    } catch (error) {
+      console.error(error, "error");
+    }
   };
 
   return (

@@ -1,7 +1,6 @@
 import graphqlAPI from "./graphqlClient";
 import { useContext, useState } from "react";
 import axios from "axios";
-import LoginContext from "../context/LoginContext";
 import UserContext from "../context/UserContext";
 
 export const TOKEN_AUTH_MUTATION = `
@@ -76,12 +75,7 @@ export const isLoggedIn = async (token) => {
 
     const user = response.data.data.loggedIn.userId;
 
-    const [userId, setUserId] = useContext(UserContext);
-
-    await setUserId(user.userId);
-    console.log(userId);
-
-    return "success";
+    return user;
   } catch (error) {
     console.error("Error in Log in function", error.response.data);
     throw error;
