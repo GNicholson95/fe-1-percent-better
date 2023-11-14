@@ -23,6 +23,8 @@ import {
   callToActionColor,
 } from "../components/ColorPallette";
 import { useNavigation } from "@react-navigation/native";
+import { addExerciseToSession } from "../services/addExerciseToSession";
+import { logWorkout } from "../services/logWorkout";
 
 const NewSessionScreen = ({ route }) => {
   const { user } = useUserContext();
@@ -44,33 +46,26 @@ const NewSessionScreen = ({ route }) => {
       setSelectedExercises(exercisesWithDetails);
     }
   }, [route.params?.selectedExercises]);
+
   const handleSaveSession = async () => {
+    if (!sessionName) {
+      Alert.alert("Error", "Please enter a session name.");
+      return;
+    }
     try {
       const newSession = await createSession(user, sessionName);
-
       setSessionId(newSession.sessionId);
       Alert.alert("Success", `Session ${newSession.sessionName} created`);
+
+      // Navigate to AddExerciseScreen with the sessionId
+      navigation.navigate("AddExerciseScreen", {
+        sessionId: newSession.sessionId,
+      });
     } catch (error) {
-      console.log("this is the catch -->", error);
-      console.log(error.data);
+      console.error("Error creating session:", error);
       Alert.alert("Error", "Failed to create session");
     }
   };
-
-  const handleEdit = (field) => {
-    setEditingField(field);
-    setEditedValue(`${exercise[field]}`); // Set initial value to current value
-    setEditModalVisible(true);
-  };
-  const handleSaveEdit = () => {
-    // Update the corresponding value in the state
-    setExercise({ ...exercise, [editingField]: editedValue });
-    setEditModalVisible(false);
-  };
-
-  const renderItem = ({ item }) => (
-    <Text style={styles.infoText}>{item.name}</Text>
-  );
 
   const handleExerciseDetailChange = (id, field, value) => {
     const updatedExercises = selectedExercises.map((exercise) => {
@@ -82,10 +77,37 @@ const NewSessionScreen = ({ route }) => {
     setSelectedExercises(updatedExercises);
   };
 
-  const handleSaveExercise = (exercise) => {
-    // Implement logic to save exercise details to the session
-    console.log("Saving exercise:", exercise);
-    // Here you can call an API to save the exercise data
+  const handleSaveExercise = async (exercise) => {
+    if (!sessionId) {
+      Alert.alert(
+        "Error",
+        "Session ID is not available. Please save the session first."
+      );
+      return;
+    }
+
+    try {
+      await addExerciseToSession(sessionId, exercise);
+      Alert.alert("Success", `Exercise ${exercise.name} added to session.`);
+    } catch (error) {
+      console.error("Error saving exercise to session:", error);
+      Alert.alert("Error", "Failed to add exercise to session");
+    }
+  };
+
+  const handleFinishSession = async () => {
+    try {
+      for (const exercise of selectedExercises) {
+        await logWorkout(exercise);
+        console.log("exercised logged:", exercise);
+        navigation.navigate("MySessionsScreen");
+      }
+      Alert.alert("Success", "Session workouts logged successfully.");
+      // Additional logic after logging all workouts
+    } catch (error) {
+      console.error("Error finishing session:", error);
+      Alert.alert("Error", "Failed to log one or more workouts");
+    }
   };
 
   const renderExercise = ({ item }) => (
@@ -122,10 +144,7 @@ const NewSessionScreen = ({ route }) => {
         placeholder='Weight'
         keyboardType='numeric'
       />
-      <TouchableOpacity
-        style={styles.saveButton}
-        onPress={() => handleSaveExercise(item)}
-      >
+      <TouchableOpacity style={styles.saveButton}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
     </View>
@@ -148,7 +167,15 @@ const NewSessionScreen = ({ route }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("AddExerciseScreen")}
+          onPress={() => {
+            if (sessionId) {
+              navigation.navigate("AddExerciseScreen", {
+                sessionId: sessionId,
+              });
+            } else {
+              Alert.alert("Error", "Please create a session first.");
+            }
+          }}
         >
           <Text style={styles.button}>Add Exercise</Text>
         </TouchableOpacity>
@@ -158,7 +185,10 @@ const NewSessionScreen = ({ route }) => {
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
       />
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity
+        style={styles.saveButton}
+        onPress={handleFinishSession}
+      >
         <Text style={styles.saveButtonText}>Finish Session</Text>
       </TouchableOpacity>
     </View>
