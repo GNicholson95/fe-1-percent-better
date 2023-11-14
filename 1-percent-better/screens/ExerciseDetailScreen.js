@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import UserContext from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
 import { addExerciseToUser } from "../services/AddExerciseToUser"; // Import the service function
 import Toast from "react-native-root-toast";
 

@@ -4,17 +4,19 @@ import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 
 const ProfileHeader = () => {
-  const [username, setUsername] = useState("Loading..."); // default state while loading
+  const [username, setUsername] = useState("Profile"); // default state while loading
   const { user } = useUserContext();
 
   useEffect(() => {
     const fetchUsername = async () => {
-      try {
-        const fetchedUsername = await fetchUsernameByUserId(user);
-        setUsername(fetchedUsername);
-      } catch (error) {
-        console.error("Error fetching username: ", error);
-        setUsername("Error");
+      if (user) {
+        try {
+          const fetchedUsername = await fetchUsernameByUserId(user);
+          setUsername(fetchedUsername);
+        } catch (error) {
+          console.error("Error fetching username: ", error);
+          setUsername("Error");
+        }
       }
     };
 

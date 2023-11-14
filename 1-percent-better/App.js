@@ -23,7 +23,7 @@ const App = () => {
   return (
     <UserProvider>
       <SafeAreaView style={{ flex: 1 }}>
-        {/* <ProfileHeader /> */}
+        <ProfileHeader />
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
