@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import axios from "axios";
 import React, { useState } from "react";
+=======
+import React, { useContext, useState } from "react";
+>>>>>>> main
 import {
   View,
   Text,
@@ -7,35 +11,40 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { TokenAuth, isLoggedIn } from "../services/LogIn";
+import { useUserContext } from "../context/UserContext";
+import Toast from "react-native-root-toast";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { user, setUser } = useUserContext();
 
-  const handleLogin = () => {
-    setError("");
-
-    if (!username || !password) {
-      setError("Please enter both username and password.");
-      return;
-    }
-
-    axios
-      .post(
-        "https://exercisedb.p.rapidapi.com/user", //not sure yet if we are doing it this way with this endpoint
-        {
-          username,
-          password,
-        }
-      )
-      .then((response) => {
-        console.log("Login successful:", response.data);
-      })
-      .catch((error) => {
-        console.error("Login failed:", error.message);
-        setError("Invalid username or password. Please try again.");
+  const handleLogin = async () => {
+    try {
+      const token = await TokenAuth(username, password);
+      const user = await isLoggedIn(token);
+      await setUser(Number(user));
+      Toast.show("Log in success!", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
       });
+      navigation.navigate("DynamicScreen");
+    } catch (error) {
+      Toast.show("Log in failed!", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      console.error(error, "error");
+    }
   };
 
   return (
