@@ -8,16 +8,42 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { createUser } from "../services/CreateUser";
+import { TokenAuth, isLoggedIn } from "../services/LogIn";
+import { useUserContext } from "../context/UserContext";
+import Toast from "react-native-root-toast";
 
-const UserCreation = () => {
+const UserCreation = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { setUser } = useUserContext();
 
   const handleSignup = async () => {
-    const newUser = await createUser(username, password, email);
-    const token = await TokenAuth(username, password);
-    const user = await isLoggedIn(token);
+    try {
+      const newUser = await createUser(username, password, email);
+      const token = await TokenAuth(username, password);
+      const user = await isLoggedIn(token);
+      await setUser(Number(user));
+      Toast.show("Account Created", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      navigation.navigate("DynamicScreen");
+    } catch (error) {
+      Toast.show("Log in failed!", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+      console.error(error);
+    }
   };
 
   return (
