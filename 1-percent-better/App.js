@@ -16,6 +16,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SessionDetails from "./screens/SessionDetails";
 import NewSessionScreen from "./screens/NewSessionScreen";
 import AddExerciseScreen from "./screens/AddExerciseScreen";
+import UserProfileScreen from "./screens/UserProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -64,6 +65,10 @@ const App = () => {
             <Stack.Screen
               name="AddExerciseScreen"
               component={AddExerciseScreen}
+            />
+            <Stack.Screen
+              name="UserProfileScreen"
+              component={UserProfileScreen}
             />
             {/* Other screens */}
           </Stack.Navigator>

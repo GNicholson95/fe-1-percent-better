@@ -1,55 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   TextInput,
+  Image,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { createUser } from "../services/CreateUser";
 import { TokenAuth, isLoggedIn } from "../services/LogIn";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
-import UserProfileScreen from "./UserProfileScreen";
 
-const LoginScreen = ({ navigation }) => {
+const UserProfileScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { user, setUser } = useUserContext();
-
-  const handleLogin = async () => {
-    try {
-      const token = await TokenAuth(username, password);
-      const user = await isLoggedIn(token);
-      await setUser(Number(user));
-      Toast.show("Log in success!", {
-        duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
-
-      navigation.navigate("DynamicScreen");
-      // user
-      //   ? navigation.navigate("DynamicScreen")
-      //   : navigation.navigate("UserProfileScreen");
-    } catch (error) {
-      Toast.show("Log in failed!", {
-        duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
-      console.error(error, "error");
-    }
-  };
+  const [email, setEmail] = useState("");
+  const { setUser } = useUserContext();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Username:</Text>
+      <Text style={styles.text}>Edit your email:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
+      <Text style={styles.text}>Edit your username:</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -57,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
         value={username}
       />
 
-      <Text style={styles.text}>Password:</Text>
+      <Text style={styles.text}>Rest your password:</Text>
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -65,12 +43,6 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-
-      {/* {error ? <Text style={styles.errorText}>{error}</Text> : null} */}
     </View>
   );
 };
@@ -112,11 +84,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
   },
-  errorText: {
-    color: "red",
-    marginTop: 10,
-    textAlign: "center",
-  },
 });
 
-export default LoginScreen;
+export default UserProfileScreen;
