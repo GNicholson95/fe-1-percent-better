@@ -1,50 +1,22 @@
-<<<<<<< HEAD
-import axios from "axios";
 import React, { useState } from "react";
-=======
-import React, { useContext, useState } from "react";
->>>>>>> main
 import {
   View,
   Text,
   TextInput,
+  Image,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { TokenAuth, isLoggedIn } from "../services/LogIn";
-import { useUserContext } from "../context/UserContext";
-import Toast from "react-native-root-toast";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { user, setUser } = useUserContext();
+  const [email, setEmail] = useState("");
 
-  const handleLogin = async () => {
-    try {
-      const token = await TokenAuth(username, password);
-      const user = await isLoggedIn(token);
-      await setUser(Number(user));
-      Toast.show("Log in success!", {
-        duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
-      navigation.navigate("DynamicScreen");
-    } catch (error) {
-      Toast.show("Log in failed!", {
-        duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
-      console.error(error, "error");
-    }
+  const handleLogin = () => {
+    console.log("Username:", username);
+    console.log("Password:", password);
+    console.log("Email:", email);
   };
 
   return (
@@ -69,8 +41,9 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {/* <TouchableOpacity>
+        <Text style={styles.text}>Forgotten your password?</Text>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -111,11 +84,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 18,
-  },
-  errorText: {
-    color: "red",
-    marginTop: 10,
-    textAlign: "center",
   },
 });
 
