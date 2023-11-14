@@ -10,23 +10,31 @@ import {
 } from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env"; // Ensure you have your API key configured properly
-import { fetchExercisesByUser } from "../services/ExerciseByUser";
+import { fetchIdsExercisesByUser } from "../services/ExerciseByUser";
 import { useUserContext } from "../context/UserContext";
+import { addExercisesToSession } from "../services/addExerciseToSession";
 
-const AddExerciseScreen = ({ navigation }) => {
+const AddExerciseScreen = ({ route, navigation }) => {
   const [exercises, setExercises] = useState([]);
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserContext();
+  const [exerciseIdMappings, setExerciseIdMappings] = useState([]);
+  const sessionId = route.params?.sessionId;
+  console.log("this is the session Id", sessionId);
 
   useEffect(() => {
+    console.log("useEffect triggered");
     const loadExercises = async () => {
       setIsLoading(true);
       try {
-        const exerciseIds = await fetchExercisesByUser(user);
-        const exercisesDetailsPromises = exerciseIds.map((id) =>
+        const exerciseIds = await fetchIdsExercisesByUser(user);
+        console.log("this is exerciseIds", exerciseIds);
+        setExerciseIdMappings(exerciseIds);
+
+        const exercisesDetailsPromises = exerciseIds.map((exercise) =>
           axios.get(
-            `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`,
+            `https://exercisedb.p.rapidapi.com/exercises/exercise/${exercise.externalExerciseId}`,
             {
               headers: {
                 "X-RapidAPI-Key": API_KEY,
@@ -35,12 +43,12 @@ const AddExerciseScreen = ({ navigation }) => {
             }
           )
         );
+
         const exercisesResponses = await Promise.all(exercisesDetailsPromises);
         const exercisesDetails = exercisesResponses.map(
           (response) => response.data
         );
         setExercises(exercisesDetails);
-        console.log("response", exercisesDetails);
       } catch (error) {
         console.error("Failed to fetch exercises:", error);
       } finally {
@@ -49,13 +57,19 @@ const AddExerciseScreen = ({ navigation }) => {
     };
 
     loadExercises();
-  }, []);
+  }, [user]);
 
   const handleSelectExercise = (exercise) => {
+    const matchingExercise = exerciseIdMappings.find(
+      (e) => e.externalExerciseId === exercise.id
+    );
+    const internalId = matchingExercise ? matchingExercise.exerciseId : "";
+
     const exerciseData = {
       id: exercise.id,
       name: exercise.name,
       gifUrl: exercise.gifUrl,
+      internalId: internalId,
     };
 
     const index = selectedExercises.findIndex(
@@ -71,11 +85,26 @@ const AddExerciseScreen = ({ navigation }) => {
     setSelectedExercises(newSelection);
   };
 
-  const handleAddExercisesToSession = () => {
+  const handleAddExercisesToSession = async () => {
     const selectedExercisesArray = Array.from(selectedExercises);
-    navigation.navigate("NewSessionScreen", {
-      selectedExercises: selectedExercisesArray,
-    });
+
+    if (!sessionId) {
+      Alert.alert(
+        "Error",
+        "Session ID is not available. Please create a session first."
+      );
+      return;
+    }
+    try {
+      await addExercisesToSession(sessionId, selectedExercisesArray);
+
+      navigation.navigate("NewSessionScreen", {
+        selectedExercises: selectedExercisesArray,
+      });
+    } catch (error) {
+      console.error("Error adding exercises to session:", error);
+      Alert.alert("Error", "Failed to add exercises to session");
+    }
   };
 
   const renderExercise = ({ item }) => (
