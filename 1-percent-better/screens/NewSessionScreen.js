@@ -81,20 +81,16 @@ const NewSessionScreen = ({ route }) => {
   };
 
   const handleSaveExercise = async (exercise) => {
-    if (!sessionId) {
-      Alert.alert(
-        "Error",
-        "Session ID is not available. Please save the session first."
-      );
-      return;
-    }
-
     try {
-      await addExerciseToSession(sessionId, exercise);
-      Alert.alert("Success", `Exercise ${exercise.name} added to session.`);
+      const loggedWorkout = await logWorkout(exercise);
+      Alert.alert(
+        "Success",
+        `Workout for ${exercise.name} logged successfully.`
+      );
+      console.log("Logged workout:", loggedWorkout);
     } catch (error) {
-      console.error("Error saving exercise to session:", error);
-      Alert.alert("Error", "Failed to add exercise to session");
+      console.error("Error logging workout:", error);
+      Alert.alert("Error", "Failed to log workout");
     }
   };
 
@@ -151,15 +147,18 @@ const NewSessionScreen = ({ route }) => {
   const renderExercise = ({ item }) => (
     <View style={styles.exerciseContainer}>
       <Text style={styles.exerciseName}>{item.name}</Text>
-      <Image source={{ uri: item.gifUrl }} style={styles.exerciseImage} />
+      <Image
+        source={{ uri: item.gifUrl }}
+        style={styles.exerciseImage}
+      />
       <TextInput
         style={styles.input}
         onChangeText={(value) =>
           handleExerciseDetailChange(item.id, "sets", value)
         }
         value={item.sets}
-        placeholder="Sets"
-        keyboardType="numeric"
+        placeholder='Sets'
+        keyboardType='numeric'
       />
       <TextInput
         style={styles.input}
@@ -167,8 +166,8 @@ const NewSessionScreen = ({ route }) => {
           handleExerciseDetailChange(item.id, "reps", value)
         }
         value={item.reps}
-        placeholder="Reps"
-        keyboardType="numeric"
+        placeholder='Reps'
+        keyboardType='numeric'
       />
       <TextInput
         style={styles.input}
@@ -176,13 +175,14 @@ const NewSessionScreen = ({ route }) => {
           handleExerciseDetailChange(item.id, "weight", value)
         }
         value={item.weight}
-        placeholder="Weight"
-        keyboardType="numeric"
+        placeholder='Weight'
+        keyboardType='numeric'
       />
       <TouchableOpacity
         accessible={true}
-        accessibilityLabel="Save session"
+        accessibilityLabel='Save workout'
         style={styles.saveButton}
+        onPress={() => handleSaveExercise(item)}
       >
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
@@ -196,14 +196,14 @@ const NewSessionScreen = ({ route }) => {
         <View style={styles.sessionInputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder="Enter Session Name"
+            placeholder='Enter Session Name'
             value={sessionName}
             onChangeText={setSessionName}
           />
           <Button
-            title="Save Session"
+            title='Save Session'
             onPress={handleSaveSession}
-            color="#4CAF50"
+            color='#4CAF50'
           />
         </View>
         <View style={styles.buttonsContainer}>
