@@ -48,8 +48,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               { backgroundColor: isFocused ? "#555" : "#323939" },
             ]}
             onPress={onPress}
-            onLongPress={onLongPress}
-          >
+            onLongPress={onLongPress}>
             <Icon
               name={options.tabBarIconName || "help-circle"}
               size={20}
@@ -104,71 +103,76 @@ function NavBar() {
       });
   }
 
-  return (
-    <Tab.Navigator
-      tabBar={(props) => <CustomTabBar {...props} />}
-      initialRouteName={user ? "Home" : "LandingPage"}
-      tabBarPosition="bottom"
-      scrollEnabled={true}
-      screenOptions={{
-        tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
-        tabBarShowLabel: false,
-      }}
-    >
-      <Tab.Screen
-        name="DynamicScreen"
-        component={DynamicScreen}
-        options={{
-          tabBarLabel: "Home",
-          tabBarIconName: "home",
-        }}
-      />
-      <Tab.Screen
-        name="ExerciseList"
-        component={ExerciseList}
-        options={{
-          tabBarLabel: "All Exercises",
-          tabBarIconName: "barbell-outline",
-        }}
-      />
-      <Tab.Screen
-        name="MyExercises"
-        component={MyExercisesScreen}
-        options={{
-          tabBarLabel: "My Exercises",
-          tabBarIconName: "person-outline",
-        }}
-      />
-      <Tab.Screen
-        name="MySessions"
-        component={MySessionsScreen}
-        options={{
-          tabBarLabel: "My Sessions",
-          tabBarIconName: "fitness-outline",
-        }}
-      />
-      <Tab.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          tabBarLabel: `${username}`,
-          tabBarIconName: "person",
-        }}
-      />
-      {user ? null : (
+  {
+    user ? (
+      <Tab.Navigator
+        tabBar={(props) => <CustomTabBar {...props} />}
+        initialRouteName={user ? "Home" : "LandingPage"}
+        tabBarPosition="bottom"
+        scrollEnabled={true}
+        screenOptions={{
+          tabBarLabelStyle: {
+            fontSize: 8,
+            color: "yellow",
+            flexWrap: "nowrap",
+          },
+          tabBarShowLabel: false,
+        }}>
         <Tab.Screen
-          name="LandingPage"
-          component={LandingPage}
+          name="DynamicScreen"
+          component={DynamicScreen}
           options={{
-            tabBarLabel: "Sign Up",
-            tabBarIconName: "add-circle-outline",
-            tabBarVisible: false,
-            headerShown: false,
+            tabBarLabel: "Home",
+            tabBarIconName: "home",
           }}
         />
-      )}
-    </Tab.Navigator>
-  );
+        <Tab.Screen
+          name="ExerciseList"
+          component={ExerciseList}
+          options={{
+            tabBarLabel: "All Exercises",
+            tabBarIconName: "barbell-outline",
+          }}
+        />
+        <Tab.Screen
+          name="MyExercises"
+          component={MyExercisesScreen}
+          options={{
+            tabBarLabel: "My Exercises",
+            tabBarIconName: "person-outline",
+          }}
+        />
+        <Tab.Screen
+          name="MySessions"
+          component={MySessionsScreen}
+          options={{
+            tabBarLabel: "My Sessions",
+            tabBarIconName: "fitness-outline",
+          }}
+        />
+        <Tab.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            tabBarLabel: `${username}`,
+            tabBarIconName: "person",
+          }}
+        />
+        {user ? null : (
+          <Tab.Screen
+            name="LandingPage"
+            component={LandingPage}
+            options={{
+              tabBarLabel: "Sign Up",
+              tabBarIconName: "add-circle-outline",
+              tabBarVisible: false,
+              headerShown: false,
+            }}
+          />
+        )}
+      </Tab.Navigator>
+    ) : null;
+  }
 }
 
 export default NavBar;
