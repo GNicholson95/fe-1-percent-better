@@ -50,43 +50,61 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text} nativeID="usernameLabel">
-        Username:
-      </Text>
-      <TextInput
-        style={styles.input}
-        accessibilityLabel="input"
-        accessibilityLabelledBy="usernameLabel"
-        placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
-        value={username}
-      />
+      <View style={styles.formContainer}>
+        <Text
+          style={styles.text}
+          nativeID='usernameLabel'
+        >
+          Username:
+        </Text>
+        <TextInput
+          style={styles.input}
+          accessibilityLabel='input'
+          accessibilityLabelledBy='usernameLabel'
+          placeholder='Username'
+          onChangeText={(text) => setUsername(text)}
+          value={username}
+        />
 
-      <Text style={styles.text} nativeID="passwordLabel">
-        Password:
-      </Text>
-      <TextInput
-        style={styles.input}
-        accessibilityLabel="input"
-        accessibilityLabelledBy="passwordLabel"
-        placeholder="Password"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-      />
+        <Text
+          style={styles.text}
+          nativeID='passwordLabel'
+        >
+          Password:
+        </Text>
+        <TextInput
+          style={styles.input}
+          accessibilityLabel='input'
+          accessibilityLabelledBy='passwordLabel'
+          placeholder='Password'
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={handleLogin}
+        >
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
 
-      {/* {error ? <Text style={styles.errorText}>{error}</Text> : null} */}
+        {/* {error ? <Text style={styles.errorText}>{error}</Text> : null} */}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: "center",
     backgroundColor: backgroundColor,
+    // backgroundColor: secondaryColor,
+  },
+  formContainer: {
+    backgroundColor: "#fff",
+    // backgroundColor: '#fff',
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 16,
@@ -99,7 +117,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "bold",
-    color: primaryColor,
+    color: accentColor,
     marginTop: 10,
   },
   input: {
@@ -111,7 +129,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginButton: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",

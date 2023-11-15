@@ -53,8 +53,8 @@ const ExerciseCard = ({
     <TouchableOpacity
       style={styles.card}
       accessible={true}
-      accessibilityLabel="Exercise Details"
-      accessibilityHint="Navigates to Exercise screen"
+      accessibilityLabel='Exercise Details'
+      accessibilityHint='Navigates to Exercise screen'
       onPress={() => navigation.navigate("ExerciseDetailScreen", { exercise })}
     >
       <View style={styles.contentContainer}>
@@ -64,13 +64,13 @@ const ExerciseCard = ({
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode="contain"
+          resizeMode='contain'
         />
       </View>
 
       <TouchableOpacity
         accessible={true}
-        accessibilityLabel="Add Exercise"
+        accessibilityLabel='Add Exercise'
         style={styles.addButton}
         onPress={handleAddExercise}
       >

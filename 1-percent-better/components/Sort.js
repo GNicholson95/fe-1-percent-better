@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import { accentColor } from "./ColorPallette";
 const Sort = ({ value, onChange }) => {
   return (
     <RNPickerSelect

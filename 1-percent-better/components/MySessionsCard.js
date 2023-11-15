@@ -27,7 +27,6 @@ const MySessionsCard = ({ onPress }) => {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    marginVertical: 10,
     marginHorizontal: 0,
     overflow: "hidden",
     backgroundColor: "#f1f1f1",

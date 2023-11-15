@@ -22,31 +22,24 @@ const LandingPage = ({ navigation }) => {
         isMuted={true}
         shouldPlay={true}
         isLooping={true}
-        resizeMode="cover"
+        resizeMode='cover'
       />
-      <View style={styles.heroContainerContainer}>
-        <Text style={styles.hero}>1 % better</Text>
+      <View style={styles.overlay} />
+      <View style={styles.heroContainer}>
+        <Text style={styles.hero}>1 % Better</Text>
+        <Text style={styles.subHero}>
+          Your space for health, wellness and self improvement.
+        </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          accessible={true}
-          accessibilityLabel="Sign Up"
-          accessibilityRole="button"
-          accessibilityHint="Navigates to a screen to make an account"
-          onPress={() => navigation.navigate("UserCreation")}
-        >
-          <Text style={styles.login}>Sign up</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("UserCreation")}>
+          <Text style={styles.signUp}>Sign up</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          accessible={true}
-          accessibilityLabel="Log in"
-          accessibilityRole="button"
-          accessibilityHint="Navigates to a screen to log in"
-          onPress={() => navigation.navigate("LoginScreen")}
-        >
-          <Text style={styles.signUp}>Log in</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+          <Text style={styles.login}>Log in</Text>
         </TouchableOpacity>
       </View>
+      <View />
     </View>
   );
 };
@@ -58,19 +51,35 @@ const styles = StyleSheet.create({
   videoBackground: {
     flex: 1,
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+  },
   heroContainer: {
     position: "absolute",
-    bottom: 120,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
+    top: "65%",
+    left: "50%",
+    transform: [{ translateX: -160 }, { translateY: -50 }],
+    flexDirection: "column",
     justifyContent: "space-evenly",
-    alignItems: "center",
+    alignItems: "left",
+    width: 320,
   },
   hero: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    fontSize: 30,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  subHero: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 20,
+    color: "#a3a3a3",
+    fontWeight: "bold",
   },
   buttonContainer: {
     position: "absolute",
@@ -78,26 +87,29 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     alignItems: "center",
   },
   login: {
     fontSize: 34,
     color: primaryColor,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
     fontWeight: "bold",
-    borderRadius: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
+    borderRadius: 30,
+    backgroundColor: "#fff",
+    paddingVertical: 9,
+    paddingHorizontal: 16,
+    overflow: "hidden",
   },
   signUp: {
     fontSize: 34,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
-    borderRadius: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
-    color: primaryColor,
+    color: "#fff",
     fontWeight: "bold",
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "#fff",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    overflow: "hidden",
   },
 });
 export default LandingPage;
