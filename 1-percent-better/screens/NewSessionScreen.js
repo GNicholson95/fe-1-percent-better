@@ -27,6 +27,7 @@ import { addExerciseToSession } from "../services/addExerciseToSession";
 import { logWorkout } from "../services/logWorkout";
 import deleteSession from "../services/deleteSession";
 import deleteSessionExercise from "../services/deleteSessionExercise";
+import { updateExercise } from "../services/PatchPB";
 
 const NewSessionScreen = ({ route }) => {
   const { user } = useUserContext();
@@ -101,6 +102,7 @@ const NewSessionScreen = ({ route }) => {
     try {
       for (const exercise of selectedExercises) {
         await logWorkout(exercise);
+        await updateExercise(exercise.internalId, exercise.weight);
 
         navigation.navigate("MySessionsScreen");
       }
