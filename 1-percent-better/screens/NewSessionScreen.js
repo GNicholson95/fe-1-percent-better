@@ -27,7 +27,7 @@ import { addExerciseToSession } from "../services/addExerciseToSession";
 import { logWorkout } from "../services/logWorkout";
 import deleteSession from "../services/deleteSession";
 import deleteSessionExercise from "../services/deleteSessionExercise";
-
+import ProfileHeader from "../components/ProfileHeader"
 const NewSessionScreen = ({ route }) => {
   const { user } = useUserContext();
   const [sessionName, setSessionName] = useState("");
@@ -59,8 +59,7 @@ const NewSessionScreen = ({ route }) => {
       setSessionId(newSession.sessionId);
       Alert.alert("Success", `Session ${newSession.sessionName} created`);
 
-      // Navigate to AddExerciseScreen with the sessionId
-      navigation.navigate("AddExerciseScreen", {
+      navigation.navigate("Add Exercise To Session", {
         sessionId: newSession.sessionId,
       });
     } catch (error) {
@@ -125,7 +124,7 @@ const NewSessionScreen = ({ route }) => {
         Alert.alert("Error", "Failed to cancel the session");
       }
     }
-    navigation.navigate("Home");
+    navigation.navigate("Back");
   };
 
   const handleDeleteExercise = async (sessionExerciseId) => {
@@ -189,6 +188,8 @@ const NewSessionScreen = ({ route }) => {
   );
 
   return (
+    <>
+    <ProfileHeader/>
     <View style={styles.container}>
       <View style={styles.sessionInputContainer}>
         <TextInput
@@ -207,7 +208,7 @@ const NewSessionScreen = ({ route }) => {
         <TouchableOpacity
           onPress={() => {
             if (sessionId) {
-              navigation.navigate("AddExerciseScreen", {
+              navigation.navigate("Add Exercise To Session", {
                 sessionId: sessionId,
               });
             } else {
@@ -222,6 +223,7 @@ const NewSessionScreen = ({ route }) => {
         data={selectedExercises}
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
+        style={styles.exerciseList}
       />
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -238,6 +240,7 @@ const NewSessionScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
     </View>
+    </>
   );
 };
 
@@ -245,6 +248,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    alignContent:'center',
+    backgroundColor:backgroundColor,
+  },
+  exerciseList:{
+    backgroundColor: backgroundColor,
+    width:"100%",
   },
   title: {
     fontSize: 24,
@@ -259,6 +268,8 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
     marginBottom: 16,
+    justifyContent:"space-evenly",
+    marginBottom:"15%",
   },
   button: {
     fontSize: 20,
@@ -341,7 +352,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-start",
-    marginTop: 10,
   },
   saveButtonText: {
     color: "#fff",
@@ -354,7 +364,6 @@ const styles = StyleSheet.create({
     marginTop: 0,
     alignSelf: "flex-end",
     padding: 8,
-    marginLeft: 120,
   },
   leaveSessionButtonText: {
     color: "#fff",
@@ -367,10 +376,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-end",
-  },
-  deleteButtonText: {
-    color: "#fff",
-    fontSize: 16,
   },
 });
 export default NewSessionScreen;

@@ -5,6 +5,7 @@ import {
   formatDate,
   formatTime,
 } from "../components/DateTimeUtils";
+import { callToActionColor } from "./ColorPallette";
 const MySessionDetailsCard = ({ exercise }) => {
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
@@ -16,7 +17,7 @@ const MySessionDetailsCard = ({ exercise }) => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{exercise.externalExerciseName}</Text>
+      <Text style={styles.title}>{exercise.externalExerciseName.toUpperCase()}</Text>
       {/* Make sure to check if workoutlogSet and its first index are defined */}
       <Text>Reps: {exercise.workoutlogSet?.[0]?.reps}</Text>
       <Text>Sets: {exercise.workoutlogSet?.[0]?.sets}</Text>
@@ -28,8 +29,8 @@ const MySessionDetailsCard = ({ exercise }) => {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: "#F1F1F1",
-    padding: 10,
+    backgroundColor: "#fff",
+    padding: 15,
     marginVertical: 10,
     marginHorizontal: 16,
     borderRadius: 20,
@@ -41,8 +42,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FF8A5C",
-    marginTop: 20,
+    color: callToActionColor,
+    paddingBottom:10,
   },
 });
 export default MySessionDetailsCard;

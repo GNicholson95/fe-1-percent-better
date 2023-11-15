@@ -10,6 +10,7 @@ import {
 import { useUserContext } from "../context/UserContext";
 import { addExerciseToUser } from "../services/AddExerciseToUser"; // Import the service function
 import Toast from "react-native-root-toast";
+import { callToActionColor } from "../components/ColorPallette";
 
 const ExerciseDetailScreen = ({ route, navigation }) => {
   const { exercise } = route.params;
@@ -93,25 +94,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#fff",
   },
   image: {
     alignSelf: "center",
     width: "100%",
     height: 300,
     marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
   },
   imageContainer: {
     overflow: "hidden",
     width: "100%",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
   },
   title: {
     fontSize: 24,
@@ -167,7 +160,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     flex: 1,
-    backgroundColor: "#ff3c00",
+    backgroundColor: callToActionColor,
     padding: 1,
     borderRadius: 20,
 

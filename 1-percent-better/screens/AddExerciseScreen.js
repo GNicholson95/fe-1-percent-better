@@ -13,6 +13,7 @@ import { API_KEY } from "@env"; // Ensure you have your API key configured prope
 import { fetchIdsExercisesByUser } from "../services/ExerciseByUser";
 import { useUserContext } from "../context/UserContext";
 import { addExercisesToSession } from "../services/addExerciseToSession";
+import { callToActionColor } from "../components/ColorPallette";
 
 const AddExerciseScreen = ({ route, navigation }) => {
   const [exercises, setExercises] = useState([]);
@@ -129,10 +130,12 @@ const AddExerciseScreen = ({ route, navigation }) => {
         renderItem={renderExercise}
         keyExtractor={(item, index) => index.exerciseId}
       />
-      <Button
-        title='Add Exercises to Session'
-        onPress={handleAddExercisesToSession}
-      />
+       <TouchableOpacity
+          style={styles.addExercisesToSession}
+          onPress={handleAddExercisesToSession}
+        >
+          <Text style={styles.addButtonText}>Add Exercises to Session</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -141,6 +144,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    alignItems: "center",
+   justifyContent:"space-evenly",
   },
   exerciseCard: {
     flexDirection: "row",
@@ -154,14 +159,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: callToActionColor,
     padding: 10,
     borderRadius: 5,
+    marginLeft:20,
   },
   addButtonText: {
     color: "#fff",
     fontWeight: "bold",
   },
+  addExercisesToSession: {
+    backgroundColor: callToActionColor,
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginBottom:25,
+    width:300,
+  },
+
 });
 
 export default AddExerciseScreen;

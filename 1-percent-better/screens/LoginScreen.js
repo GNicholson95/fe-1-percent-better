@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { TokenAuth, isLoggedIn } from "../services/LogIn";
 import { useUserContext } from "../context/UserContext";
@@ -16,6 +17,7 @@ import {
   accentColor,
   callToActionColor,
 } from "../components/ColorPallette";
+import ProfileHeader from "../components/ProfileHeader";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -51,6 +53,14 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
+      {/* <ProfileHeader/> */}
+      <View>
+      <Image
+        source={require("../assets/green_banner_1-percent-better_720.png")}
+        style={styles.avatar}
+        alt="logo"
+      />
+      </View>
         <Text
           style={styles.text}
           nativeID='usernameLabel'
@@ -100,11 +110,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: backgroundColor,
-    // backgroundColor: secondaryColor,
+  },
+  avatar: {
+    resizeMode: "contain",
+    height: 60,
+    width:"100%",
+    alignSelf: "center",
   },
   formContainer: {
     backgroundColor: "#fff",
-    // backgroundColor: '#fff',
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 16,
@@ -117,7 +131,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "bold",
-    color: accentColor,
+    color: callToActionColor,
     marginTop: 10,
   },
   input: {
@@ -129,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginButton: {
-    backgroundColor: accentColor,
+    backgroundColor: callToActionColor,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
