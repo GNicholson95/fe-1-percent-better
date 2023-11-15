@@ -15,6 +15,10 @@ import { useRoute } from "@react-navigation/native";
 const Tab = createMaterialTopTabNavigator();
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
+  if (focusedOptions.tabBarVisible === false) {
+    return null;
+  }
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
@@ -48,7 +52,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               { backgroundColor: isFocused ? "#555" : "#323939" },
             ]}
             onPress={onPress}
-            onLongPress={onLongPress}>
+            onLongPress={onLongPress}
+          >
             <Icon
               name={options.tabBarIconName || "help-circle"}
               size={20}
@@ -112,8 +117,8 @@ function NavBar() {
       screenOptions={{
         tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
         tabBarShowLabel: false,
-        tabBarVisible: user ? true : false,
-      }}>
+      }}
+    >
       <Tab.Screen
         name="DynamicScreen"
         component={DynamicScreen}
@@ -142,8 +147,8 @@ function NavBar() {
         name="MySessions"
         component={MySessionsScreen}
         options={{
-          tabBarLabel: "My Sessions",
-          tabBarIconName: "fitness-outline",
+          tabBarLabel: "Sessions",
+          tabBarIconName: "barbell-outline",
         }}
       />
       <Tab.Screen
