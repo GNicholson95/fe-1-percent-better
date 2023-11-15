@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Video } from "expo-av";
 import { StatusBar } from "expo-status-bar";
 import UserCreation from "./UserCreation";
@@ -25,6 +25,13 @@ const LandingPage = ({ navigation }) => {
         resizeMode='cover'
       />
       <View style={styles.overlay} />
+      {/* <View style={styles.negativeLogo}> */}
+        <Image
+        source={require("../assets/white-1-percent-better.png")}
+        style={styles.avatar}
+        alt="logo"
+      />
+      {/* </View> */}
       <View style={styles.heroContainer}>
         <Text style={styles.hero}>1 % Better</Text>
         <Text style={styles.subHero}>
@@ -47,6 +54,15 @@ const LandingPage = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  avatar: {
+    position: "absolute",
+    resizeMode: "contain",
+    height:120,
+    width:120,
+    top: 90,
+    left: "50%",
+    marginLeft: -60,
   },
   videoBackground: {
     flex: 1,
