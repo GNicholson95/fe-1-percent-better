@@ -11,21 +11,23 @@ const Sort = ({ value, onChange }) => {
       ]}
       value={value}
       style={pickerSelectStyles}
+      placeholder={{ label: "Sort by", value: null }}
     />
   );
 };
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
+    fontSize: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    // borderWidth: 1,
     borderColor: "gray",
     borderRadius: 4,
     color: "black",
-    paddingRight: 30,
     backgroundColor: "white",
-    marginTop: 10,
+    marginRight: 60,
+    paddingLeft: 40,
+    fontWeight: "bold",
   },
   inputAndroid: {
     fontSize: 16,
@@ -35,7 +37,6 @@ const pickerSelectStyles = StyleSheet.create({
     borderColor: "purple",
     borderRadius: 8,
     color: "black",
-    paddingRight: 30,
     backgroundColor: "white",
     marginTop: 10,
   },
