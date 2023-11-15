@@ -18,6 +18,7 @@ import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
 import { useUserContext } from "../context/UserContext";
+import { secondaryColor } from "../components/ColorPallette";
 
 const bodyParts = [
   "back",
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     borderTopColor: "transparent",
     paddingBottom: 0,
     borderBottomWidth: 1,
-    borderBottomColor: "black",
+    borderBottomColor: secondaryColor,
     paddingTop: 15,
     marginTop: 25,
     paddingBottom: 10,
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 8,
     paddingTop: 8,
-    borderBottomColor: "black",
+    borderBottomColor: secondaryColor,
   },
 });
 
@@ -239,7 +240,7 @@ const pickerSelectStyles = StyleSheet.create({
     backgroundColor: "white",
     marginLeft: 60,
     borderRightWidth: 1,
-    borderRightColor: "black",
+    borderRightColor: secondaryColor,
     paddingRight: 60,
     fontWeight: "bold",
   },

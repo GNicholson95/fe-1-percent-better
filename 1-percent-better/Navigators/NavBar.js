@@ -96,8 +96,9 @@ const styles = {
   },
   tabLabel: {
     marginTop: 0,
-    fontSize: 13,
+    fontSize: 11,
     fontWeight: "bold",
+    paddingBottom: 12,
   },
 };
 

@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Button
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
 import deleteSession from "../services/deleteSession";
@@ -14,7 +15,7 @@ import {
   formatTime,
 } from "../components/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
-import { Button } from "@rneui/themed";
+// import { Button } from "@rneui/themed";
 import { useUserContext } from "../context/UserContext";
 import {
   backgroundColor,
@@ -23,6 +24,7 @@ import {
   accentColor,
   callToActionColor,
 } from "../components/ColorPallette";
+import ProfileHeader from "../components/ProfileHeader";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
@@ -66,15 +68,17 @@ export default function MySessionsScreen() {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("SessionDetails", { session: item })}
+        onPress={() => navigation.navigate("Session Details", { session: item })}
       >
-        <Text style={styles.sessionInfo}>{item.sessionName}</Text>
-        <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
+        <Text style={styles.sessionInfo}>{item.sessionName.toUpperCase()}</Text>
+        <Text style={styles.sessionDate}>{formatDateTime(item.dateTime)}</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
+    <>
+    <ProfileHeader/>
     <View style={styles.container}>
       <FlatList
         data={sessions}
@@ -82,13 +86,15 @@ export default function MySessionsScreen() {
         keyExtractor={(item, index) => index.toString()}
         style={styles.flatList}
       />
-      <Button
+      <TouchableOpacity
         style={styles.NewSessionButton}
-        title="Create New Session"
         onPress={() => navigation.navigate("NewSessionScreen")}
-        color={callToActionColor}
-      />
+      >
+        <Text style={styles.createSessionButtonText}>Create New Session</Text>
+      </TouchableOpacity>
+
     </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
@@ -97,7 +103,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: backgroundColor, // Set a background color for the container
+    backgroundColor: backgroundColor, 
+    paddingTop:20,
   },
   flatList: {
     width: "100%",
@@ -107,24 +114,36 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: 10,
     padding: 20,
-    backgroundColor: "#fff", // Set the card background color
-    borderRadius: 10, // Set border radius for rounded corners
-    shadowColor: "#000", // Set shadow color
+    backgroundColor: "#fff", 
+    borderRadius: 10, 
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25, // Set shadow opacity
-    shadowRadius: 3.84, // Set shadow radius
-    elevation: 5, // Set elevation for Android devices
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84, 
+    elevation: 5, 
     justifyContent: "center",
     alignItems: "center",
   },
   sessionInfo: {
+    color: callToActionColor,
     fontSize: 16,
+    fontWeight: "bold",
   },
-  deleteButton: {
-    marginLeft: 90,
-    borderRadius: 50,
+  NewSessionButton:{
+    backgroundColor: callToActionColor,
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal:12,
+    alignItems: "center",
+    marginBottom:10,
+    marginTop:10,
+  },
+  createSessionButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
   },
 });
