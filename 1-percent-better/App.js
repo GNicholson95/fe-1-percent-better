@@ -23,7 +23,11 @@ const App = () => {
   return (
     <UserProvider>
       <View style={{ flex: 1 }}>
+<<<<<<< HEAD
         <ProfileHeader />
+=======
+        {/* <ProfileHeader /> */}
+>>>>>>> bd4f6a42460bb95d318fc73cd110aa17fd222771
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen

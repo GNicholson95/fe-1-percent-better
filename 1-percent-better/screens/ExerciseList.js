@@ -174,7 +174,7 @@ const ExerciseList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder="Search here..."
+        placeholder='Search here...'
         onChangeText={updateSearch}
         value={search}
         containerStyle={styles.searchContainer}
@@ -187,7 +187,10 @@ const ExerciseList = ({ navigation }) => {
           style={pickerSelectStyles}
           placeholder={{ label: "Body parts", value: null }}
         />
-        <Sort value={sortingValue} onChange={setSortingValue} />
+        <Sort
+          value={sortingValue}
+          onChange={setSortingValue}
+        />
       </View>
       <FlatList
         data={filteredExercises}
