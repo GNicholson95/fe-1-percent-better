@@ -1,5 +1,4 @@
-// services/userService.js
-import graphqlAPI from "./graphqlClient"; // Import the instance you just created
+import graphqlAPI from "./graphqlClient";
 
 const GET_USERNAME_BY_USERID = `query getUserByUserId($userId: Int!) {
   getUserByUserId(userId: $userId) {

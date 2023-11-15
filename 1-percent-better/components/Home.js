@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
-    justifyContent: "center", // This will place the text and image on opposite ends
+    justifyContent: "center",
     marginBottom: 10,
     alignItems: "center",
   },

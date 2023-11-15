@@ -53,53 +53,41 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
-      {/* <ProfileHeader/> */}
-      <View>
-      <Image
-        source={require("../assets/green_banner_1-percent-better_720.png")}
-        style={styles.avatar}
-        alt="logo"
-      />
-      </View>
-        <Text
-          style={styles.text}
-          nativeID='usernameLabel'
-        >
+        <View>
+          <Image
+            source={require("../assets/green_banner_1-percent-better_720.png")}
+            style={styles.avatar}
+            alt="logo"
+          />
+        </View>
+        <Text style={styles.text} nativeID="usernameLabel">
           Username:
         </Text>
         <TextInput
           style={styles.input}
-          accessibilityLabel='input'
-          accessibilityLabelledBy='usernameLabel'
-          placeholder='Username'
+          accessibilityLabel="input"
+          accessibilityLabelledBy="usernameLabel"
+          placeholder="Username"
           onChangeText={(text) => setUsername(text)}
           value={username}
         />
 
-        <Text
-          style={styles.text}
-          nativeID='passwordLabel'
-        >
+        <Text style={styles.text} nativeID="passwordLabel">
           Password:
         </Text>
         <TextInput
           style={styles.input}
-          accessibilityLabel='input'
-          accessibilityLabelledBy='passwordLabel'
-          placeholder='Password'
+          accessibilityLabel="input"
+          accessibilityLabelledBy="passwordLabel"
+          placeholder="Password"
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
           value={password}
         />
 
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={handleLogin}
-        >
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
-
-        {/* {error ? <Text style={styles.errorText}>{error}</Text> : null} */}
       </View>
     </View>
   );
@@ -114,7 +102,7 @@ const styles = StyleSheet.create({
   avatar: {
     resizeMode: "contain",
     height: 60,
-    width:"100%",
+    width: "100%",
     alignSelf: "center",
   },
   formContainer: {
