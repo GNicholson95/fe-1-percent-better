@@ -100,7 +100,7 @@ const NewSessionScreen = ({ route }) => {
         await logWorkout(exercise);
         await updateExercise(exercise.internalId, exercise.weight);
 
-        navigation.navigate("MySessionsScreen");
+        navigation.navigate("Back");
       }
       Alert.alert("Success", "Session workouts logged successfully.");
     } catch (error) {
@@ -200,14 +200,15 @@ const NewSessionScreen = ({ route }) => {
             value={sessionName}
             onChangeText={setSessionName}
           />
-          <Button
-            title='Save Session'
+            <TouchableOpacity
+            style={styles.saveSessionButton}
             onPress={handleSaveSession}
-            color='#4CAF50'
-          />
+          >
+            <Text style={styles.saveSessionButtonText}>Save Session</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
+        {!sessionName ? null : <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.button}
             onPress={() => {
               if (sessionId) {
                 navigation.navigate("Add Exercise To Session", {
@@ -218,9 +219,10 @@ const NewSessionScreen = ({ route }) => {
               }
             }}
           >
-            <Text style={styles.button}>Add Exercise</Text>
+            <Text style={styles.buttonText}>Add Exercise</Text>
           </TouchableOpacity>
-        </View>
+        </View>}
+       
         <FlatList
           data={selectedExercises}
           renderItem={renderExercise}
@@ -271,7 +273,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 16,
     justifyContent: "space-evenly",
-    marginBottom: "15%",
+   marginTop: 10,
   },
   button: {
     fontSize: 20,
@@ -279,9 +281,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginHorizontal: 8,
-    borderWidth: 1,
-    borderColor: "#333",
-    borderRadius: 8,
+    backgroundColor:callToActionColor,
+    borderRadius: 20,
+  },
+  buttonText:{
+    color:"#fff",
   },
   sessionInputContainer: {
     flexDirection: "row",
@@ -293,8 +297,16 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
+    borderRadius:10,
     marginRight: 10,
     paddingHorizontal: 10,
+    backgroundColor: "#fff",
+  },
+ 
+  saveSessionButtonText:{
+    fontSize:16,
+    fontWeight:"bold",
+    color:callToActionColor,
   },
 
   exerciseImage: {
@@ -349,35 +361,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   saveButton: {
-    backgroundColor: "#27AE60",
+    backgroundColor: callToActionColor,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-start",
+    width:160,
   },
   saveButtonText: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   leaveSessionButton: {
-    backgroundColor: "#E60701",
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 0,
-    alignSelf: "flex-end",
-    padding: 8,
-  },
-  leaveSessionButtonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  deleteButton: {
-    backgroundColor: "#E60701",
+    backgroundColor: accentColor,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 5,
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
+    width:160,
+  },
+  leaveSessionButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 export default NewSessionScreen;
