@@ -39,7 +39,7 @@ const App = () => {
               component={MyExercisesScreen}
             />
             <Stack.Screen
-              name="ExerciseDetailScreen"
+              name="Exercise Details"
               component={ExerciseDetailScreen}
             />
             <Stack.Screen
@@ -59,7 +59,7 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="AddExerciseScreen"
+              name="Add Exercise To Session"
               component={AddExerciseScreen}
             />
           </Stack.Navigator>

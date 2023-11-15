@@ -55,7 +55,7 @@ const ExerciseCard = ({
       accessible={true}
       accessibilityLabel='Exercise Details'
       accessibilityHint='Navigates to Exercise screen'
-      onPress={() => navigation.navigate("ExerciseDetailScreen", { exercise })}
+      onPress={() => navigation.navigate("Exercise Details", { exercise })}
     >
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
