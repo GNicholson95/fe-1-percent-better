@@ -166,13 +166,16 @@ const MyExercisesScreen = ({ navigation }) => {
         containerStyle={styles.searchContainer}
         inputContainerStyle={styles.inputContainer}
       />
-      <RNPickerSelect
-        onValueChange={(value) => setSelectedBodyPart(value)}
-        items={bodyParts.map((part) => ({ label: part, value: part }))}
-        style={pickerSelectStyles}
-        placeholder={{ label: "Select a body part", value: null }}
-      />
-      <Sort value={sortingValue} onChange={setSortingValue} />
+
+      <View style={styles.filterContainer}>
+        <RNPickerSelect
+          onValueChange={(value) => setSelectedBodyPart(value)}
+          items={bodyParts.map((part) => ({ label: part, value: part }))}
+          style={pickerSelectStyles}
+          placeholder={{ label: "Body parts", value: null }}
+        />
+        <Sort value={sortingValue} onChange={setSortingValue} />
+      </View>
       <FlatList
         data={filteredExercises}
         renderItem={({ item }) => (
@@ -191,45 +194,60 @@ const MyExercisesScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: 0,
     flex: 1,
-    paddingtop: 55,
+    backgroundColor: "white",
   },
   searchContainer: {
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
     borderBottomColor: "transparent",
     borderTopColor: "transparent",
-    padding: 10,
+    paddingBottom: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "black",
+    paddingTop: 15,
+    marginTop: 25,
+    paddingBottom: 10,
   },
   inputContainer: {
     backgroundColor: "white",
+  },
+  filterContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    paddingBottom: 8,
+    paddingTop: 8,
+    borderBottomColor: "black",
   },
 });
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
+    fontSize: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     borderColor: "gray",
-    borderRadius: 4,
     color: "black",
-    paddingRight: 30,
     backgroundColor: "white",
-    marginTop: 10,
+    marginLeft: 60,
+    borderRightWidth: 1,
+    borderRightColor: "black",
+    paddingRight: 60,
+    fontWeight: "bold",
   },
   inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
+    fontSize: 14,
     paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: "purple",
-    borderRadius: 8,
+    paddingHorizontal: 8,
+    borderColor: "gray",
     color: "black",
-    paddingRight: 30,
     backgroundColor: "white",
-    marginTop: 10,
+    marginLeft: 60,
+    borderRightWidth: 1,
+    borderRightColor: "black",
+    paddingRight: 60,
+    fontWeight: "bold",
   },
   emptyContainer: {
     flex: 1,

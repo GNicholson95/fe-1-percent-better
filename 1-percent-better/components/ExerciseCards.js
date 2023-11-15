@@ -2,6 +2,13 @@ import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
+import {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+  accentColor,
+  callToActionColor,
+} from "./ColorPallette";
 
 const ExerciseCard = ({
   exercise,
@@ -75,16 +82,9 @@ const ExerciseCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#fff",
     padding: 10,
-    marginVertical: 10,
-    marginHorizontal: 16,
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    height: 150,
+    borderBottomWidth: 1,
   },
   contentContainer: {
     flexDirection: "row",
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginRight: 10,
-    color: "#59a6a6",
+    color: "#59A6A6",
   },
   image: {
     width: 120,
@@ -105,13 +105,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#ff3c00",
+    color: primaryColor,
     marginTop: 20,
   },
-
   addButton: {
     flex: 1,
-    backgroundColor: "#4CAf50",
+    backgroundColor: accentColor,
     padding: 1,
     borderRadius: 20,
     position: "absolute",
