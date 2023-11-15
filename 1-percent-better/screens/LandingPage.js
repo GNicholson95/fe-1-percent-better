@@ -28,10 +28,20 @@ const LandingPage = ({ navigation }) => {
         <Text style={styles.hero}>1 % better</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("UserCreation")}>
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Sign Up"
+          accessibilityHint="Navigates to a screen to make an account"
+          onPress={() => navigation.navigate("UserCreation")}
+        >
           <Text style={styles.login}>Sign up</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Log in"
+          accessibilityHint="Navigates to a screen to log in"
+          onPress={() => navigation.navigate("LoginScreen")}
+        >
           <Text style={styles.signUp}>Log in</Text>
         </TouchableOpacity>
       </View>

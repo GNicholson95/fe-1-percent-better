@@ -55,25 +55,37 @@ const UserCreation = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Email:</Text>
+      <Text style={styles.text} nativeID="signUpEmailLabel">
+        Email:
+      </Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
+        accessibilityLabel="input"
+        accessibilityLabelledBy="signupEmailLabel"
         onChangeText={(text) => setEmail(text)}
         value={email}
       />
-      <Text style={styles.text}>Create your username:</Text>
+      <Text style={styles.text} nativeID="signupUsernameLabel">
+        Create your username:
+      </Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
+        accessibilityLabel="input"
+        accessibilityLabelledBy="signupUsernameLabel"
         onChangeText={(text) => setUsername(text)}
         value={username}
       />
 
-      <Text style={styles.text}>Create your password:</Text>
+      <Text style={styles.text} nativeID="signupPasswordLabel">
+        Create your password:
+      </Text>
       <TextInput
         style={styles.input}
         placeholder="Password"
+        accessibilityLabel="input"
+        accessibilityLabelledBy="signupPasswordLabel"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
         value={password}

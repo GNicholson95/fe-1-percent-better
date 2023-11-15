@@ -46,6 +46,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         return (
           <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="Nav bar"
             key={index}
             style={[
               styles.tabItem,
@@ -114,10 +116,17 @@ function NavBar() {
       initialRouteName={user ? "Home" : "LandingPage"}
       tabBarPosition="bottom"
       scrollEnabled={true}
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
         tabBarShowLabel: false,
-      }}
+        tabBarButton: ["ExerciseList", "All Exercises", "MySessions"].includes(
+          route.name
+        )
+          ? () => {
+              return null;
+            }
+          : undefined,
+      })}
     >
       <Tab.Screen
         name="DynamicScreen"

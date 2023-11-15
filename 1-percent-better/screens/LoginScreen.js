@@ -45,23 +45,30 @@ const LoginScreen = ({ navigation }) => {
         hideOnPress: true,
         delay: 0,
       });
-      console.error(error, "error");
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Username:</Text>
+      <Text style={styles.text} nativeID="usernameLabel">
+        Username:
+      </Text>
       <TextInput
         style={styles.input}
+        accessibilityLabel="input"
+        accessibilityLabelledBy="usernameLabel"
         placeholder="Username"
         onChangeText={(text) => setUsername(text)}
         value={username}
       />
 
-      <Text style={styles.text}>Password:</Text>
+      <Text style={styles.text} nativeID="passwordLabel">
+        Password:
+      </Text>
       <TextInput
         style={styles.input}
+        accessibilityLabel="input"
+        accessibilityLabelledBy="passwordLabel"
         placeholder="Password"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
