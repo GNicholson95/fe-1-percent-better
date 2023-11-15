@@ -4,6 +4,13 @@ import { Video } from "expo-av";
 import { StatusBar } from "expo-status-bar";
 import UserCreation from "./UserCreation";
 import LoginScreen from "./LoginScreen";
+import {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+  accentColor,
+  callToActionColor,
+} from "../components/ColorPallette";
 
 const LandingPage = ({ navigation }) => {
   return (
@@ -64,12 +71,12 @@ const styles = StyleSheet.create({
   },
   login: {
     fontSize: 34,
-    color: "#ff8a5c",
+    color: callToActionColor,
     fontWeight: "bold",
   },
   signUp: {
     fontSize: 34,
-    color: "#ff8a5c",
+    color: callToActionColor,
     fontWeight: "bold",
   },
 });
