@@ -24,9 +24,9 @@ const LandingPage = ({ navigation }) => {
         isLooping={true}
         resizeMode="cover"
       />
-      {/* <View style={styles.heroContainerContainer}>
+      <View style={styles.heroContainerContainer}>
         <Text style={styles.hero}>1 % better</Text>
-      </View> */}
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => navigation.navigate("UserCreation")}>
           <Text style={styles.login}>Sign up</Text>
@@ -46,20 +46,20 @@ const styles = StyleSheet.create({
   videoBackground: {
     flex: 1,
   },
-  // heroContainer: {
-  //     position: 'absolute',
-  //     bottom: 120,
-  //     left: 0,
-  //     right: 0,
-  //     flexDirection: 'row',
-  //     justifyContent: 'space-evenly',
-  //     alignItems: 'center',
-  //   },
-  // hero:{
-  //     flex: 1,
-  //     justifyContent: 'center',
-  //     alignItems: 'center',
-  // },
+  heroContainer: {
+    position: "absolute",
+    bottom: 120,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  hero: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   buttonContainer: {
     position: "absolute",
     bottom: 120,
@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
   },
   login: {
     fontSize: 34,
-    color: callToActionColor,
+    color: "#ff8a5c",
     fontWeight: "bold",
   },
   signUp: {
     fontSize: 34,
-    color: callToActionColor,
+    color: "#ff8a5c",
     fontWeight: "bold",
   },
 });

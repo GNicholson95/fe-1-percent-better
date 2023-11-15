@@ -55,7 +55,7 @@ const UserCreation = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Create your email:</Text>
+      <Text style={styles.text}>Email:</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
