@@ -184,12 +184,6 @@ const NewSessionScreen = ({ route }) => {
       <TouchableOpacity style={styles.saveButton}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.deleteButton}
-        onPress={() => handleDeleteExercise(item.id)}
-      >
-        <Text style={styles.deleteButtonText}>Delete</Text>
-      </TouchableOpacity>
     </View>
   );
 
