@@ -150,18 +150,15 @@ const NewSessionScreen = ({ route }) => {
   const renderExercise = ({ item }) => (
     <View style={styles.exerciseContainer}>
       <Text style={styles.exerciseName}>{item.name}</Text>
-      <Image
-        source={{ uri: item.gifUrl }}
-        style={styles.exerciseImage}
-      />
+      <Image source={{ uri: item.gifUrl }} style={styles.exerciseImage} />
       <TextInput
         style={styles.input}
         onChangeText={(value) =>
           handleExerciseDetailChange(item.id, "sets", value)
         }
         value={item.sets}
-        placeholder='Sets'
-        keyboardType='numeric'
+        placeholder="Sets"
+        keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
@@ -169,8 +166,8 @@ const NewSessionScreen = ({ route }) => {
           handleExerciseDetailChange(item.id, "reps", value)
         }
         value={item.reps}
-        placeholder='Reps'
-        keyboardType='numeric'
+        placeholder="Reps"
+        keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
@@ -178,10 +175,14 @@ const NewSessionScreen = ({ route }) => {
           handleExerciseDetailChange(item.id, "weight", value)
         }
         value={item.weight}
-        placeholder='Weight'
-        keyboardType='numeric'
+        placeholder="Weight"
+        keyboardType="numeric"
       />
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="Save session"
+        style={styles.saveButton}
+      >
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
     </View>
@@ -192,14 +193,14 @@ const NewSessionScreen = ({ route }) => {
       <View style={styles.sessionInputContainer}>
         <TextInput
           style={styles.textInput}
-          placeholder='Enter Session Name'
+          placeholder="Enter Session Name"
           value={sessionName}
           onChangeText={setSessionName}
         />
         <Button
-          title='Save Session'
+          title="Save Session"
           onPress={handleSaveSession}
-          color='#4CAF50'
+          color="#4CAF50"
         />
       </View>
       <View style={styles.buttonsContainer}>

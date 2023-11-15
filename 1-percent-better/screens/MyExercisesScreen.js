@@ -144,10 +144,7 @@ const MyExercisesScreen = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator
-          size='large'
-          color='#0000ff'
-        />
+        <ActivityIndicator size="large" color="#0000ff" />
         <Text>Loading exercises...</Text>
       </View>
     );
@@ -163,7 +160,7 @@ const MyExercisesScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder='Search here...'
+        placeholder="Search here..."
         onChangeText={updateSearch}
         value={search}
         containerStyle={styles.searchContainer}
@@ -175,17 +172,14 @@ const MyExercisesScreen = ({ navigation }) => {
         style={pickerSelectStyles}
         placeholder={{ label: "Select a body part", value: null }}
       />
-      <Sort
-        value={sortingValue}
-        onChange={setSortingValue}
-      />
+      <Sort value={sortingValue} onChange={setSortingValue} />
       <FlatList
         data={filteredExercises}
         renderItem={({ item }) => (
           <ExerciseCard
             exercise={item}
             navigation={navigation}
-            buttonText='Add to Session'
+            buttonText="Add to Session"
           />
         )}
         keyExtractor={(item) => item.exerciseId}
@@ -199,6 +193,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20,
     flex: 1,
+    paddingtop: 55,
   },
   searchContainer: {
     backgroundColor: "lightgrey",

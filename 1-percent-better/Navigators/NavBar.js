@@ -15,6 +15,10 @@ import { useRoute } from "@react-navigation/native";
 const Tab = createMaterialTopTabNavigator();
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
+  if (focusedOptions.tabBarVisible === false) {
+    return null;
+  }
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
@@ -42,6 +46,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         return (
           <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="Nav bar"
             key={index}
             style={[
               styles.tabItem,
@@ -110,10 +116,17 @@ function NavBar() {
       initialRouteName={user ? "Home" : "LandingPage"}
       tabBarPosition="bottom"
       scrollEnabled={true}
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
         tabBarShowLabel: false,
-      }}
+        tabBarButton: ["ExerciseList", "All Exercises", "MySessions"].includes(
+          route.name
+        )
+          ? () => {
+              return null;
+            }
+          : undefined,
+      })}
     >
       <Tab.Screen
         name="DynamicScreen"
@@ -143,8 +156,8 @@ function NavBar() {
         name="MySessions"
         component={MySessionsScreen}
         options={{
-          tabBarLabel: "My Sessions",
-          tabBarIconName: "fitness-outline",
+          tabBarLabel: "Sessions",
+          tabBarIconName: "barbell-outline",
         }}
       />
       <Tab.Screen

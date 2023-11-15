@@ -7,8 +7,8 @@ const SessionDetails = ({ route }) => {
 
   return (
     <FlatList
-      data={session.sessionlogExerciseSet.map((log) => log.exerciseId)} // Flatten the array here
-      renderItem={({ item }) => <MySessionDetailsCard exercise={item} />} // Pass each exercise to the card
+      data={session.sessionlogExerciseSet.map((log) => log.exerciseId)}
+      renderItem={({ item }) => <MySessionDetailsCard exercise={item} />}
       keyExtractor={(item, index) => String(index)}
     />
   );
