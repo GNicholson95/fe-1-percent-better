@@ -19,7 +19,7 @@ import { useUserContext } from "../context/UserContext";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
-  const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
+  const navigation = useNavigation();
   const { user } = useUserContext();
   useEffect(() => {
     const loadUsers = async () => {
@@ -64,12 +64,6 @@ export default function MySessionsScreen() {
         <Text style={styles.sessionInfo}>{item.sessionName}</Text>
         <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
       </TouchableOpacity>
-      {/* <Button
-        title='Delete'
-        onPress={() => handleDeleteSession(item.sessionId)}
-        color='#E60701'
-        style={styles.deleteButton}
-      /> */}
     </View>
   );
 
