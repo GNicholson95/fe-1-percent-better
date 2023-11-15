@@ -27,8 +27,7 @@ export const logWorkout = async (exerciseDetails) => {
       },
     });
 
-    // Handle the response as needed
-    return response.data; // Or just the workout data if needed
+    return response.data;
   } catch (error) {
     console.error("Error logging workout:", error.response.data);
     throw error;

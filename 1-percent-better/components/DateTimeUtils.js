@@ -6,7 +6,7 @@ const getDayOfWeek = (date) => {
 const formatDate = (date) => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const year = date.getFullYear() % 100; // Get last 2 digits of the year
+  const year = date.getFullYear() % 100;
   return `${padNumber(month)}/${padNumber(day)}/${padNumber(year)}`;
 };
 

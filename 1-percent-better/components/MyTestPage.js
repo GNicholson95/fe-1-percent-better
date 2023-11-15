@@ -1,7 +1,6 @@
-// In a React Native component
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
-import { fetchAllUsers } from "../services/userService"; // Import the function
+import { fetchAllUsers } from "../services/userService";
 
 const UsersComponent = () => {
   const [users, setUsers] = useState([]);

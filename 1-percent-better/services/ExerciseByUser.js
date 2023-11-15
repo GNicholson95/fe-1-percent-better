@@ -1,4 +1,4 @@
-import graphqlAPI from "./graphqlClient"; // Import the instance you just created
+import graphqlAPI from "./graphqlClient";
 
 const GET_EXERCISES_BY_USERS_QUERY = `
 query getExercisesByUserId($userId: Int!) {
@@ -29,10 +29,10 @@ export const fetchExercisesByUser = async (userId) => {
       (exercise) => exercise.externalExerciseId
     );
 
-    return userData; // Return the mapped array
+    return userData;
   } catch (error) {
     console.error("Error fetching exercises:", error);
-    throw error; // Rethrow the error or handle it as appropriate
+    throw error;
   }
 };
 
@@ -54,9 +54,9 @@ export const fetchIdsExercisesByUser = async (userId) => {
 
     const userDataWithID = response.data.data.getExercisesByUserId;
 
-    return userDataWithID; // Return the mapped array
+    return userDataWithID;
   } catch (error) {
     console.error("Error fetching exercises:", error);
-    throw error; // Rethrow the error or handle it as appropriate
+    throw error;
   }
 };

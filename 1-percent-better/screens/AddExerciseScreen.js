@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import axios from "axios";
-import { API_KEY } from "@env"; // Ensure you have your API key configured properly
+import { API_KEY } from "@env";
 import { fetchIdsExercisesByUser } from "../services/ExerciseByUser";
 import { useUserContext } from "../context/UserContext";
 import { addExercisesToSession } from "../services/addExerciseToSession";
@@ -77,9 +77,9 @@ const AddExerciseScreen = ({ route, navigation }) => {
     let newSelection = [...selectedExercises];
 
     if (index > -1) {
-      newSelection.splice(index, 1); // Remove the exercise if it's already in the selection
+      newSelection.splice(index, 1);
     } else {
-      newSelection.push(exerciseData); // Add the exercise if it's not in the selection
+      newSelection.push(exerciseData);
     }
     setSelectedExercises(newSelection);
   };
@@ -130,12 +130,12 @@ const AddExerciseScreen = ({ route, navigation }) => {
         renderItem={renderExercise}
         keyExtractor={(item, index) => index.exerciseId}
       />
-       <TouchableOpacity
-          style={styles.addExercisesToSession}
-          onPress={handleAddExercisesToSession}
-        >
-          <Text style={styles.addButtonText}>Add Exercises to Session</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.addExercisesToSession}
+        onPress={handleAddExercisesToSession}
+      >
+        <Text style={styles.addButtonText}>Add Exercises to Session</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     alignItems: "center",
-   justifyContent:"space-evenly",
+    justifyContent: "space-evenly",
   },
   exerciseCard: {
     flexDirection: "row",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: callToActionColor,
     padding: 10,
     borderRadius: 5,
-    marginLeft:20,
+    marginLeft: 20,
   },
   addButtonText: {
     color: "#fff",
@@ -173,10 +173,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
-    marginBottom:25,
-    width:300,
+    marginBottom: 25,
+    width: 300,
   },
-
 });
 
 export default AddExerciseScreen;

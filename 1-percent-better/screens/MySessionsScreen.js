@@ -5,7 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  Button
+  Button,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
 import deleteSession from "../services/deleteSession";
@@ -14,8 +14,7 @@ import {
   formatDate,
   formatTime,
 } from "../components/DateTimeUtils";
-import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
-// import { Button } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../context/UserContext";
 import {
   backgroundColor,
@@ -68,7 +67,9 @@ export default function MySessionsScreen() {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Session Details", { session: item })}
+        onPress={() =>
+          navigation.navigate("Session Details", { session: item })
+        }
       >
         <Text style={styles.sessionInfo}>{item.sessionName.toUpperCase()}</Text>
         <Text style={styles.sessionDate}>{formatDateTime(item.dateTime)}</Text>
@@ -78,22 +79,21 @@ export default function MySessionsScreen() {
 
   return (
     <>
-    <ProfileHeader/>
-    <View style={styles.container}>
-      <FlatList
-        data={sessions}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        style={styles.flatList}
-      />
-      <TouchableOpacity
-        style={styles.NewSessionButton}
-        onPress={() => navigation.navigate("NewSessionScreen")}
-      >
-        <Text style={styles.createSessionButtonText}>Create New Session</Text>
-      </TouchableOpacity>
-
-    </View>
+      <ProfileHeader />
+      <View style={styles.container}>
+        <FlatList
+          data={sessions}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          style={styles.flatList}
+        />
+        <TouchableOpacity
+          style={styles.NewSessionButton}
+          onPress={() => navigation.navigate("NewSessionScreen")}
+        >
+          <Text style={styles.createSessionButtonText}>Create New Session</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: backgroundColor, 
-    paddingTop:20,
+    backgroundColor: backgroundColor,
+    paddingTop: 20,
   },
   flatList: {
     width: "100%",
@@ -114,16 +114,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: 10,
     padding: 20,
-    backgroundColor: "#fff", 
-    borderRadius: 10, 
+    backgroundColor: "#fff",
+    borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84, 
-    elevation: 5, 
+    shadowRadius: 3.84,
+    elevation: 5,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -132,14 +132,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  NewSessionButton:{
+  NewSessionButton: {
     backgroundColor: callToActionColor,
     borderRadius: 20,
     paddingVertical: 10,
-    paddingHorizontal:12,
+    paddingHorizontal: 12,
     alignItems: "center",
-    marginBottom:10,
-    marginTop:10,
+    marginBottom: 10,
+    marginTop: 10,
   },
   createSessionButtonText: {
     color: "white",

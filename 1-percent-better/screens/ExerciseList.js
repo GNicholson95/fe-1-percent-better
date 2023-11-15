@@ -47,7 +47,6 @@ const ExerciseList = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [userExercises, setUserExercises] = useState([]);
 
-  // Load user exercises on component mount
   useEffect(() => {
     if (user) {
       fetchExercisesByUser(user)
@@ -60,7 +59,6 @@ const ExerciseList = ({ navigation }) => {
     }
   }, [user]);
 
-  // Add exercise to user's list
   const handleAddExercise = (exerciseData) => {
     const isAlreadyAdded = userExercises.some(
       (userExercise) => userExercise.externalExerciseId === exerciseData.exId
@@ -120,7 +118,7 @@ const ExerciseList = ({ navigation }) => {
       return 0;
     });
   };
-  // Fetch all exercises on component mount
+
   useEffect(() => {
     axios
       .request({
@@ -147,7 +145,6 @@ const ExerciseList = ({ navigation }) => {
       });
   }, []);
 
-  // Filter and sort exercises based on selected criteria
   useEffect(() => {
     const bodyPartTerm = selectedBodyPart ? selectedBodyPart.toLowerCase() : "";
     const searchTerm = search.toLowerCase();
@@ -163,7 +160,6 @@ const ExerciseList = ({ navigation }) => {
     setFilteredExercises(newFilteredExercises);
   }, [selectedBodyPart, search, sortingValue, exercises]);
 
-  // Helper function to update search state
   const updateSearch = (search) => {
     setSearch(search);
   };
@@ -175,7 +171,7 @@ const ExerciseList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder='Search here...'
+        placeholder="Search here..."
         onChangeText={updateSearch}
         value={search}
         containerStyle={styles.searchContainer}
@@ -188,10 +184,7 @@ const ExerciseList = ({ navigation }) => {
           style={pickerSelectStyles}
           placeholder={{ label: "Body parts", value: null }}
         />
-        <Sort
-          value={sortingValue}
-          onChange={setSortingValue}
-        />
+        <Sort value={sortingValue} onChange={setSortingValue} />
       </View>
       <FlatList
         data={filteredExercises}

@@ -31,7 +31,7 @@ export const deleteExercise = async (exerciseId) => {
 
     const isDeletedExercise = response.data.data.deleteExercise == null;
 
-    return isDeletedExercise; // will return true if deleted or false if not
+    return isDeletedExercise;
   } catch (error) {
     throw error;
   }
