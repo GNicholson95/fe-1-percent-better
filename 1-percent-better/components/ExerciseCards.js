@@ -52,6 +52,9 @@ const ExerciseCard = ({
   return (
     <TouchableOpacity
       style={styles.card}
+      accessible={true}
+      accessibilityLabel="Exercise Details"
+      accessibilityHint="Navigates to Exercise screen"
       onPress={() => navigation.navigate("ExerciseDetailScreen", { exercise })}
     >
       <View style={styles.contentContainer}>
@@ -65,7 +68,12 @@ const ExerciseCard = ({
         />
       </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={handleAddExercise}>
+      <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="Add Exercise"
+        style={styles.addButton}
+        onPress={handleAddExercise}
+      >
         <Text style={styles.addButtonText}>{buttonText}</Text>
       </TouchableOpacity>
     </TouchableOpacity>

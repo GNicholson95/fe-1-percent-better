@@ -23,7 +23,7 @@ const App = () => {
   return (
     <UserProvider>
       <View style={{ flex: 1 }}>
-        {/* <ProfileHeader /> */}
+        <ProfileHeader />
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -39,12 +39,10 @@ const App = () => {
               name="MyExercisesScreen"
               component={MyExercisesScreen}
             />
-
             <Stack.Screen
               name="ExerciseDetailScreen"
               component={ExerciseDetailScreen}
             />
-            {/* <Stack.Screen name="LandingPage" component={LandingPage} /> */}
             <Stack.Screen
               name="UserCreation"
               component={UserCreation}
@@ -65,7 +63,6 @@ const App = () => {
               name="AddExerciseScreen"
               component={AddExerciseScreen}
             />
-            {/* Other screens */}
           </Stack.Navigator>
         </NavigationContainer>
       </View>

@@ -11,10 +11,21 @@ import LoginScreen from "../screens/LoginScreen";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 import { useRoute } from "@react-navigation/native";
+import {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+  accentColor,
+  callToActionColor,
+} from "../components/ColorPallette";
 
 const Tab = createMaterialTopTabNavigator();
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
+  if (focusedOptions.tabBarVisible === false) {
+    return null;
+  }
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
@@ -42,10 +53,12 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         return (
           <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="Nav bar"
             key={index}
             style={[
               styles.tabItem,
-              { backgroundColor: isFocused ? "#555" : "#323939" },
+              { backgroundColor: isFocused ? "#00a67b" : "#e0e0e0" },
             ]}
             onPress={onPress}
             onLongPress={onLongPress}
@@ -53,16 +66,14 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             <Icon
               name={options.tabBarIconName || "help-circle"}
               size={20}
-              color={isFocused ? "white" : "grey"}
+              color={isFocused ? "white" : "#00a67b"}
             />
             <Text
               style={[
                 styles.tabLabel,
-                { color: isFocused ? "white" : "grey" },
+                { color: isFocused ? "white" : "#00a67b" },
                 { flexWrap: "nowrap" },
               ]}
-
-              // numberOfLines={1}
             >
               {options.tabBarLabel}
             </Text>
@@ -76,7 +87,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 const styles = {
   tabBarContainer: {
     flexDirection: "row",
-    backgroundColor: "#323939",
+    backgroundColor: "#00a67b",
   },
   tabItem: {
     flex: 1,
@@ -85,7 +96,8 @@ const styles = {
   },
   tabLabel: {
     marginTop: 0,
-    fontSize: 12,
+    fontSize: 13,
+    fontWeight: "bold",
   },
 };
 
@@ -110,16 +122,23 @@ function NavBar() {
       initialRouteName={user ? "Home" : "LandingPage"}
       tabBarPosition="bottom"
       scrollEnabled={true}
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
         tabBarShowLabel: false,
-      }}
+        tabBarButton: ["ExerciseList", "All Exercises", "MySessions"].includes(
+          route.name
+        )
+          ? () => {
+              return null;
+            }
+          : undefined,
+      })}
     >
       <Tab.Screen
         name="DynamicScreen"
         component={DynamicScreen}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: `${username}`,
           tabBarIconName: "home",
         }}
       />
@@ -128,7 +147,7 @@ function NavBar() {
         component={ExerciseList}
         options={{
           tabBarLabel: "All Exercises",
-          tabBarIconName: "barbell-outline",
+          tabBarIconName: "book",
         }}
       />
       <Tab.Screen
@@ -136,36 +155,38 @@ function NavBar() {
         component={MyExercisesScreen}
         options={{
           tabBarLabel: "My Exercises",
-          tabBarIconName: "person-outline",
+          tabBarIconName: "person",
         }}
       />
       <Tab.Screen
         name="MySessions"
         component={MySessionsScreen}
         options={{
-          tabBarLabel: "My Sessions",
-          tabBarIconName: "fitness-outline",
-        }}
-      />
-      <Tab.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          tabBarLabel: `${username}`,
-          tabBarIconName: "person",
+          tabBarLabel: "Sessions",
+          tabBarIconName: "barbell",
         }}
       />
       {user ? null : (
-        <Tab.Screen
-          name="LandingPage"
-          component={LandingPage}
-          options={{
-            tabBarLabel: "Sign Up",
-            tabBarIconName: "add-circle-outline",
-            tabBarVisible: false,
-            headerShown: false,
-          }}
-        />
+        <>
+          <Tab.Screen
+            name="LandingPage"
+            component={LandingPage}
+            options={{
+              tabBarLabel: "Sign Up",
+              tabBarIconName: "add-circle-outline",
+              tabBarVisible: false,
+              headerShown: false,
+            }}
+          />
+          <Tab.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{
+              tabBarLabel: `${username}`,
+              tabBarIconName: "person-add-outline",
+            }}
+          />
+        </>
       )}
     </Tab.Navigator>
   );

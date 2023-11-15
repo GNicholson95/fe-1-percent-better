@@ -121,7 +121,7 @@ const AddExerciseScreen = ({ route, navigation }) => {
   if (isLoading) {
     return <ActivityIndicator />;
   }
-  console.log("this is exercises", exercises);
+
   return (
     <View style={styles.container}>
       <FlatList

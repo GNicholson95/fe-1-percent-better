@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
+import deleteSession from "../services/deleteSession";
 import {
   getDayOfWeek,
   formatDate,
@@ -15,10 +16,17 @@ import {
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
 import { Button } from "@rneui/themed";
 import { useUserContext } from "../context/UserContext";
+import {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+  accentColor,
+  callToActionColor,
+} from "../components/ColorPallette";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
-  const navigation = useNavigation(); // Use the useNavigation hook to get the navigation prop
+  const navigation = useNavigation();
   const { user } = useUserContext();
   useEffect(() => {
     const loadUsers = async () => {
@@ -41,15 +49,31 @@ export default function MySessionsScreen() {
     )} ${formatTime(date)}`;
     return formattedDate;
   };
+
+  const handleDeleteSession = async (sessionId) => {
+    try {
+      await deleteSession(sessionId);
+      Alert.alert("Success", "Session deleted successfully");
+      setSessions(
+        sessions.filter((session) => session.sessionId !== sessionId)
+      );
+    } catch (error) {
+      console.error("Error deleting session:", error);
+      Alert.alert("Error", "Failed to delete session");
+    }
+  };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate("SessionDetails", { session: item })}
-    >
-      <Text style={styles.sessionInfo}>{item.sessionName}</Text>
-      <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
-    </TouchableOpacity>
+    <View style={styles.card}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("SessionDetails", { session: item })}
+      >
+        <Text style={styles.sessionInfo}>{item.sessionName}</Text>
+        <Text style={styles.sessionInfo}>{formatDateTime(item.dateTime)}</Text>
+      </TouchableOpacity>
+    </View>
   );
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -62,7 +86,7 @@ export default function MySessionsScreen() {
         style={styles.NewSessionButton}
         title="Create New Session"
         onPress={() => navigation.navigate("NewSessionScreen")}
-        color="#4CAf50"
+        color={callToActionColor}
       />
     </View>
   );
@@ -73,12 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#F2F2F2", // Set a background color for the container
+    backgroundColor: backgroundColor, // Set a background color for the container
   },
   flatList: {
     width: "100%",
   },
   card: {
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginVertical: 10,
     padding: 20,
     backgroundColor: "#fff", // Set the card background color
@@ -96,5 +122,9 @@ const styles = StyleSheet.create({
   },
   sessionInfo: {
     fontSize: 16,
+  },
+  deleteButton: {
+    marginLeft: 90,
+    borderRadius: 50,
   },
 });

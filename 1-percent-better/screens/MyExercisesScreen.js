@@ -166,6 +166,7 @@ const MyExercisesScreen = ({ navigation }) => {
         containerStyle={styles.searchContainer}
         inputContainerStyle={styles.inputContainer}
       />
+
       <View style={styles.filterContainer}>
         <RNPickerSelect
           onValueChange={(value) => setSelectedBodyPart(value)}

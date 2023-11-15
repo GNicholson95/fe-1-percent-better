@@ -4,7 +4,7 @@ import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 
 const ProfileHeader = () => {
-  const [username, setUsername] = useState("Profile"); // default state while loading
+  const [username, setUsername] = useState("Profile");
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -26,10 +26,10 @@ const ProfileHeader = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: "https://loremflickr.com/150/150" }} // Placeholder image
+        source={require("../assets/green_banner_1-percent-better_720.png")}
         style={styles.avatar}
+        alt="logo"
       />
-      <Text style={styles.username}>{`${username}`}</Text>
     </View>
   );
 };
@@ -38,14 +38,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    padding: 5,
     backgroundColor: "#FFFFFF",
   },
   avatar: {
-    width: 60,
     height: 60,
-    borderRadius: 30,
+    flex: 1,
     marginRight: 10,
+    marginLeft: 10,
   },
   username: {
     fontSize: 18,
