@@ -16,6 +16,13 @@ import {
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
 import { Button } from "@rneui/themed";
 import { useUserContext } from "../context/UserContext";
+import {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+  accentColor,
+  callToActionColor,
+} from "../components/ColorPallette";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
@@ -77,9 +84,9 @@ export default function MySessionsScreen() {
       />
       <Button
         style={styles.NewSessionButton}
-        title='Create New Session'
+        title="Create New Session"
         onPress={() => navigation.navigate("NewSessionScreen")}
-        color='#4CAf50'
+        color={callToActionColor}
       />
     </View>
   );
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#F2F2F2", // Set a background color for the container
+    backgroundColor: backgroundColor, // Set a background color for the container
   },
   flatList: {
     width: "100%",

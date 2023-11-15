@@ -31,6 +31,7 @@ const LandingPage = ({ navigation }) => {
         <TouchableOpacity
           accessible={true}
           accessibilityLabel="Sign Up"
+          accessibilityRole="button"
           accessibilityHint="Navigates to a screen to make an account"
           onPress={() => navigation.navigate("UserCreation")}
         >
@@ -39,6 +40,7 @@ const LandingPage = ({ navigation }) => {
         <TouchableOpacity
           accessible={true}
           accessibilityLabel="Log in"
+          accessibilityRole="button"
           accessibilityHint="Navigates to a screen to log in"
           onPress={() => navigation.navigate("LoginScreen")}
         >
@@ -81,12 +83,20 @@ const styles = StyleSheet.create({
   },
   login: {
     fontSize: 34,
-    color: "#ff8a5c",
+    color: primaryColor,
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     fontWeight: "bold",
+    borderRadius: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   signUp: {
     fontSize: 34,
-    color: "#ff8a5c",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    borderRadius: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
+    color: primaryColor,
     fontWeight: "bold",
   },
 });
