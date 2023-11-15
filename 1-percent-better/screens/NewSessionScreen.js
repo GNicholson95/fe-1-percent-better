@@ -27,7 +27,9 @@ import { addExerciseToSession } from "../services/addExerciseToSession";
 import { logWorkout } from "../services/logWorkout";
 import deleteSession from "../services/deleteSession";
 import deleteSessionExercise from "../services/deleteSessionExercise";
-import ProfileHeader from "../components/ProfileHeader"
+import { updateExercise } from "../services/PatchPB";
+import ProfileHeader from "../components/ProfileHeader";
+
 const NewSessionScreen = ({ route }) => {
   const { user } = useUserContext();
   const [sessionName, setSessionName] = useState("");
@@ -100,11 +102,11 @@ const NewSessionScreen = ({ route }) => {
     try {
       for (const exercise of selectedExercises) {
         await logWorkout(exercise);
+        await updateExercise(exercise.internalId, exercise.weight);
 
         navigation.navigate("MySessionsScreen");
       }
       Alert.alert("Success", "Session workouts logged successfully.");
-      // Additional logic after logging all workouts
     } catch (error) {
       console.error("Error finishing session:", error);
       Alert.alert("Error", "Failed to log one or more workouts");
@@ -189,57 +191,57 @@ const NewSessionScreen = ({ route }) => {
 
   return (
     <>
-    <ProfileHeader/>
-    <View style={styles.container}>
-      <View style={styles.sessionInputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Enter Session Name"
-          value={sessionName}
-          onChangeText={setSessionName}
+      <ProfileHeader />
+      <View style={styles.container}>
+        <View style={styles.sessionInputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter Session Name"
+            value={sessionName}
+            onChangeText={setSessionName}
+          />
+          <Button
+            title="Save Session"
+            onPress={handleSaveSession}
+            color="#4CAF50"
+          />
+        </View>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              if (sessionId) {
+                navigation.navigate("Add Exercise To Session", {
+                  sessionId: sessionId,
+                });
+              } else {
+                Alert.alert("Error", "Please create a session first.");
+              }
+            }}
+          >
+            <Text style={styles.button}>Add Exercise</Text>
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          data={selectedExercises}
+          renderItem={renderExercise}
+          keyExtractor={(item) => item.id}
+          style={styles.exerciseList}
         />
-        <Button
-          title="Save Session"
-          onPress={handleSaveSession}
-          color="#4CAF50"
-        />
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.saveButton}
+            onPress={handleFinishSession}
+          >
+            <Text style={styles.saveButtonText}>Finish Session</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.leaveSessionButton}
+            onPress={handleCancelSession}
+          >
+            <Text style={styles.leaveSessionButtonText}>Cancel Session</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            if (sessionId) {
-              navigation.navigate("Add Exercise To Session", {
-                sessionId: sessionId,
-              });
-            } else {
-              Alert.alert("Error", "Please create a session first.");
-            }
-          }}
-        >
-          <Text style={styles.button}>Add Exercise</Text>
-        </TouchableOpacity>
-      </View>
-      <FlatList
-        data={selectedExercises}
-        renderItem={renderExercise}
-        keyExtractor={(item) => item.id}
-        style={styles.exerciseList}
-      />
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={handleFinishSession}
-        >
-          <Text style={styles.saveButtonText}>Finish Session</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.leaveSessionButton}
-          onPress={handleCancelSession}
-        >
-          <Text style={styles.leaveSessionButtonText}>Cancel Session</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
     </>
   );
 };
@@ -248,12 +250,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    alignContent:'center',
-    backgroundColor:backgroundColor,
-  },
-  exerciseList:{
+    alignContent: "center",
     backgroundColor: backgroundColor,
-    width:"100%",
+  },
+  exerciseList: {
+    backgroundColor: backgroundColor,
+    width: "100%",
   },
   title: {
     fontSize: 24,
@@ -268,8 +270,8 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
     marginBottom: 16,
-    justifyContent:"space-evenly",
-    marginBottom:"15%",
+    justifyContent: "space-evenly",
+    marginBottom: "15%",
   },
   button: {
     fontSize: 20,

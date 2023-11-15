@@ -1,8 +1,17 @@
 import graphqlAPI from "./graphqlClient";
 
+export const GET_PB_QUERY = `
+query  getExerciseByExerciseId($exerciseId: Int!) {
+  getExerciseByExerciseId(exerciseId: $exerciseId)
+  {
+    personalBest
+  }
+}
+`;
+
 export const PATCH_PB_MUTATION = `
   mutation updateExercise(
-    $personalBest:String!,
+    $personalBest:Int!,
     $exerciseId:ID!
   ) {
     updateExercise(
@@ -22,23 +31,37 @@ export const PATCH_PB_MUTATION = `
 
 export const updateExercise = async (exerciseId, personalBest) => {
   try {
-    const response = await graphqlAPI({
+    const getResponse = await graphqlAPI({
       data: {
-        query: PATCH_PB_MUTATION,
+        query: GET_PB_QUERY,
         variables: {
-          exerciseId: exerciseId,
-          personalBest: personalBest,
+          exerciseId: Number(exerciseId),
         },
       },
     });
 
-    if (response.data.errors) {
-      return [];
+    const currentPB =
+      getResponse.data.data.getExerciseByExerciseId.personalBest;
+
+    if (currentPB < Number(personalBest)) {
+      const response = await graphqlAPI({
+        data: {
+          query: PATCH_PB_MUTATION,
+          variables: {
+            exerciseId: exerciseId,
+            personalBest: Number(personalBest),
+          },
+        },
+      });
+
+      if (response.data.errors) {
+        return [];
+      }
+
+      const updatedExercise = response.data.data;
+      return updatedExercise;
     }
-
-    const updatedExercise = response.data.data.map((exercise) => exercise);
-
-    return updatedExercise;
+    return currentPB;
   } catch (error) {
     throw error;
   }
