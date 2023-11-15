@@ -27,7 +27,6 @@ export const logWorkout = async (exerciseDetails) => {
       },
     });
 
-    console.log("Workout logged:", response.data);
     // Handle the response as needed
     return response.data; // Or just the workout data if needed
   } catch (error) {

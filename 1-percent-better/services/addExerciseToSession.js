@@ -21,9 +21,6 @@ export const addExercisesToSession = async (sessionId, selectedExercises) => {
           },
         },
       });
-
-      console.log("Exercise added to session:", response.data);
-      // Handle the response as needed
     }
   } catch (error) {
     console.error("Error adding exercises to session:", error.response.data);

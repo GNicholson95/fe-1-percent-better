@@ -52,9 +52,9 @@ export const fetchIdsExercisesByUser = async (userId) => {
       return [];
     }
 
-    const userData = response.data.data.getExercisesByUserId;
+    const userDataWithID = response.data.data.getExercisesByUserId;
 
-    return userData; // Return the mapped array
+    return userDataWithID; // Return the mapped array
   } catch (error) {
     console.error("Error fetching exercises:", error);
     throw error; // Rethrow the error or handle it as appropriate

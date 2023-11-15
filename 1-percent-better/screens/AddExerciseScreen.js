@@ -21,15 +21,13 @@ const AddExerciseScreen = ({ route, navigation }) => {
   const { user } = useUserContext();
   const [exerciseIdMappings, setExerciseIdMappings] = useState([]);
   const sessionId = route.params?.sessionId;
-  console.log("this is the session Id", sessionId);
 
   useEffect(() => {
-    console.log("useEffect triggered");
     const loadExercises = async () => {
       setIsLoading(true);
       try {
         const exerciseIds = await fetchIdsExercisesByUser(user);
-        console.log("this is exerciseIds", exerciseIds);
+
         setExerciseIdMappings(exerciseIds);
 
         const exercisesDetailsPromises = exerciseIds.map((exercise) =>
@@ -123,13 +121,13 @@ const AddExerciseScreen = ({ route, navigation }) => {
   if (isLoading) {
     return <ActivityIndicator />;
   }
-
+  console.log("this is exercises", exercises);
   return (
     <View style={styles.container}>
       <FlatList
         data={exercises}
         renderItem={renderExercise}
-        keyExtractor={(item) => item.exerciseId}
+        keyExtractor={(item, index) => index.exerciseId}
       />
       <Button
         title='Add Exercises to Session'

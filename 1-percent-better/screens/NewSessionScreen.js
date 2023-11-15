@@ -99,7 +99,7 @@ const NewSessionScreen = ({ route }) => {
     try {
       for (const exercise of selectedExercises) {
         await logWorkout(exercise);
-        console.log("exercised logged:", exercise);
+
         navigation.navigate("MySessionsScreen");
       }
       Alert.alert("Success", "Session workouts logged successfully.");
@@ -108,6 +108,11 @@ const NewSessionScreen = ({ route }) => {
       console.error("Error finishing session:", error);
       Alert.alert("Error", "Failed to log one or more workouts");
     }
+  };
+
+  const handleLeaveSession = () => {
+    // Navigate to the Home screen
+    navigation.navigate("Home");
   };
 
   const renderExercise = ({ item }) => (
@@ -185,12 +190,20 @@ const NewSessionScreen = ({ route }) => {
         renderItem={renderExercise}
         keyExtractor={(item) => item.id}
       />
-      <TouchableOpacity
-        style={styles.saveButton}
-        onPress={handleFinishSession}
-      >
-        <Text style={styles.saveButtonText}>Finish Session</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={styles.saveButton}
+          onPress={handleFinishSession}
+        >
+          <Text style={styles.saveButtonText}>Finish Session</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.leaveSessionButton}
+          onPress={handleLeaveSession}
+        >
+          <Text style={styles.leaveSessionButtonText}>Leave Session</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -295,11 +308,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-start", // Aligns button to the start of the flex container
-    marginTop: 5,
+    marginTop: 10,
   },
   saveButtonText: {
     color: "#fff",
     fontSize: 16,
+  },
+  leaveSessionButton: {
+    backgroundColor: "#E60701", // Red color for the leave button
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 0,
+    alignSelf: "flex-end", // Center the button
+    padding: "auto",
+    marginLeft: 120,
+  },
+  leaveSessionButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
 export default NewSessionScreen;
