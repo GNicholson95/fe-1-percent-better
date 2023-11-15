@@ -9,6 +9,13 @@ import {
 import { TokenAuth, isLoggedIn } from "../services/LogIn";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
+import {
+  backgroundColor,
+  primaryColor,
+  secondaryColor,
+  accentColor,
+  callToActionColor,
+} from "../components/ColorPallette";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -72,7 +79,7 @@ const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f1f1f1",
+    backgroundColor: backgroundColor,
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 16,
@@ -85,19 +92,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#ff8a5c",
+    color: primaryColor,
     marginTop: 10,
   },
   input: {
     height: 40,
-    borderColor: "gray",
+    borderColor: secondaryColor,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
   loginButton: {
-    backgroundColor: "#ff8a5c",
+    backgroundColor: callToActionColor,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
