@@ -125,7 +125,7 @@ const NewSessionScreen = ({ route }) => {
         Alert.alert("Error", "Failed to cancel the session");
       }
     }
-    navigation.navigate("Home");
+    navigation.navigate("Back");
   };
 
   const handleDeleteExercise = async (sessionExerciseId) => {

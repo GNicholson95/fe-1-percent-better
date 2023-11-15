@@ -23,15 +23,10 @@ const App = () => {
   return (
     <UserProvider>
       <View style={{ flex: 1 }}>
-<<<<<<< HEAD
-        <ProfileHeader />
-=======
-        {/* <ProfileHeader /> */}
->>>>>>> bd4f6a42460bb95d318fc73cd110aa17fd222771
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="Home"
+              name="Back"
               component={NavBar}
               options={{ headerShown: false }}
             />
@@ -57,7 +52,7 @@ const App = () => {
               component={LoginScreen}
               options={{ title: "Login" }}
             />
-            <Stack.Screen name="SessionDetails" component={SessionDetails} />
+            <Stack.Screen name="Session Details" component={SessionDetails} />
             <Stack.Screen
               name="NewSessionScreen"
               component={NewSessionScreen}

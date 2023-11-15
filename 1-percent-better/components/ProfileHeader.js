@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
+import { backgroundColor } from "./ColorPallette";
 
 const ProfileHeader = () => {
   const [username, setUsername] = useState("Profile");
@@ -39,13 +40,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 5,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: backgroundColor,
+    paddingTop:15,
+    paddingLeft:10,
   },
   avatar: {
+    resizeMode: "contain",
     height: 60,
-    flex: 1,
-    marginRight: 10,
-    marginLeft: 10,
+    width:"100%",
+    alignSelf: "center",
+    marginTop:35,
   },
   username: {
     fontSize: 18,

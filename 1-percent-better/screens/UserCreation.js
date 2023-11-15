@@ -55,52 +55,67 @@ const UserCreation = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text} nativeID="signUpEmailLabel">
-        Email:
-      </Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        accessibilityLabel="input"
-        accessibilityLabelledBy="signupEmailLabel"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-      />
-      <Text style={styles.text} nativeID="signupUsernameLabel">
-        Create your username:
-      </Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        accessibilityLabel="input"
-        accessibilityLabelledBy="signupUsernameLabel"
-        onChangeText={(text) => setUsername(text)}
-        value={username}
-      />
+      <View style={styles.formContainer}>
+        <View>
+          <Image
+            source={require("../assets/green_banner_1-percent-better_720.png")}
+            style={styles.avatar}
+            alt="logo"
+          />
+        </View>
+        <Text style={styles.text} nativeID="signUpEmailLabel">
+          Email:
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          accessibilityLabel="input"
+          accessibilityLabelledBy="signupEmailLabel"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+        />
+        <Text style={styles.text} nativeID="signupUsernameLabel">
+          Create your username:
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          accessibilityLabel="input"
+          accessibilityLabelledBy="signupUsernameLabel"
+          onChangeText={(text) => setUsername(text)}
+          value={username}
+        />
 
-      <Text style={styles.text} nativeID="signupPasswordLabel">
-        Create your password:
-      </Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        accessibilityLabel="input"
-        accessibilityLabelledBy="signupPasswordLabel"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-      />
+        <Text style={styles.text} nativeID="signupPasswordLabel">
+          Create your password:
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          accessibilityLabel="input"
+          accessibilityLabelledBy="signupPasswordLabel"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
-        <Text style={styles.loginButtonText}>Sign up</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
+          <Text style={styles.loginButtonText}>Sign up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: "center",
     backgroundColor: backgroundColor,
+  },
+
+  formContainer: {
+    backgroundColor: "#fff",
     padding: 10,
     marginVertical: 10,
     marginHorizontal: 16,
@@ -109,6 +124,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
+  },
+  avatar: {
+    resizeMode: "contain",
+    height: 60,
+    width: "100%",
+    alignSelf: "center",
   },
   text: {
     fontSize: 16,
