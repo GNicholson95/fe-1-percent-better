@@ -25,6 +25,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { addExerciseToSession } from "../services/addExerciseToSession";
 import { logWorkout } from "../services/logWorkout";
+import deleteSession from "../services/deleteSession";
+import deleteSessionExercise from "../services/deleteSessionExercise";
 
 const NewSessionScreen = ({ route }) => {
   const { user } = useUserContext();
@@ -110,9 +112,39 @@ const NewSessionScreen = ({ route }) => {
     }
   };
 
-  const handleLeaveSession = () => {
-    // Navigate to the Home screen
+  const handleCancelSession = async () => {
+    if (sessionId) {
+      try {
+        await deleteSession(sessionId);
+        Alert.alert(
+          "Session Cancelled",
+          "The session has been successfully cancelled."
+        );
+      } catch (error) {
+        console.error("Error cancelling session:", error);
+        Alert.alert("Error", "Failed to cancel the session");
+      }
+    }
     navigation.navigate("Home");
+  };
+
+  const handleDeleteExercise = async (sessionExerciseId) => {
+    try {
+      await deleteSessionExercise(sessionExerciseId);
+      Alert.alert(
+        "Exercise Removed",
+        "The exercise has been successfully removed from the session."
+      );
+
+      setSelectedExercises(
+        selectedExercises.filter(
+          (exercise) => exercise.id !== sessionExerciseId
+        )
+      );
+    } catch (error) {
+      console.error("Error deleting exercise from session:", error);
+      Alert.alert("Error", "Failed to remove exercise from session");
+    }
   };
 
   const renderExercise = ({ item }) => (
@@ -200,9 +232,9 @@ const NewSessionScreen = ({ route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.leaveSessionButton}
-          onPress={handleLeaveSession}
+          onPress={handleCancelSession}
         >
-          <Text style={styles.leaveSessionButtonText}>Leave Session</Text>
+          <Text style={styles.leaveSessionButtonText}>Cancel Session</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -253,9 +285,9 @@ const styles = StyleSheet.create({
   },
 
   exerciseImage: {
-    width: 100, // Adjust as needed
-    height: 100, // Adjust as needed
-    resizeMode: "contain", // Or 'cover'
+    width: 100,
+    height: 100,
+    resizeMode: "contain",
   },
 
   input: {
@@ -279,28 +311,28 @@ const styles = StyleSheet.create({
   exerciseName: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10, // Spacing between name and image
+    marginBottom: 10,
   },
   exerciseImage: {
-    width: 80, // Adjust as needed
-    height: 80, // Adjust as needed
-    resizeMode: "cover", // Or 'contain'
-    borderRadius: 5, // Optional: if you want rounded corners for the image
-    alignSelf: "center", // Center the image
-    marginBottom: 10, // Spacing between image and inputs
+    width: 80,
+    height: 80,
+    resizeMode: "cover",
+    borderRadius: 5,
+    alignSelf: "center",
+    marginBottom: 10,
   },
   exerciseImage: {
-    width: 80, // Adjust as needed
-    height: 80, // Adjust as needed
-    resizeMode: "cover", // Or 'contain'
-    borderRadius: 5, // Optional: if you want rounded corners for the image
+    width: 80,
+    height: 80,
+    resizeMode: "cover",
+    borderRadius: 5,
   },
   input: {
-    flex: 1, // Ensures inputs take equal space
+    flex: 1,
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
-    marginVertical: 5, // Adds vertical spacing
+    marginVertical: 5,
     paddingHorizontal: 10,
   },
   saveButton: {
@@ -308,7 +340,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 5,
-    alignSelf: "flex-start", // Aligns button to the start of the flex container
+    alignSelf: "flex-start",
     marginTop: 10,
   },
   saveButtonText: {
@@ -316,19 +348,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   leaveSessionButton: {
-    backgroundColor: "#E60701", // Red color for the leave button
-    paddingVertical: 10,
+    backgroundColor: "#E60701",
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 0,
-    alignSelf: "flex-end", // Center the button
-    padding: "auto",
+    alignSelf: "flex-end",
+    padding: 8,
     marginLeft: 120,
   },
   leaveSessionButtonText: {
     color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  deleteButton: {
+    backgroundColor: "#E60701",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 5,
+    alignSelf: "flex-end",
+  },
+  deleteButtonText: {
+    color: "#fff",
+    fontSize: 16,
   },
 });
 export default NewSessionScreen;
