@@ -23,6 +23,7 @@ const App = () => {
   return (
     <UserProvider>
       <View style={{ flex: 1 }}>
+        <ProfileHeader />
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
