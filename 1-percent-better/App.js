@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { UserProvider, useUserContext } from "./context/UserContext";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ProfileHeader from "./components/ProfileHeader";
@@ -22,8 +22,8 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <UserProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <ProfileHeader />
+      <View style={{ flex: 1 }}>
+        {/* <ProfileHeader /> */}
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -68,7 +68,7 @@ const App = () => {
             {/* Other screens */}
           </Stack.Navigator>
         </NavigationContainer>
-      </SafeAreaView>
+      </View>
     </UserProvider>
   );
 };

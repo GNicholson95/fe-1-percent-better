@@ -204,6 +204,7 @@ const ExerciseList = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 35,
     marginTop: 20,
     flex: 1,
   },

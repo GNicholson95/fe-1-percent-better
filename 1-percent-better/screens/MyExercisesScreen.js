@@ -197,7 +197,8 @@ const MyExercisesScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    paddingTop: 55,
+    // marginTop: 20,
     flex: 1,
   },
   searchContainer: {
