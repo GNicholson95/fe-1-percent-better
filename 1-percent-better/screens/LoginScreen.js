@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,12 +12,9 @@ import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
 import {
   backgroundColor,
-  primaryColor,
   secondaryColor,
-  accentColor,
   callToActionColor,
 } from "../components/ColorPallette";
-import ProfileHeader from "../components/ProfileHeader";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");

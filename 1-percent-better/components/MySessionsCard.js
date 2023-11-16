@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  View,
   Text,
   ImageBackground,
   StyleSheet,
@@ -10,14 +9,8 @@ import {
 const MySessionsCard = ({ onPress }) => {
   const backgroundImage = require("../assets/All-exercises-image-2.jpg");
   return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={onPress}
-    >
-      <ImageBackground
-        source={backgroundImage}
-        style={styles.imageBackground}
-      >
+    <TouchableOpacity style={styles.card} onPress={onPress}>
+      <ImageBackground source={backgroundImage} style={styles.imageBackground}>
         <Text style={styles.text}>My Sessions</Text>
       </ImageBackground>
     </TouchableOpacity>

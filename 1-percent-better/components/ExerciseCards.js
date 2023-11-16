@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
@@ -6,7 +6,6 @@ import {
   backgroundColor,
   primaryColor,
   secondaryColor,
-  accentColor,
   callToActionColor,
 } from "./ColorPallette";
 
@@ -53,8 +52,8 @@ const ExerciseCard = ({
     <TouchableOpacity
       style={styles.card}
       accessible={true}
-      accessibilityLabel='Exercise Details'
-      accessibilityHint='Navigates to Exercise screen'
+      accessibilityLabel="Exercise Details"
+      accessibilityHint="Navigates to Exercise screen"
       onPress={() => navigation.navigate("Exercise Details", { exercise })}
     >
       <View style={styles.contentContainer}>
@@ -64,13 +63,13 @@ const ExerciseCard = ({
         <Image
           source={{ uri: exercise.gifUrl }}
           style={styles.image}
-          resizeMode='contain'
+          resizeMode="contain"
         />
       </View>
 
       <TouchableOpacity
         accessible={true}
-        accessibilityLabel='Add Exercise'
+        accessibilityLabel="Add Exercise"
         style={styles.addButton}
         onPress={handleAddExercise}
       >
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     marginLeft: 10,
-    marginBottom:10,
+    marginBottom: 10,
     height: 40,
     width: 180,
     alignItems: "center",

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import MySessionDetailsCard from "../components/MySessionDetailsCard";
 
 const SessionDetails = ({ route }) => {

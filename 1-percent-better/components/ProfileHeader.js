@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 import { backgroundColor } from "./ColorPallette";
@@ -41,15 +41,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 5,
     backgroundColor: backgroundColor,
-    paddingTop:15,
-    paddingLeft:10,
+    paddingTop: 15,
+    paddingLeft: 10,
   },
   avatar: {
     resizeMode: "contain",
     height: 60,
-    width:"100%",
+    width: "100%",
     alignSelf: "center",
-    marginTop:35,
+    marginTop: 35,
   },
   username: {
     fontSize: 18,
