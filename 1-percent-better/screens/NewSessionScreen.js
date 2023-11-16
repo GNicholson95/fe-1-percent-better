@@ -81,7 +81,29 @@ const NewSessionScreen = ({ route }) => {
   };
 
   const handleSaveExercise = async (exercise) => {
+    if (!sessionId) {
+      Alert.alert(
+        "Error",
+        "Session ID is not available. Please save the session first."
+      );
+      return;
+    }
+
     try {
+      const updatedExercises = selectedExercises.map((ex) => {
+        if (ex.sessionExerciseId === exercise.sessionExerciseId) {
+          return {
+            ...ex,
+            sets: exercise.sets,
+            reps: exercise.reps,
+            weight: exercise.weight,
+          };
+        }
+        return ex;
+      });
+      setSelectedExercises(updatedExercises);
+
+      // Log the workout
       const loggedWorkout = await logWorkout(exercise);
       Alert.alert(
         "Success",
@@ -182,13 +204,15 @@ const NewSessionScreen = ({ route }) => {
         accessible={true}
         accessibilityLabel='Save workout'
         style={styles.saveButton}
-        onPress={() => handleSaveExercise(item)}
+        onPress={() => handleSaveExercise({ ...item })}
       >
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
     </View>
   );
-
+  console.log("====================================");
+  console.log(selectedExercises);
+  console.log("====================================");
   return (
     <>
       <ProfileHeader />
@@ -226,7 +250,7 @@ const NewSessionScreen = ({ route }) => {
         <FlatList
           data={selectedExercises}
           renderItem={renderExercise}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.internalId}
           style={styles.exerciseList}
         />
         <View style={styles.buttonsContainer}>

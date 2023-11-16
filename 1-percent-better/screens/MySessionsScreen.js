@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Alert,
   Button,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
@@ -16,39 +17,41 @@ import {
 } from "../components/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../context/UserContext";
+import ProfileHeader from "../components/ProfileHeader";
 import {
   backgroundColor,
-  primaryColor,
-  secondaryColor,
-  accentColor,
   callToActionColor,
 } from "../components/ColorPallette";
-import ProfileHeader from "../components/ProfileHeader";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
   const navigation = useNavigation();
   const { user } = useUserContext();
-  useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        if (user) {
-          const fetchedSessions = await fetchSessionByUserId(user);
-          setSessions(fetchedSessions);
-        }
-      } catch (error) {
-        console.error("Error loading users:", error.response.data);
+
+  // Function to load sessions
+  const loadSessions = async () => {
+    try {
+      if (user) {
+        const fetchedSessions = await fetchSessionByUserId(user);
+        setSessions(fetchedSessions);
       }
-    };
-    loadUsers();
+    } catch (error) {
+      console.error("Error loading sessions:", error.response?.data || error);
+    }
+  };
+
+  useEffect(() => {
+    loadSessions();
   }, [user]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", loadSessions);
+    return unsubscribe;
+  }, [navigation, loadSessions]);
 
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
-    const formattedDate = `${getDayOfWeek(date)} ${formatDate(
-      date
-    )} ${formatTime(date)}`;
-    return formattedDate;
+    return `${getDayOfWeek(date)} ${formatDate(date)} ${formatTime(date)}`;
   };
 
   const handleDeleteSession = async (sessionId) => {
@@ -97,6 +100,7 @@ export default function MySessionsScreen() {
     </>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
