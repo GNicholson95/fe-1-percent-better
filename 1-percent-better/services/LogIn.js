@@ -1,7 +1,5 @@
 import graphqlAPI from "./graphqlClient";
-import { useContext, useState } from "react";
 import axios from "axios";
-import { useUserContext } from "../context/UserContext";
 
 export const TOKEN_AUTH_MUTATION = `
   mutation tokenAuth(
