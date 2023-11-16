@@ -17,8 +17,9 @@ const MySessionDetailsCard = ({ exercise }) => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{exercise.externalExerciseName.toUpperCase()}</Text>
-      {/* Make sure to check if workoutlogSet and its first index are defined */}
+      <Text style={styles.title}>
+        {exercise.externalExerciseName.toUpperCase()}
+      </Text>
       <Text>Reps: {exercise.workoutlogSet?.[0]?.reps}</Text>
       <Text>Sets: {exercise.workoutlogSet?.[0]?.sets}</Text>
       <Text>Weight Kg: {exercise.workoutlogSet?.[0]?.weightKg}</Text>
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: callToActionColor,
-    paddingBottom:10,
+    paddingBottom: 10,
   },
 });
 export default MySessionDetailsCard;

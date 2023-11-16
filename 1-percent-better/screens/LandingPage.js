@@ -22,16 +22,14 @@ const LandingPage = ({ navigation }) => {
         isMuted={true}
         shouldPlay={true}
         isLooping={true}
-        resizeMode='cover'
+        resizeMode="cover"
       />
       <View style={styles.overlay} />
-      {/* <View style={styles.negativeLogo}> */}
-        <Image
+      <Image
         source={require("../assets/white-1-percent-better.png")}
         style={styles.avatar}
         alt="logo"
       />
-      {/* </View> */}
       <View style={styles.heroContainer}>
         <Text style={styles.hero}>1 % Better</Text>
         <Text style={styles.subHero}>
@@ -58,8 +56,8 @@ const styles = StyleSheet.create({
   avatar: {
     position: "absolute",
     resizeMode: "contain",
-    height:120,
-    width:120,
+    height: 120,
+    width: 120,
     top: 90,
     left: "50%",
     marginLeft: -60,

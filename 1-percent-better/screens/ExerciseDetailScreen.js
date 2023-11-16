@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useUserContext } from "../context/UserContext";
-import { addExerciseToUser } from "../services/AddExerciseToUser"; // Import the service function
+import { addExerciseToUser } from "../services/AddExerciseToUser";
 import Toast from "react-native-root-toast";
 import { callToActionColor } from "../components/ColorPallette";
 
 const ExerciseDetailScreen = ({ route, navigation }) => {
   const { exercise } = route.params;
-  const { user } = useUserContext(); // Access the userId from UserContext
+  const { user } = useUserContext();
 
   const handleAddExercise = async () => {
     try {
@@ -24,7 +24,7 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
         exercise.name,
         exercise.id
       );
-      /// Show success toast message
+
       Toast.show("Exercise added to My Exercises", {
         duration: Toast.durations.SHORT,
         position: Toast.positions.BOTTOM,
@@ -35,7 +35,7 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
       });
     } catch (error) {
       console.error("Error adding exercise:", error);
-      // Show error toast message
+
       Toast.show("Error adding exercise", {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
@@ -59,9 +59,6 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
       </View>
 
       <Text style={styles.title}>{exercise.name.toUpperCase()}</Text>
-      <TouchableOpacity style={styles.addButton} onPress={handleAddExercise}>
-        <Text style={styles.addButtonText}>Add to My Exercises</Text>
-      </TouchableOpacity>
       <View style={[styles.labelContainer, styles.bodyPart]}>
         <Text style={styles.label}>Body Part</Text>
         <Text style={styles.value}>{exercise.bodyPart}</Text>

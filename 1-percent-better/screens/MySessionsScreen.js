@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Button,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
 import deleteSession from "../services/deleteSession";

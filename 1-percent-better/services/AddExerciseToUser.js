@@ -38,13 +38,11 @@ export const addExerciseToUser = async (userId, exBodypart, exName, exId) => {
       },
     });
 
-    // Check for errors in the GraphQL response
     if (response.data.errors) {
       console.error("Errors returned from the mutation:", response.data.errors);
       throw new Error("Error performing GraphQL mutation");
     }
 
-    // Check if the mutation response has the expected data structure
     if (
       !response.data.data ||
       !response.data.data.createExercise ||

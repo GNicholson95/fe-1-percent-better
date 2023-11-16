@@ -1,4 +1,4 @@
-import graphqlAPI from "./graphqlClient"; // Import your GraphQL client
+import graphqlAPI from "./graphqlClient";
 
 export const createSession = async (userId, sessionName) => {
   const mutation = `
