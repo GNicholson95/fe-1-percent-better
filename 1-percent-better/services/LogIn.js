@@ -30,15 +30,14 @@ export const TokenAuth = async (username, password) => {
     });
 
     if (response.data.errors) {
-      console.error("Error logging in:", response.data.errors);
-      throw new Error("Error performing GraphQL mutation");
+      console.error("Error logging in:", response.data.errors[0].message);
+      throw new Error(response.data.errors[0].message);
     }
 
     const token = response.data.data.tokenAuth.token;
 
     return token;
   } catch (error) {
-    console.error("Error in TokenAuth", error);
     throw error;
   }
 };
