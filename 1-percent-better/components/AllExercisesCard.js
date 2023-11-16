@@ -10,14 +10,8 @@ import {
 const AllExercisesCard = ({ onPress }) => {
   const backgroundImage = require("../assets/All-exercises-image-1.jpg");
   return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={onPress}
-    >
-      <ImageBackground
-        source={backgroundImage}
-        style={styles.imageBackground}
-      >
+    <TouchableOpacity style={styles.card} onPress={onPress}>
+      <ImageBackground source={backgroundImage} style={styles.imageBackground}>
         <View style={styles.container}>
           <Text style={styles.text}>All Exercises</Text>
         </View>

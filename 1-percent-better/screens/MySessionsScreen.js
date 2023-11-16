@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
-  Button,
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
 import deleteSession from "../services/deleteSession";
@@ -28,7 +27,6 @@ export default function MySessionsScreen() {
   const navigation = useNavigation();
   const { user } = useUserContext();
 
-  // Function to load sessions
   const loadSessions = async () => {
     try {
       if (user) {
@@ -70,6 +68,9 @@ export default function MySessionsScreen() {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="Session Details"
+        accessibilityHint="Navigate to Session Details page"
         onPress={() =>
           navigation.navigate("Session Details", { session: item })
         }
@@ -91,6 +92,10 @@ export default function MySessionsScreen() {
           style={styles.flatList}
         />
         <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Create Session"
+          accessibilityRole="button"
+          accessibilityHint="Navigate to New Session Page"
           style={styles.NewSessionButton}
           onPress={() => navigation.navigate("NewSessionScreen")}
         >

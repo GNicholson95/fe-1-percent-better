@@ -37,10 +37,22 @@ const LandingPage = ({ navigation }) => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("UserCreation")}>
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Create Account"
+          accessibilityRole="button"
+          accessibilityHint="Navigate to Sign Up Page"
+          onPress={() => navigation.navigate("UserCreation")}
+        >
           <Text style={styles.signUp}>Sign up</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Login"
+          accessibilityRole="button"
+          accessibilityHint="Navigate to Login Page"
+          onPress={() => navigation.navigate("LoginScreen")}
+        >
           <Text style={styles.login}>Log in</Text>
         </TouchableOpacity>
       </View>

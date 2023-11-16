@@ -19,8 +19,6 @@ const deleteSessionExercise = async (sessionExerciseId) => {
         },
       },
     });
-
-    console.log("Session exercise deleted:", response.data);
   } catch (error) {
     console.error("Error deleting session exercise:", error);
     throw error;
