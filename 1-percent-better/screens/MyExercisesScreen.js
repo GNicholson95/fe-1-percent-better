@@ -4,15 +4,11 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env";
-import {
-  fetchExercisesByUser,
-  fetchIdsExercisesByUser,
-} from "../services/ExerciseByUser";
+import { fetchIdsExercisesByUser } from "../services/ExerciseByUser";
 import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";

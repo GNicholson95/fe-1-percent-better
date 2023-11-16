@@ -9,21 +9,15 @@ import {
   TextInput,
   Alert,
   FlatList,
-  Modal,
-  Button,
-  ScrollView,
 } from "react-native";
 
 import { createSession } from "../services/createSession";
 import {
   backgroundColor,
-  primaryColor,
-  secondaryColor,
   accentColor,
   callToActionColor,
 } from "../components/ColorPallette";
 import { useNavigation } from "@react-navigation/native";
-import { addExerciseToSession } from "../services/addExerciseToSession";
 import { logWorkout } from "../services/logWorkout";
 import deleteSession from "../services/deleteSession";
 import deleteSessionExercise from "../services/deleteSessionExercise";
@@ -169,18 +163,15 @@ const NewSessionScreen = ({ route }) => {
   const renderExercise = ({ item }) => (
     <View style={styles.exerciseContainer}>
       <Text style={styles.exerciseName}>{item.name}</Text>
-      <Image
-        source={{ uri: item.gifUrl }}
-        style={styles.exerciseImage}
-      />
+      <Image source={{ uri: item.gifUrl }} style={styles.exerciseImage} />
       <TextInput
         style={styles.input}
         onChangeText={(value) =>
           handleExerciseDetailChange(item.id, "sets", value)
         }
         value={item.sets}
-        placeholder='Sets'
-        keyboardType='numeric'
+        placeholder="Sets"
+        keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
@@ -188,8 +179,8 @@ const NewSessionScreen = ({ route }) => {
           handleExerciseDetailChange(item.id, "reps", value)
         }
         value={item.reps}
-        placeholder='Reps'
-        keyboardType='numeric'
+        placeholder="Reps"
+        keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
@@ -197,12 +188,12 @@ const NewSessionScreen = ({ route }) => {
           handleExerciseDetailChange(item.id, "weight", value)
         }
         value={item.weight}
-        placeholder='Weight'
-        keyboardType='numeric'
+        placeholder="Weight"
+        keyboardType="numeric"
       />
       <TouchableOpacity
         accessible={true}
-        accessibilityLabel='Save workout'
+        accessibilityLabel="Save workout"
         style={styles.saveButton}
         onPress={() => handleSaveExercise({ ...item })}
       >
@@ -220,33 +211,36 @@ const NewSessionScreen = ({ route }) => {
         <View style={styles.sessionInputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder='Enter Session Name'
+            placeholder="Enter Session Name"
             value={sessionName}
             onChangeText={setSessionName}
           />
-            <TouchableOpacity
+          <TouchableOpacity
             style={styles.saveSessionButton}
             onPress={handleSaveSession}
           >
             <Text style={styles.saveSessionButtonText}>Save Session</Text>
           </TouchableOpacity>
         </View>
-        {!sessionName ? null : <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.button}
-            onPress={() => {
-              if (sessionId) {
-                navigation.navigate("Add Exercise To Session", {
-                  sessionId: sessionId,
-                });
-              } else {
-                Alert.alert("Error", "Please create a session first.");
-              }
-            }}
-          >
-            <Text style={styles.buttonText}>Add Exercise</Text>
-          </TouchableOpacity>
-        </View>}
-       
+        {!sessionName ? null : (
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                if (sessionId) {
+                  navigation.navigate("Add Exercise To Session", {
+                    sessionId: sessionId,
+                  });
+                } else {
+                  Alert.alert("Error", "Please create a session first.");
+                }
+              }}
+            >
+              <Text style={styles.buttonText}>Add Exercise</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         <FlatList
           data={selectedExercises}
           renderItem={renderExercise}
@@ -297,7 +291,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 16,
     justifyContent: "space-evenly",
-   marginTop: 10,
+    marginTop: 10,
   },
   button: {
     fontSize: 20,
@@ -305,11 +299,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginHorizontal: 8,
-    backgroundColor:callToActionColor,
+    backgroundColor: callToActionColor,
     borderRadius: 20,
   },
-  buttonText:{
-    color:"#fff",
+  buttonText: {
+    color: "#fff",
   },
   sessionInputContainer: {
     flexDirection: "row",
@@ -321,16 +315,16 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
-    borderRadius:10,
+    borderRadius: 10,
     marginRight: 10,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
   },
- 
-  saveSessionButtonText:{
-    fontSize:16,
-    fontWeight:"bold",
-    color:callToActionColor,
+
+  saveSessionButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: callToActionColor,
   },
 
   exerciseImage: {
@@ -390,7 +384,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-start",
-    width:160,
+    width: 160,
   },
   saveButtonText: {
     color: "#fff",
@@ -404,7 +398,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-start",
-    width:160,
+    width: 160,
   },
   leaveSessionButtonText: {
     color: "#fff",

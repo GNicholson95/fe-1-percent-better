@@ -2,15 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Video } from "expo-av";
 import { StatusBar } from "expo-status-bar";
-import UserCreation from "./UserCreation";
-import LoginScreen from "./LoginScreen";
-import {
-  backgroundColor,
-  primaryColor,
-  secondaryColor,
-  accentColor,
-  callToActionColor,
-} from "../components/ColorPallette";
+import { backgroundColor, primaryColor } from "../components/ColorPallette";
 
 const LandingPage = ({ navigation }) => {
   return (

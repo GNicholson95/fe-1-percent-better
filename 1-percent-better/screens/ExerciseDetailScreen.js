@@ -1,12 +1,5 @@
 import React, { useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { useUserContext } from "../context/UserContext";
 import { addExerciseToUser } from "../services/AddExerciseToUser";
 import Toast from "react-native-root-toast";
