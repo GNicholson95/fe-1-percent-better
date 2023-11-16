@@ -85,7 +85,14 @@ const LoginScreen = ({ navigation }) => {
           value={password}
         />
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Login"
+          accessibilityRole="button"
+          accessibilityHint="Login to your account"
+          style={styles.loginButton}
+          onPress={handleLogin}
+        >
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
       </View>

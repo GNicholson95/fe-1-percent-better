@@ -111,6 +111,8 @@ const AddExerciseScreen = ({ route, navigation }) => {
       <Text style={styles.exerciseName}>{item.name}</Text>
       <TouchableOpacity
         style={styles.addButton}
+        accessible={true}
+        accessibilityLabel="Select Exercise"
         onPress={() => handleSelectExercise(item)}
       >
         <Text style={styles.addButtonText}>
@@ -132,6 +134,9 @@ const AddExerciseScreen = ({ route, navigation }) => {
       />
       <TouchableOpacity
         style={styles.addExercisesToSession}
+        accessible={true}
+        accessibilityLabel="Add Exercise to Session"
+        accessibilityRole="button"
         onPress={handleAddExercisesToSession}
       >
         <Text style={styles.addButtonText}>Add Exercises to Session</Text>

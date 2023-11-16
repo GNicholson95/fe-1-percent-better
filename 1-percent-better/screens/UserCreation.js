@@ -99,7 +99,13 @@ const UserCreation = ({ navigation }) => {
           value={password}
         />
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Create Account"
+          accessibilityRole="button"
+          style={styles.loginButton}
+          onPress={handleSignup}
+        >
           <Text style={styles.loginButtonText}>Sign up</Text>
         </TouchableOpacity>
       </View>

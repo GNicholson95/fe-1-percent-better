@@ -19,8 +19,6 @@ const deleteSession = async (sessionId) => {
         },
       },
     });
-
-    console.log("Session deleted:", response.data);
   } catch (error) {
     console.error("Error deleting session:", error);
     throw error;
