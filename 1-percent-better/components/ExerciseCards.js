@@ -7,7 +7,7 @@ import {
   primaryColor,
   secondaryColor,
   callToActionColor,
-} from "./ColorPallette";
+} from "./ColorPalette";
 
 const ExerciseCard = ({
   exercise,

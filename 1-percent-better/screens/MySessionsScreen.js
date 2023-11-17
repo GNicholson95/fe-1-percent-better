@@ -9,18 +9,11 @@ import {
 } from "react-native";
 import { fetchSessionByUserId } from "../services/userService";
 import deleteSession from "../services/deleteSession";
-import {
-  getDayOfWeek,
-  formatDate,
-  formatTime,
-} from "../components/DateTimeUtils";
+import { getDayOfWeek, formatDate, formatTime } from "../utils/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../context/UserContext";
 import ProfileHeader from "../components/ProfileHeader";
-import {
-  backgroundColor,
-  callToActionColor,
-} from "../components/ColorPallette";
+import { backgroundColor, callToActionColor } from "../components/ColorPalette";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);

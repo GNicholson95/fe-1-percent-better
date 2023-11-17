@@ -7,8 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { createUser } from "../services/CreateUser";
-import { TokenAuth, isLoggedIn } from "../services/LogIn";
+import { createUser } from "../services/createUser";
+import { TokenAuth, isLoggedIn } from "../services/logIn";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
 import {
@@ -17,7 +17,7 @@ import {
   secondaryColor,
   accentColor,
   callToActionColor,
-} from "../components/ColorPallette";
+} from "../components/ColorPalette";
 
 const UserCreation = ({ navigation }) => {
   const [username, setUsername] = useState("");

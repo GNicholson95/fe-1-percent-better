@@ -16,12 +16,12 @@ import {
   backgroundColor,
   accentColor,
   callToActionColor,
-} from "../components/ColorPallette";
+} from "../components/ColorPalette";
 import { useNavigation } from "@react-navigation/native";
 import { logWorkout } from "../services/logWorkout";
 import deleteSession from "../services/deleteSession";
 import deleteSessionExercise from "../services/deleteSessionExercise";
-import { updateExercise } from "../services/PatchPB";
+import { updateExercise } from "../services/patchPB";
 import ProfileHeader from "../components/ProfileHeader";
 
 const NewSessionScreen = ({ route }) => {
@@ -103,7 +103,6 @@ const NewSessionScreen = ({ route }) => {
         "Success",
         `Workout for ${exercise.name} logged successfully.`
       );
-      console.log("Logged workout:", loggedWorkout);
     } catch (error) {
       console.error("Error logging workout:", error);
       Alert.alert("Error", "Failed to log workout");
@@ -201,9 +200,7 @@ const NewSessionScreen = ({ route }) => {
       </TouchableOpacity>
     </View>
   );
-  console.log("====================================");
-  console.log(selectedExercises);
-  console.log("====================================");
+
   return (
     <>
       <ProfileHeader />

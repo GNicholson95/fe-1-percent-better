@@ -11,13 +11,6 @@ import LoginScreen from "../screens/LoginScreen";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 import { useRoute } from "@react-navigation/native";
-import {
-  backgroundColor,
-  primaryColor,
-  secondaryColor,
-  accentColor,
-  callToActionColor,
-} from "../components/ColorPallette";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -82,24 +75,6 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
       })}
     </View>
   );
-};
-
-const styles = {
-  tabBarContainer: {
-    flexDirection: "row",
-    backgroundColor: "#00a67b",
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: "center",
-    padding: 10,
-  },
-  tabLabel: {
-    marginTop: 0,
-    fontSize: 11,
-    fontWeight: "bold",
-    paddingBottom: 12,
-  },
 };
 
 function NavBar() {
@@ -192,5 +167,23 @@ function NavBar() {
     </Tab.Navigator>
   );
 }
+
+const styles = {
+  tabBarContainer: {
+    flexDirection: "row",
+    backgroundColor: "#00a67b",
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: "center",
+    padding: 10,
+  },
+  tabLabel: {
+    marginTop: 0,
+    fontSize: 11,
+    fontWeight: "bold",
+    paddingBottom: 12,
+  },
+};
 
 export default NavBar;

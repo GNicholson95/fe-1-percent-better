@@ -1,11 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import {
-  getDayOfWeek,
-  formatDate,
-  formatTime,
-} from "../components/DateTimeUtils";
-import { callToActionColor } from "./ColorPallette";
+import { getDayOfWeek, formatDate, formatTime } from "../utils/DateTimeUtils";
+import { callToActionColor } from "./ColorPalette";
 const MySessionDetailsCard = ({ exercise }) => {
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);

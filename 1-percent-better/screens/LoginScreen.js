@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { TokenAuth, isLoggedIn } from "../services/LogIn";
+import { TokenAuth, isLoggedIn } from "../services/logIn";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
 import {
   backgroundColor,
   secondaryColor,
   callToActionColor,
-} from "../components/ColorPallette";
+} from "../components/ColorPalette";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");

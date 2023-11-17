@@ -7,10 +7,10 @@ import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
-import { addExerciseToUser } from "../services/AddExerciseToUser";
-import { fetchExercisesByUser } from "../services/ExerciseByUser";
+import { addExerciseToUser } from "../services/addExerciseToUser";
+import { fetchExercisesByUser } from "../services/exerciseByUser";
 import Toast from "react-native-root-toast";
-import { secondaryColor } from "../components/ColorPallette";
+import { secondaryColor } from "../components/ColorPalette";
 
 const allowedEquipment = [
   "barbell",

@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env";
-import { fetchIdsExercisesByUser } from "../services/ExerciseByUser";
+import { fetchIdsExercisesByUser } from "../services/exerciseByUser";
 import { useUserContext } from "../context/UserContext";
 import { addExercisesToSession } from "../services/addExerciseToSession";
-import { callToActionColor } from "../components/ColorPallette";
+import { callToActionColor } from "../components/ColorPalette";
 
 const AddExerciseScreen = ({ route, navigation }) => {
   const [exercises, setExercises] = useState([]);
