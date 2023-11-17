@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Video } from "expo-av";
 import { StatusBar } from "expo-status-bar";
-import { backgroundColor, primaryColor } from "../components/ColorPallette";
+import { primaryColor } from "../components/ColorPalette";
 
 const LandingPage = ({ navigation }) => {
   return (

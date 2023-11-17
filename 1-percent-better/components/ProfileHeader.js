@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
-import { backgroundColor } from "./ColorPallette";
+import { backgroundColor } from "./ColorPalette";
 
 const ProfileHeader = () => {
   const [username, setUsername] = useState("Profile");

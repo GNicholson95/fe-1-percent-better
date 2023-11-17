@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { useUserContext } from "../context/UserContext";
-import { addExerciseToUser } from "../services/AddExerciseToUser";
+import { addExerciseToUser } from "../services/addExerciseToUser";
 import Toast from "react-native-root-toast";
-import { callToActionColor } from "../components/ColorPallette";
+import { callToActionColor } from "../components/ColorPalette";
 
 const ExerciseDetailScreen = ({ route, navigation }) => {
   const { exercise } = route.params;

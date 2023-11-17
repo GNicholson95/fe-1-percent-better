@@ -8,13 +8,13 @@ import {
 } from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env";
-import { fetchIdsExercisesByUser } from "../services/ExerciseByUser";
+import { fetchIdsExercisesByUser } from "../services/exerciseByUser";
 import ExerciseCard from "../components/ExerciseCards";
 import { SearchBar } from "@rneui/themed";
 import RNPickerSelect from "react-native-picker-select";
 import Sort from "../components/Sort";
 import { useUserContext } from "../context/UserContext";
-import { secondaryColor } from "../components/ColorPallette";
+import { secondaryColor } from "../components/ColorPalette";
 
 const bodyParts = [
   "back",
