@@ -103,7 +103,6 @@ const NewSessionScreen = ({ route }) => {
         "Success",
         `Workout for ${exercise.name} logged successfully.`
       );
-      console.log("Logged workout:", loggedWorkout);
     } catch (error) {
       console.error("Error logging workout:", error);
       Alert.alert("Error", "Failed to log workout");
@@ -201,9 +200,7 @@ const NewSessionScreen = ({ route }) => {
       </TouchableOpacity>
     </View>
   );
-  console.log("====================================");
-  console.log(selectedExercises);
-  console.log("====================================");
+
   return (
     <>
       <ProfileHeader />
