@@ -11,6 +11,7 @@ import LoginScreen from "../screens/LoginScreen";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
 import { useRoute } from "@react-navigation/native";
+import { accentColor, backgroundColor, primaryColor, secondaryColor } from "../components/ColorPalette";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -51,7 +52,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             key={index}
             style={[
               styles.tabItem,
-              { backgroundColor: isFocused ? "#00a67b" : "#e0e0e0" },
+              { backgroundColor: isFocused ? secondaryColor : primaryColor },
             ]}
             onPress={onPress}
             onLongPress={onLongPress}
@@ -59,12 +60,12 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             <Icon
               name={options.tabBarIconName || "help-circle"}
               size={20}
-              color={isFocused ? "white" : "#00a67b"}
+              color={isFocused ? "#fff" : "#fff"}
             />
             <Text
               style={[
                 styles.tabLabel,
-                { color: isFocused ? "white" : "#00a67b" },
+                { color: isFocused ? "#fff" : "#fff" },
                 { flexWrap: "nowrap" },
               ]}
             >
@@ -171,7 +172,7 @@ function NavBar() {
 const styles = {
   tabBarContainer: {
     flexDirection: "row",
-    backgroundColor: "#00a67b",
+    backgroundColor: primaryColor,
   },
   tabItem: {
     flex: 1,
@@ -182,6 +183,7 @@ const styles = {
     marginTop: 0,
     fontSize: 11,
     fontWeight: "bold",
+    paddingTop: 2,
     paddingBottom: 12,
   },
 };

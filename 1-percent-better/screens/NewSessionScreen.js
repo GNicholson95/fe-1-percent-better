@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
-    marginBottom: 16,
+    marginBottom: 30,
     justifyContent: "space-evenly",
     marginTop: 10,
   },
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginHorizontal: 8,
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     borderRadius: 20,
   },
   buttonText: {
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   sessionInputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 16,
+    marginVertical: 16,
   },
   textInput: {
     flex: 1,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   saveSessionButtonText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: callToActionColor,
+    color: accentColor,
   },
 
   exerciseImage: {
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   saveButton: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 5,
@@ -390,15 +390,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   leaveSessionButton: {
-    backgroundColor: accentColor,
-    paddingVertical: 8,
+    borderWidth: 3,
+    borderColor: "#7d0101",
+    paddingVertical: 5,
     paddingHorizontal: 16,
     borderRadius: 5,
     alignSelf: "flex-start",
     width: 160,
   },
   leaveSessionButtonText: {
-    color: "#fff",
+    color: "#7d0101",
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",

@@ -13,7 +13,7 @@ import { getDayOfWeek, formatDate, formatTime } from "../utils/DateTimeUtils";
 import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../context/UserContext";
 import ProfileHeader from "../components/ProfileHeader";
-import { backgroundColor, callToActionColor } from "../components/ColorPalette";
+import { accentColor, backgroundColor, callToActionColor, primaryColor, secondaryColor } from "../components/ColorPalette";
 
 export default function MySessionsScreen() {
   const [sessions, setSessions] = useState([]);
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginVertical: 10,
+    marginHorizontal:5,
     padding: 20,
     backgroundColor: "#fff",
     borderRadius: 10,
@@ -130,17 +131,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   sessionInfo: {
-    color: callToActionColor,
+    color: accentColor,
     fontSize: 16,
     fontWeight: "bold",
+    marginBottom:10,
+    textAlign: "center",
   },
   NewSessionButton: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 12,
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 30,
     marginTop: 10,
   },
   createSessionButtonText: {

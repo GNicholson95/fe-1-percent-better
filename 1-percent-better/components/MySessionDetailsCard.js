@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { getDayOfWeek, formatDate, formatTime } from "../utils/DateTimeUtils";
-import { callToActionColor } from "./ColorPalette";
+import { accentColor, callToActionColor } from "./ColorPalette";
 const MySessionDetailsCard = ({ exercise }) => {
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "bold",
-    color: callToActionColor,
+    color: accentColor,
     paddingBottom: 10,
   },
 });

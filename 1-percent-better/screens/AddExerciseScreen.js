@@ -12,7 +12,7 @@ import { API_KEY } from "@env";
 import { fetchIdsExercisesByUser } from "../services/exerciseByUser";
 import { useUserContext } from "../context/UserContext";
 import { addExercisesToSession } from "../services/addExerciseToSession";
-import { callToActionColor } from "../components/ColorPalette";
+import { accentColor, backgroundColor, callToActionColor, primaryColor, secondaryColor } from "../components/ColorPalette";
 
 const AddExerciseScreen = ({ route, navigation }) => {
   const [exercises, setExercises] = useState([]);
@@ -147,9 +147,10 @@ const AddExerciseScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    paddingVertical:30,
     alignItems: "center",
     justifyContent: "space-evenly",
+    backgroundColor: primaryColor,
   },
   exerciseCard: {
     flexDirection: "row",
@@ -157,13 +158,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: backgroundColor,
   },
   exerciseName: {
     fontSize: 18,
+    textTransform: "capitalize",
+    fontWeight:"bold",
+    color: "#fff",
   },
   addButton: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     padding: 10,
     borderRadius: 5,
     marginLeft: 20,
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   addExercisesToSession: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",

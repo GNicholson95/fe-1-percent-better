@@ -58,7 +58,7 @@ const UserCreation = ({ navigation }) => {
       <View style={styles.formContainer}>
         <View>
           <Image
-            source={require("../assets/green_banner_1-percent-better_720.png")}
+            source={require("../assets/black-banner-1percent.png")}
             style={styles.avatar}
             alt="logo"
           />
@@ -117,13 +117,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: backgroundColor,
+    backgroundColor: primaryColor,
   },
 
   formContainer: {
+    flex:1,
+    flexDirection:"column",
+    justifyContent: "space-evenly", 
     backgroundColor: "#fff",
-    padding: 10,
-    marginVertical: 10,
+    paddingBottom: 15,
+    paddingHorizontal: 15,
+    marginVertical: 150,
     marginHorizontal: 16,
     borderRadius: 20,
     shadowColor: "#000",
@@ -152,7 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginButton: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",

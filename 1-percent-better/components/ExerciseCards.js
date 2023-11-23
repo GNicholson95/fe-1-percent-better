@@ -7,6 +7,7 @@ import {
   primaryColor,
   secondaryColor,
   callToActionColor,
+  accentColor,
 } from "./ColorPalette";
 
 const ExerciseCard = ({
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     flex: 1,
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     padding: 1,
     borderRadius: 20,
     position: "absolute",

@@ -27,7 +27,7 @@ const ProfileHeader = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/green_banner_1-percent-better_720.png")}
+        source={require("../assets/black-banner-1percent.png")}
         style={styles.avatar}
         alt="logo"
       />
@@ -41,15 +41,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 5,
     backgroundColor: backgroundColor,
-    paddingTop: 15,
-    paddingLeft: 10,
+    paddingTop: 65,
   },
   avatar: {
     resizeMode: "contain",
     height: 60,
     width: "100%",
     alignSelf: "center",
-    marginTop: 35,
   },
   username: {
     fontSize: 18,

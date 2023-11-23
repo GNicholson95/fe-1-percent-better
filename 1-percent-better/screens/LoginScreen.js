@@ -14,6 +14,8 @@ import {
   backgroundColor,
   secondaryColor,
   callToActionColor,
+  primaryColor,
+  accentColor,
 } from "../components/ColorPalette";
 
 const LoginScreen = ({ navigation }) => {
@@ -52,11 +54,12 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.formContainer}>
         <View>
           <Image
-            source={require("../assets/green_banner_1-percent-better_720.png")}
+            source={require("../assets/black-banner-1percent.png")}
             style={styles.avatar}
             alt="logo"
           />
         </View>
+        <View>
         <Text style={styles.text} nativeID="usernameLabel">
           Username:
         </Text>
@@ -68,7 +71,8 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={(text) => setUsername(text)}
           value={username}
         />
-
+        </View>
+        <View>
         <Text style={styles.text} nativeID="passwordLabel">
           Password:
         </Text>
@@ -81,7 +85,7 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
           value={password}
         />
-
+        </View>
         <TouchableOpacity
           accessible={true}
           accessibilityLabel="Login"
@@ -101,7 +105,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: backgroundColor,
+    // backgroundColor: backgroundColor,
+    backgroundColor: primaryColor,
   },
   avatar: {
     resizeMode: "contain",
@@ -110,9 +115,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   formContainer: {
+    flex:1,
+    flexDirection:"column",
+    justifyContent: "space-evenly", 
     backgroundColor: "#fff",
-    padding: 10,
-    marginVertical: 10,
+    paddingBottom: 15,
+    paddingHorizontal: 15,
+    marginVertical: 150,
     marginHorizontal: 16,
     borderRadius: 20,
     shadowColor: "#000",
@@ -123,8 +132,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "bold",
-    color: callToActionColor,
-    marginTop: 10,
+    color: primaryColor,
+    marginBottom:10,
   },
   input: {
     height: 40,
@@ -135,7 +144,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   loginButton: {
-    backgroundColor: callToActionColor,
+    backgroundColor: accentColor,
     borderRadius: 8,
     paddingVertical: 10,
     alignItems: "center",
