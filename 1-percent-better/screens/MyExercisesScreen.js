@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   FlatList,
@@ -29,7 +29,7 @@ const bodyParts = [
 ];
 
 const MyExercisesScreen = ({ navigation }) => {
-  const { user, setUser, isLoggedIn, setIsLoggedIn } = useUserContext();
+  const { user } = useUserContext();
 
   const [userExercises, setUserExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
@@ -50,7 +50,7 @@ const MyExercisesScreen = ({ navigation }) => {
     );
   };
 
-  const fetchUserExercisesDetails = async () => {
+  const fetchUserExercisesDetails = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -83,7 +83,7 @@ const MyExercisesScreen = ({ navigation }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     fetchUserExercisesDetails();
@@ -132,7 +132,7 @@ const MyExercisesScreen = ({ navigation }) => {
     }
 
     setFilteredExercises(updatedFilteredExercises);
-  }, [selectedBodyPart, search, sortingValue, userExercises, user]);
+  }, [selectedBodyPart, search, sortingValue, userExercises]);
 
   const updateSearch = (search) => {
     setSearch(search);

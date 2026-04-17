@@ -52,6 +52,7 @@ export const isLoggedIn = async (token) => {
   const graphqlextra = axios.create({
     baseURL: "https://one-percent-better-api-7up3.onrender.com/api/",
     method: "POST",
+    timeout: 15000,
     headers: {
       "Content-Type": "application/json",
       Authorization: `JWT ${token}`,
@@ -74,7 +75,13 @@ export const isLoggedIn = async (token) => {
 
     return user;
   } catch (error) {
-    console.error("Error in Log in function", error.response.data);
+    if (error.code === "ECONNABORTED") {
+      throw new Error(
+        "Login timed out. The backend may be asleep or unavailable, so try again in a moment."
+      );
+    }
+
+    console.error("Error in Log in function", error.response?.data || error);
     throw error;
   }
 };

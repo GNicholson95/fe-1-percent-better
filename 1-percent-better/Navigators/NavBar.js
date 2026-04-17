@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import DynamicScreen from "../screens/DynamicScreen";
 import ExerciseList from "../screens/ExerciseList";
 import MyExercisesScreen from "../screens/MyExercisesScreen";
 import MySessionsScreen from "../screens/MySessionsScreen";
-import Icon from "react-native-vector-icons/Ionicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { View, Text, TouchableOpacity } from "react-native";
 import LandingPage from "../screens/LandingPage";
-import LoginScreen from "../screens/LoginScreen";
 import { fetchUsernameByUserId } from "../services/userService";
 import { useUserContext } from "../context/UserContext";
-import { useRoute } from "@react-navigation/native";
-import { accentColor, backgroundColor, primaryColor, secondaryColor } from "../components/ColorPalette";
+import { primaryColor, secondaryColor } from "../components/ColorPalette";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -57,7 +55,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
             onLongPress={onLongPress}
           >
-            <Icon
+            <Ionicons
               name={options.tabBarIconName || "help-circle"}
               size={20}
               color={isFocused ? "#fff" : "#fff"}
@@ -81,34 +79,51 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 function NavBar() {
   const { user } = useUserContext();
   const [username, setUsername] = useState("My Profile");
-  const route = useRoute();
 
-  if (user) {
+  useEffect(() => {
+    if (!user) {
+      setUsername("My Profile");
+      return;
+    }
+
     fetchUsernameByUserId(user)
-      .then((username) => {
-        setUsername(username);
+      .then((fetchedUsername) => {
+        setUsername(fetchedUsername);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error fetching username:", error);
       });
+  }, [user]);
+
+  if (!user) {
+    return (
+      <Tab.Navigator
+        tabBar={(props) => <CustomTabBar {...props} />}
+        initialRouteName="LandingPage"
+        tabBarPosition="bottom"
+      >
+        <Tab.Screen
+          name="LandingPage"
+          component={LandingPage}
+          options={{
+            tabBarLabel: "Welcome",
+            tabBarIconName: "home",
+            tabBarVisible: false,
+            headerShown: false,
+          }}
+        />
+      </Tab.Navigator>
+    );
   }
 
   return (
     <Tab.Navigator
       tabBar={(props) => <CustomTabBar {...props} />}
-      initialRouteName={user ? "Home" : "LandingPage"}
+      initialRouteName="DynamicScreen"
       tabBarPosition="bottom"
-      scrollEnabled={true}
       screenOptions={({ route }) => ({
         tabBarLabelStyle: { fontSize: 8, color: "yellow", flexWrap: "nowrap" },
         tabBarShowLabel: false,
-        tabBarButton: ["ExerciseList", "All Exercises", "MySessions"].includes(
-          route.name
-        )
-          ? () => {
-              return null;
-            }
-          : undefined,
       })}
     >
       <Tab.Screen
@@ -143,28 +158,6 @@ function NavBar() {
           tabBarIconName: "barbell",
         }}
       />
-      {user ? null : (
-        <>
-          <Tab.Screen
-            name="LandingPage"
-            component={LandingPage}
-            options={{
-              tabBarLabel: "Sign Up",
-              tabBarIconName: "add-circle-outline",
-              tabBarVisible: false,
-              headerShown: false,
-            }}
-          />
-          <Tab.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
-              tabBarLabel: `${username}`,
-              tabBarIconName: "person-add-outline",
-            }}
-          />
-        </>
-      )}
     </Tab.Navigator>
   );
 }

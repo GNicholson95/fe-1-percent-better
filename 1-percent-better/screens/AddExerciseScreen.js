@@ -1,4 +1,4 @@
-import React, { useState, useEffect, navigate } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
+  Alert,
 } from "react-native";
 import axios from "axios";
 import { API_KEY } from "@env";
@@ -129,7 +130,7 @@ const AddExerciseScreen = ({ route, navigation }) => {
       <FlatList
         data={exercises}
         renderItem={renderExercise}
-        keyExtractor={(item, index) => index.exerciseId}
+        keyExtractor={(item) => String(item.id)}
       />
       <TouchableOpacity
         style={styles.addExercisesToSession}

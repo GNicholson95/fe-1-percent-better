@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, FlatList, StyleSheet, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, FlatList, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { useUserContext } from "../context/UserContext";
 import axios from "axios";
 import { API_KEY } from "@env";
@@ -37,7 +37,7 @@ const bodyParts = [
 ];
 
 const ExerciseList = ({ navigation }) => {
-  const { user, setUser, isLoggedIn, setIsLoggedIn } = useUserContext();
+  const { user } = useUserContext();
 
   const [exercises, setExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
@@ -61,14 +61,14 @@ const ExerciseList = ({ navigation }) => {
 
   const handleAddExercise = (exerciseData) => {
     const isAlreadyAdded = userExercises.some(
-      (userExercise) => userExercise.externalExerciseId === exerciseData.exId
+      (externalExerciseId) =>
+        String(externalExerciseId) === String(exerciseData.exId)
     );
 
     if (isAlreadyAdded) {
       Toast.show("Exercise is already in your list.", {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
-        j,
         shadow: true,
         animation: true,
         hideOnPress: true,
@@ -85,15 +85,10 @@ const ExerciseList = ({ navigation }) => {
       exerciseData.exId
     )
       .then((addedExercise) => {
-        setUserExercises([...userExercises, addedExercise]);
-        Toast.show("Exercise added to My Exercises", {
-          duration: Toast.durations.SHORT,
-          position: Toast.positions.BOTTOM,
-          shadow: true,
-          animation: true,
-          hideOnPress: true,
-          delay: 0,
-        });
+        setUserExercises((currentUserExercises) => [
+          ...currentUserExercises,
+          addedExercise.externalExerciseId,
+        ]);
       })
       .catch((error) => {
         console.error("Error adding exercise:", error);
@@ -165,7 +160,12 @@ const ExerciseList = ({ navigation }) => {
   };
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color={secondaryColor} />
+        <Text>Loading exercises...</Text>
+      </View>
+    );
   }
 
   return (
@@ -228,6 +228,12 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingTop: 8,
     borderBottomColor: secondaryColor,
+  },
+  centered: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
   },
 });
 

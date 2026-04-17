@@ -12,11 +12,9 @@ import { TokenAuth, isLoggedIn } from "../services/logIn";
 import { useUserContext } from "../context/UserContext";
 import Toast from "react-native-root-toast";
 import {
-  backgroundColor,
   primaryColor,
   secondaryColor,
   accentColor,
-  callToActionColor,
 } from "../components/ColorPalette";
 
 const UserCreation = ({ navigation }) => {
@@ -27,7 +25,7 @@ const UserCreation = ({ navigation }) => {
 
   const handleSignup = async () => {
     try {
-      const newUser = await createUser(username, password, email);
+      await createUser(username, password, email);
       const token = await TokenAuth(username, password);
       const user = await isLoggedIn(token);
       await setUser(Number(user));
@@ -39,7 +37,10 @@ const UserCreation = ({ navigation }) => {
         hideOnPress: true,
         delay: 0,
       });
-      navigation.navigate("DynamicScreen");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Back", params: { screen: "DynamicScreen" } }],
+      });
     } catch (error) {
       Toast.show("Account creation failed!", {
         duration: Toast.durations.SHORT,
@@ -121,9 +122,9 @@ const styles = StyleSheet.create({
   },
 
   formContainer: {
-    flex:1,
-    flexDirection:"column",
-    justifyContent: "space-evenly", 
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-evenly",
     backgroundColor: "#fff",
     paddingBottom: 15,
     paddingHorizontal: 15,

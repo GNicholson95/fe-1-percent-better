@@ -6,7 +6,6 @@ import {
   backgroundColor,
   primaryColor,
   secondaryColor,
-  callToActionColor,
   accentColor,
 } from "./ColorPalette";
 
@@ -19,6 +18,10 @@ const ExerciseCard = ({
   const { user } = useUserContext();
 
   const handleAddExercise = async () => {
+    if (typeof onAddExercise !== "function") {
+      return;
+    }
+
     try {
       const exerciseData = {
         user,
@@ -68,14 +71,16 @@ const ExerciseCard = ({
         />
       </View>
 
-      <TouchableOpacity
-        accessible={true}
-        accessibilityLabel="Add Exercise"
-        style={styles.addButton}
-        onPress={handleAddExercise}
-      >
-        <Text style={styles.addButtonText}>{buttonText}</Text>
-      </TouchableOpacity>
+      {typeof onAddExercise === "function" ? (
+        <TouchableOpacity
+          accessible={true}
+          accessibilityLabel="Add Exercise"
+          style={styles.addButton}
+          onPress={handleAddExercise}
+        >
+          <Text style={styles.addButtonText}>{buttonText}</Text>
+        </TouchableOpacity>
+      ) : null}
     </TouchableOpacity>
   );
 };
